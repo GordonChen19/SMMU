@@ -1,0 +1,4 @@
+/extraction_chain/*
+/venv/*
+.env
+preprocessing/__pycache__/*
