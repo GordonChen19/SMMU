@@ -2,5 +2,6 @@
 /venv/*
 .env
 preprocessing/__pycache__/*
+preprocessing/*
 .DS_Store
 /shared_library/*

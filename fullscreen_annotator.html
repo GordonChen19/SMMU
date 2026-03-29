@@ -141,6 +141,17 @@
         color: #eef4fb;
       }
 
+      .shared-toggle-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .shared-toggle-arrow {
+        font-size: 16px;
+        line-height: 1;
+      }
+
       .notes-toggle-fab {
         position: absolute;
         top: 16px;
@@ -890,82 +901,6 @@
         border-radius: 50%;
       }
 
-      .json-panel {
-        position: absolute;
-        left: 16px;
-        top: var(--floating-panel-top);
-        z-index: 30;
-        width: min(430px, 52vw);
-        max-height: calc(100vh - var(--floating-panel-top) - 104px);
-        border-radius: 16px;
-        border: 1px solid rgba(218, 224, 232, 0.48);
-        background: rgba(14, 18, 26, 0.88);
-        color: #ebf1f7;
-        box-shadow: var(--shadow);
-        display: none;
-        flex-direction: column;
-      }
-
-      .json-panel.visible {
-        display: flex;
-      }
-
-      .json-header {
-        padding: 10px 12px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.16);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-      }
-
-      .json-actions {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .json-actions button {
-        border: 1px solid rgba(214, 229, 243, 0.4);
-        background: rgba(255, 255, 255, 0.1);
-        color: #f6fbff;
-        border-radius: 999px;
-        padding: 4px 10px;
-        font-size: 12px;
-        cursor: pointer;
-      }
-
-      .json-actions button:hover {
-        filter: brightness(1.08);
-      }
-
-      .json-actions .import-btn {
-        border: 1px solid rgba(214, 229, 243, 0.4);
-        background: rgba(255, 255, 255, 0.1);
-        color: #f6fbff;
-        border-radius: 999px;
-        display: inline-block;
-        padding: 4px 10px;
-        font-size: 12px;
-        cursor: pointer;
-        user-select: none;
-      }
-
-      .json-actions .import-btn:hover {
-        filter: brightness(1.08);
-      }
-
-      #json-preview {
-        margin: 0;
-        padding: 12px;
-        overflow: auto;
-        font-family: "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
-        font-size: 12px;
-        line-height: 1.4;
-        white-space: pre-wrap;
-        word-break: break-word;
-      }
-
       .shared-panel {
         position: absolute;
         left: 16px;
@@ -1030,13 +965,29 @@
 
       .shared-controls {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-areas:
+          "annotator server"
+          "password .";
         gap: 10px;
+        align-items: start;
       }
 
       .shared-field {
         display: grid;
         gap: 6px;
+      }
+
+      .shared-field-annotator {
+        grid-area: annotator;
+      }
+
+      .shared-field-password {
+        grid-area: password;
+      }
+
+      .shared-field-server {
+        grid-area: server;
       }
 
       .shared-field label {
@@ -1281,11 +1232,6 @@
           margin-left: 0;
         }
 
-        .json-panel {
-          width: calc(100% - 32px);
-          max-height: 50%;
-        }
-
         .shared-panel {
           width: calc(100% - 32px);
           max-height: 58%;
@@ -1293,6 +1239,10 @@
 
         .shared-controls {
           grid-template-columns: 1fr;
+          grid-template-areas:
+            "annotator"
+            "password"
+            "server";
         }
 
         .shared-entry {
@@ -1338,9 +1288,11 @@
             title="Import from YouTube"
           >↑</button>
         </div>
-        <button class="btn ghost" id="shared-toggle" type="button">Shared</button>
-        <button class="btn ghost" id="json-toggle" type="button">JSON</button>
-        <span class="video-title" id="video-title">No video loaded</span>
+        <button class="btn ghost shared-toggle-button" id="shared-toggle" type="button" aria-expanded="false">
+          <span>Video Library</span>
+          <span class="shared-toggle-arrow" id="shared-toggle-arrow" aria-hidden="true">&#9662;</span>
+        </button>
+        <span class="video-title" id="video-title" hidden aria-hidden="true">No video loaded</span>
         <span class="hint"></span>
       </div>
       <button
@@ -1380,18 +1332,6 @@
         <div class="context-list" id="context-list"></div>
       </div>
 
-      <section class="json-panel" id="json-panel">
-        <div class="json-header">
-          <strong>Annotation JSON</strong>
-          <div class="json-actions">
-            <button type="button" id="copy-json">Copy</button>
-            <button type="button" id="download-json">Download</button>
-            <label for="json-input" class="import-btn">Import</label>
-            <button type="button" id="close-json">Close</button>
-          </div>
-        </div>
-        <pre id="json-preview">{}</pre>
-      </section>
       <section class="shared-panel" id="shared-panel">
         <div class="shared-header">
           <strong>Shared Annotation Library</strong>
@@ -1403,7 +1343,7 @@
         </div>
         <div class="shared-body">
           <div class="shared-controls">
-            <div class="shared-field">
+            <div class="shared-field shared-field-server">
               <label for="shared-server-url">Server URL</label>
               <input
                 id="shared-server-url"
@@ -1412,7 +1352,7 @@
                 placeholder="http://lab-server:8765"
               >
             </div>
-            <div class="shared-field">
+            <div class="shared-field shared-field-annotator">
               <label for="annotator-name">Annotator Username</label>
               <input
                 id="annotator-name"
@@ -1420,7 +1360,7 @@
                 placeholder="Type your username"
               >
             </div>
-            <div class="shared-field">
+            <div class="shared-field shared-field-password">
               <label for="annotator-password">Password</label>
               <input
                 id="annotator-password"
@@ -1446,7 +1386,6 @@
           <div class="shared-list" id="shared-list"></div>
         </div>
       </section>
-      <input class="hidden-input" id="json-input" type="file" accept="application/json,.json">
     </div>
 
     <script>
@@ -1579,16 +1518,10 @@
       const contextMenu = document.getElementById("context-menu");
       const contextList = document.getElementById("context-list");
       const contextTime = document.getElementById("context-time");
-      const jsonPanel = document.getElementById("json-panel");
       const sharedPanel = document.getElementById("shared-panel");
-      const jsonPreview = document.getElementById("json-preview");
       const notesToggle = document.getElementById("toggle-notes");
-      const jsonToggle = document.getElementById("json-toggle");
       const sharedToggle = document.getElementById("shared-toggle");
-      const closeJson = document.getElementById("close-json");
-      const copyJson = document.getElementById("copy-json");
-      const downloadJson = document.getElementById("download-json");
-      const jsonInput = document.getElementById("json-input");
+      const sharedToggleArrow = document.getElementById("shared-toggle-arrow");
       const youtubeLinkInput = document.getElementById("youtube-link");
       const youtubeImportButton = document.getElementById("youtube-import");
       const sharedRefreshButton = document.getElementById("shared-refresh");
@@ -2441,7 +2374,6 @@
       }
 
       function renderJsonPreview() {
-        jsonPreview.textContent = JSON.stringify(buildExportPayload(), null, 2);
         persistSession();
       }
 
@@ -3413,29 +3345,23 @@
         });
       }
 
-      function closeJsonPanel(options = {}) {
-        jsonPanel.classList.remove("visible");
-        if (options.persist !== false) {
-          persistSession();
-        }
+      function updateSharedToggleUi() {
+        const isOpen = sharedPanel.classList.contains("visible");
+        sharedToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        sharedToggleArrow.innerHTML = isOpen ? "&#9652;" : "&#9662;";
       }
 
       function closeSharedPanel(options = {}) {
         sharedPanel.classList.remove("visible");
+        updateSharedToggleUi();
         if (options.persist !== false) {
           persistSharedSettings();
         }
       }
 
-      function openJsonPanel() {
-        closeSharedPanel({ persist: false });
-        jsonPanel.classList.add("visible");
-        persistSession();
-      }
-
       async function openSharedPanel(options = {}) {
-        closeJsonPanel({ persist: false });
         sharedPanel.classList.add("visible");
+        updateSharedToggleUi();
         persistSharedSettings();
         if (options.refresh !== false) {
           await fetchSharedAuthMe({ quiet: true });
@@ -3570,22 +3496,6 @@
           currentVideoFile: file,
         });
         updateStatus("Loaded " + file.name + ".");
-      }
-
-      function readJsonFile(file) {
-        if (!file) {
-          return;
-        }
-        const reader = new FileReader();
-        reader.onload = () => {
-          try {
-            const parsed = JSON.parse(String(reader.result || "{}"));
-            hydrateFromJson(parsed);
-          } catch (error) {
-            updateStatus("Could not parse JSON file.");
-          }
-        };
-        reader.readAsText(file);
       }
 
       function parseAnnotationWorkspaceData(payload, options = {}) {
@@ -3949,28 +3859,6 @@
         updatePlaybackUi();
         updateStatus("Restored previous session with notes and video filepath.");
         return true;
-      }
-
-      async function copyJsonToClipboard() {
-        const payload = jsonPreview.textContent || "{}";
-        try {
-          await navigator.clipboard.writeText(payload);
-          updateStatus("JSON copied to clipboard.");
-        } catch (error) {
-          updateStatus("Clipboard blocked. Use Download instead.");
-        }
-      }
-
-      function downloadJsonFile() {
-        const content = jsonPreview.textContent || "{}";
-        const blob = new Blob([content], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const anchor = document.createElement("a");
-        anchor.href = url;
-        anchor.download = "video-annotations.json";
-        anchor.click();
-        URL.revokeObjectURL(url);
-        updateStatus("Downloaded JSON file.");
       }
 
       function formatSharedTimestamp(value) {
@@ -4699,7 +4587,7 @@
       });
 
       videoLayer.addEventListener("contextmenu", (event) => {
-        const blocker = event.target.closest(".top-bar, .note-rail, .scrub-panel, .json-panel, .shared-panel, .context-menu");
+        const blocker = event.target.closest(".top-bar, .note-rail, .scrub-panel, .shared-panel, .context-menu");
         if (blocker) {
           return;
         }
@@ -4723,14 +4611,6 @@
         }
       });
 
-      jsonToggle.addEventListener("click", () => {
-        if (jsonPanel.classList.contains("visible")) {
-          closeJsonPanel();
-          return;
-        }
-        openJsonPanel();
-      });
-
       sharedToggle.addEventListener("click", async () => {
         if (sharedPanel.classList.contains("visible")) {
           closeSharedPanel();
@@ -4739,16 +4619,8 @@
         await openSharedPanel();
       });
 
-      closeJson.addEventListener("click", () => {
-        closeJsonPanel();
-      });
-
       sharedCloseButton.addEventListener("click", () => {
         closeSharedPanel();
-      });
-
-      copyJson.addEventListener("click", () => {
-        copyJsonToClipboard();
       });
 
       sharedRefreshButton.addEventListener("click", async () => {
@@ -4784,16 +4656,6 @@
         }
       });
 
-      downloadJson.addEventListener("click", () => {
-        downloadJsonFile();
-      });
-
-      jsonInput.addEventListener("change", (event) => {
-        const file = event.target.files && event.target.files[0];
-        readJsonFile(file);
-        event.target.value = "";
-      });
-
       sharedServerUrlInput.addEventListener("change", () => {
         persistSharedSettings();
       });
@@ -4813,6 +4675,7 @@
       restoreSharedSettings();
       restoreSharedAuth();
       fetchSharedAuthMe({ quiet: true });
+      updateSharedToggleUi();
       renderCharactersPanel();
       const restored = restoreSession();
       if (!restored) {

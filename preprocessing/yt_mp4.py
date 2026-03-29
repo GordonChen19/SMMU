@@ -30,6 +30,7 @@ USER_AGENT = (
     "AppleWebKit/537.36 (KHTML, like Gecko) "
     "Chrome/134.0.0.0 Safari/537.36"
 )
+MAX_IMPORT_HEIGHT = 1080
 
 
 def available_cookie_browsers():
@@ -55,6 +56,14 @@ def available_cookie_browsers():
     return browsers
 
 
+def max_1080p_merged_format():
+    return "bestvideo*[height<={0}]+bestaudio/best[height<={0}]".format(MAX_IMPORT_HEIGHT)
+
+
+def max_1080p_progressive_format():
+    return "best[height<={0}][ext=mp4]/best[height<={0}]".format(MAX_IMPORT_HEIGHT)
+
+
 def build_attempts(output_template):
     common_opts = {
         "outtmpl": output_template,
@@ -69,14 +78,9 @@ def build_attempts(output_template):
 
     attempts = [
         {
-            "label": "direct-progressive-mp4",
-            **common_opts,
-            "format": "b[ext=mp4]/b/best",
-        },
-        {
             "label": "direct-merged-best",
             **common_opts,
-            "format": "bv*+ba/b",
+            "format": max_1080p_merged_format(),
             "extractor_args": {
                 "youtube": {
                     "player_client": ["android", "web", "ios"],
@@ -88,15 +92,33 @@ def build_attempts(output_template):
     for browser_name in available_cookie_browsers():
         attempts.append(
             {
-                "label": "cookies-" + browser_name,
+                "label": "cookies-" + browser_name + "-merged-best",
                 **common_opts,
-                "format": "b[ext=mp4]/bv*+ba/b",
+                "format": max_1080p_merged_format(),
                 "cookiesfrombrowser": (browser_name,),
                 "extractor_args": {
                     "youtube": {
                         "player_client": ["android", "web", "ios"],
                     }
                 },
+            }
+        )
+
+    attempts.append(
+        {
+            "label": "direct-progressive-mp4",
+            **common_opts,
+            "format": max_1080p_progressive_format(),
+        }
+    )
+
+    for browser_name in available_cookie_browsers():
+        attempts.append(
+            {
+                "label": "cookies-" + browser_name + "-progressive-mp4",
+                **common_opts,
+                "format": max_1080p_progressive_format(),
+                "cookiesfrombrowser": (browser_name,),
             }
         )
 
