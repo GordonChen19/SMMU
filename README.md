@@ -21,7 +21,7 @@ Once you have joined successfully, your device will be connected to the same pri
 On the host machine, launch the server so that it is running on port `8765`.
 
 ### 3. Open the application in your browser
-After joining the Tailscale network, open the following URL in your browser:
+After joining the Tailscale network, open the annotations interface and change the server URL to:
 
 ```bash
 http://<IP_ADDRESS>:8765
