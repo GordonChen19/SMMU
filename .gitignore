@@ -6,3 +6,6 @@ preprocessing/*
 .DS_Store
 /shared_library/*
 export_annotations_db.py
+__pycache__/*
+shared_library/annotations.export.json
+export_annotations_db.py

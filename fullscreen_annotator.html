@@ -15,6 +15,7 @@
         --notes-toggle-size: 42px;
         --notes-rail-width: min(480px, 43vw);
         --floating-panel-top: 92px;
+        --floating-panel-bottom: 126px;
         --overlay-line: rgba(214, 229, 243, 0.18);
         --overlay-panel: rgba(14, 18, 26, 0.84);
         --overlay-panel-strong: rgba(12, 16, 24, 0.92);
@@ -123,6 +124,12 @@
         filter: brightness(1.08);
       }
 
+      .btn:disabled {
+        opacity: 0.58;
+        cursor: not-allowed;
+        filter: none;
+      }
+
       .btn.icon-btn {
         min-width: 40px;
         padding: 6px 10px;
@@ -145,6 +152,11 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
+      }
+
+      .top-bar-break {
+        flex-basis: 100%;
+        height: 0;
       }
 
       .shared-toggle-arrow {
@@ -265,7 +277,7 @@
         position: absolute;
         top: 16px;
         right: 16px;
-        bottom: 90px;
+        bottom: var(--floating-panel-bottom);
         width: var(--notes-rail-width);
         z-index: 25;
         border-radius: 18px;
@@ -851,9 +863,8 @@
         right: 16px;
         bottom: 16px;
         z-index: 20;
-        display: flex;
-        align-items: center;
-        gap: 12px;
+        display: grid;
+        gap: 10px;
         padding: 12px 14px;
         border-radius: 16px;
         border: 1px solid var(--overlay-line);
@@ -864,6 +875,15 @@
         box-shadow: var(--shadow);
       }
 
+      .scrub-main-row,
+      .trim-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+        flex-wrap: wrap;
+      }
+
       .timecode {
         min-width: 94px;
         font-size: 13px;
@@ -872,15 +892,46 @@
 
       .scrubber {
         flex: 1;
+        min-width: 180px;
       }
 
       .status {
+        flex: 0 1 320px;
         color: var(--overlay-muted);
         font-size: 12px;
         max-width: 320px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+      }
+
+      .trim-row {
+        padding-top: 10px;
+        border-top: 1px solid rgba(214, 229, 243, 0.14);
+      }
+
+      .trim-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.45px;
+        text-transform: uppercase;
+        color: rgba(214, 229, 243, 0.78);
+      }
+
+      .trim-time {
+        min-width: 112px;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .trim-summary {
+        margin-left: auto;
+        flex: 1 1 220px;
+        min-width: 220px;
+        color: var(--overlay-muted);
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .context-menu {
@@ -980,9 +1031,10 @@
         position: absolute;
         left: 16px;
         top: var(--floating-panel-top);
+        bottom: var(--floating-panel-bottom);
         z-index: 30;
         width: min(560px, 66vw);
-        max-height: calc(100vh - var(--floating-panel-top) - 104px);
+        max-height: calc(100vh - var(--floating-panel-top) - var(--floating-panel-bottom));
         border-radius: 16px;
         border: 1px solid rgba(218, 224, 232, 0.48);
         background: rgba(14, 18, 26, 0.92);
@@ -994,6 +1046,28 @@
       }
 
       .shared-panel.visible {
+        display: flex;
+      }
+
+      .analytics-panel {
+        position: absolute;
+        left: 16px;
+        top: var(--floating-panel-top);
+        bottom: var(--floating-panel-bottom);
+        z-index: 30;
+        width: min(740px, 74vw);
+        max-height: calc(100vh - var(--floating-panel-top) - var(--floating-panel-bottom));
+        border-radius: 16px;
+        border: 1px solid rgba(218, 224, 232, 0.48);
+        background: rgba(14, 18, 26, 0.92);
+        color: #ebf1f7;
+        box-shadow: var(--shadow);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .analytics-panel.visible {
         display: flex;
       }
 
@@ -1036,6 +1110,180 @@
         display: grid;
         gap: 12px;
         overflow: auto;
+      }
+
+      .analytics-body {
+        padding: 12px;
+        display: grid;
+        gap: 12px;
+        overflow: auto;
+      }
+
+      .analytics-intro {
+        font-size: 12px;
+        color: rgba(221, 230, 240, 0.82);
+        line-height: 1.5;
+      }
+
+      .analytics-status {
+        font-size: 12px;
+        color: rgba(221, 230, 240, 0.8);
+        line-height: 1.5;
+      }
+
+      .analytics-summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .analytics-stat {
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.06);
+        padding: 12px;
+        display: grid;
+        gap: 6px;
+      }
+
+      .analytics-stat-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: rgba(221, 230, 240, 0.72);
+      }
+
+      .analytics-stat strong {
+        font-size: 24px;
+        line-height: 1;
+        color: #ffffff;
+      }
+
+      .analytics-stat span:last-child {
+        font-size: 12px;
+        color: rgba(221, 230, 240, 0.78);
+      }
+
+      .analytics-chart-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .analytics-chart-card {
+        width: 100%;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.06);
+        padding: 12px;
+        display: grid;
+        gap: 12px;
+      }
+
+      .analytics-chart-header {
+        display: grid;
+        gap: 4px;
+      }
+
+      .analytics-chart-header strong {
+        font-size: 14px;
+        color: #ffffff;
+      }
+
+      .analytics-chart-header span {
+        font-size: 12px;
+        color: rgba(221, 230, 240, 0.78);
+      }
+
+      .analytics-chart-layout {
+        display: grid;
+        grid-template-columns: 168px minmax(0, 1fr);
+        gap: 12px;
+        align-items: center;
+      }
+
+      .analytics-chart {
+        width: 168px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        position: relative;
+        background: conic-gradient(rgba(255, 255, 255, 0.08) 0deg, rgba(255, 255, 255, 0.08) 360deg);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+      }
+
+      .analytics-chart.empty {
+        background:
+          radial-gradient(circle at center, rgba(14, 18, 26, 0.92) 0 40%, transparent 41%),
+          conic-gradient(rgba(255, 255, 255, 0.08) 0deg, rgba(255, 255, 255, 0.08) 360deg);
+      }
+
+      .analytics-chart-hole {
+        position: absolute;
+        inset: 22%;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        background: rgba(11, 16, 24, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        padding: 10px;
+      }
+
+      .analytics-chart-hole strong {
+        font-size: 26px;
+        line-height: 1;
+        color: #ffffff;
+      }
+
+      .analytics-chart-hole span {
+        margin-top: 4px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.45px;
+        color: rgba(221, 230, 240, 0.72);
+      }
+
+      .analytics-legend {
+        display: grid;
+        gap: 8px;
+        align-content: start;
+      }
+
+      .analytics-legend-item {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: 8px;
+        align-items: center;
+        font-size: 12px;
+        color: rgba(236, 244, 252, 0.9);
+      }
+
+      .analytics-legend-swatch {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+      }
+
+      .analytics-legend-label {
+        min-width: 0;
+      }
+
+      .analytics-legend-value {
+        color: rgba(221, 230, 240, 0.74);
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+
+      .analytics-empty {
+        border-radius: 12px;
+        border: 1px dashed rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.04);
+        padding: 12px;
+        font-size: 12px;
+        color: rgba(221, 230, 240, 0.76);
       }
 
       .shared-controls {
@@ -1292,7 +1540,7 @@
         .note-rail {
           width: calc(100% - 32px);
           top: auto;
-          bottom: 86px;
+          bottom: var(--floating-panel-bottom);
           height: 42%;
         }
 
@@ -1308,22 +1556,57 @@
           flex-basis: 100%;
         }
 
+        .scrub-main-row,
+        .trim-row {
+          gap: 8px;
+        }
+
+        .scrubber {
+          min-width: 0;
+          width: 100%;
+          flex-basis: 100%;
+          order: 4;
+        }
+
         .hint {
           width: 100%;
           margin-left: 0;
         }
 
+        .status,
+        .trim-summary {
+          width: 100%;
+          max-width: none;
+          min-width: 0;
+          margin-left: 0;
+        }
+
         .shared-panel {
           width: calc(100% - 32px);
-          max-height: 58%;
+          max-height: calc(100vh - var(--floating-panel-top) - var(--floating-panel-bottom));
+        }
+
+        .analytics-panel {
+          width: calc(100% - 32px);
+          max-height: calc(100vh - var(--floating-panel-top) - var(--floating-panel-bottom));
+        }
+
+        .analytics-summary-grid,
+        .analytics-chart-grid,
+        .shared-controls {
+          grid-template-columns: 1fr;
         }
 
         .shared-controls {
-          grid-template-columns: 1fr;
           grid-template-areas:
             "annotator"
             "password"
             "server";
+        }
+
+        .analytics-chart-layout {
+          grid-template-columns: 1fr;
+          justify-items: center;
         }
 
         .shared-entry {
@@ -1382,9 +1665,14 @@
             accept="video/mp4,.mp4"
           >
         </div>
+        <div class="top-bar-break" aria-hidden="true"></div>
         <button class="btn ghost shared-toggle-button" id="shared-toggle" type="button" aria-expanded="false">
           <span>Video Library</span>
           <span class="shared-toggle-arrow" id="shared-toggle-arrow" aria-hidden="true">&#9662;</span>
+        </button>
+        <button class="btn ghost shared-toggle-button" id="analytics-toggle" type="button" aria-expanded="false">
+          <span>Analytics</span>
+          <span class="shared-toggle-arrow" id="analytics-toggle-arrow" aria-hidden="true">&#9662;</span>
         </button>
         <span class="video-title" id="video-title" hidden aria-hidden="true">No video loaded</span>
         <span class="hint"></span>
@@ -1414,11 +1702,19 @@
       </aside>
 
       <div class="scrub-panel">
-        <button class="btn icon-btn" id="play-toggle" type="button" aria-label="Play" title="Play">▶</button>
-        <span class="timecode" id="current-time">00:00:00.00</span>
-        <input class="scrubber" id="scrubber" type="range" min="0" max="0" step="0.01" value="0">
-        <span class="timecode" id="duration-time">00:00:00.00</span>
-        <span class="status" id="status">Import a video from YouTube to begin annotating.</span>
+        <div class="scrub-main-row">
+          <button class="btn icon-btn" id="play-toggle" type="button" aria-label="Play" title="Play">▶</button>
+          <span class="timecode" id="current-time">00:00:00.00</span>
+          <input class="scrubber" id="scrubber" type="range" min="0" max="0" step="0.01" value="0">
+          <span class="timecode" id="duration-time">00:00:00.00</span>
+          <span class="status" id="status">Import a video from YouTube to begin annotating.</span>
+        </div>
+        <div class="trim-row">
+          <span class="trim-label">Trim</span>
+          <button class="btn ghost trim-time" id="trim-set-end" type="button">Set End: 00:00:00.00</button>
+          <button class="btn alt" id="trim-download" type="button">Download MP4</button>
+          <span class="trim-summary" id="trim-summary">Load a video to set trim points.</span>
+        </div>
       </div>
 
       <div class="context-menu" id="context-menu">
@@ -1480,6 +1776,75 @@
           <div class="shared-list" id="shared-list"></div>
         </div>
       </section>
+
+      <section class="analytics-panel" id="analytics-panel">
+        <div class="shared-header">
+          <strong>Annotation Analytics</strong>
+          <div class="shared-header-actions">
+            <button type="button" id="analytics-close">Close</button>
+          </div>
+        </div>
+        <div class="analytics-body">
+          <div class="analytics-intro">
+            Shared-library analytics across all videos, not just the one currently open in the player.
+          </div>
+          <div class="analytics-status" id="analytics-status">Load the shared library to compute dataset-wide analytics.</div>
+          <div class="analytics-summary-grid">
+            <div class="analytics-stat">
+              <span class="analytics-stat-label">Videos</span>
+              <strong id="analytics-video-count">0</strong>
+              <span>Shared videos indexed</span>
+            </div>
+            <div class="analytics-stat">
+              <span class="analytics-stat-label">Review Layers</span>
+              <strong id="analytics-layer-count">0</strong>
+              <span>Annotator submissions</span>
+            </div>
+            <div class="analytics-stat">
+              <span class="analytics-stat-label">Annotations</span>
+              <strong id="analytics-note-count">0</strong>
+              <span>Total notes across all videos</span>
+            </div>
+            <div class="analytics-stat">
+              <span class="analytics-stat-label">Annotators</span>
+              <strong id="analytics-annotator-count">0</strong>
+              <span>Unique reviewers in library</span>
+            </div>
+          </div>
+          <div class="analytics-chart-grid">
+            <article class="analytics-chart-card">
+              <div class="analytics-chart-header">
+                <strong>Social Dimensions</strong>
+                <span>Category mix across all shared video annotations</span>
+              </div>
+              <div class="analytics-chart-layout">
+                <div class="analytics-chart" id="analytics-social-chart">
+                  <div class="analytics-chart-hole">
+                    <strong id="analytics-social-total">0</strong>
+                    <span>notes</span>
+                  </div>
+                </div>
+                <div class="analytics-legend" id="analytics-social-legend"></div>
+              </div>
+            </article>
+            <article class="analytics-chart-card">
+              <div class="analytics-chart-header">
+                <strong>Cognitive Tasks</strong>
+                <span>Reasoning families represented across the full library</span>
+              </div>
+              <div class="analytics-chart-layout">
+                <div class="analytics-chart" id="analytics-task-chart">
+                  <div class="analytics-chart-hole">
+                    <strong id="analytics-task-total">0</strong>
+                    <span>notes</span>
+                  </div>
+                </div>
+                <div class="analytics-legend" id="analytics-task-legend"></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
     </div>
 
     <script>
@@ -1510,6 +1875,26 @@
           "understanding_norms",
         ],
       };
+
+      const ANALYTICS_SOCIAL_DIMENSIONS = [
+        { key: "emotions", label: "Emotions", color: "#f57d8a", categories: ["understanding_emotions", "emotion"] },
+        { key: "persona", label: "Persona", color: "#51b9a5", categories: ["understanding_persona"] },
+        { key: "relationship", label: "Relationship", color: "#7f9ef7", categories: ["understanding_relationship"] },
+        { key: "intent", label: "Intent", color: "#e0ae4a", categories: ["understanding_intent"] },
+        { key: "norms", label: "Social Norms", color: "#aeb4c1", categories: ["understanding_norms"] },
+        { key: "situation_awareness", label: "Situation Awareness", color: "#5eb8d6", categories: ["understanding_situation_awareness"] },
+        { key: "perspective", label: "Perspective", color: "#6ec86a", categories: ["perspective"] },
+        { key: "general", label: "General / Other", color: "#94a3b8", categories: ["perception", "understanding", "prediction", "causal", "social", "custom"] },
+      ];
+
+      const ANALYTICS_COGNITIVE_TASKS = [
+        { key: "perception", label: "Perception", color: "#36b5ff", categories: ["perception"] },
+        { key: "understanding", label: "Understanding", color: "#6ec86a", categories: ["understanding", "understanding_emotions", "understanding_persona", "understanding_situation_awareness", "understanding_relationship", "understanding_intent", "understanding_norms", "emotion", "social"] },
+        { key: "perspective", label: "Perspective-Taking", color: "#51b9a5", categories: ["perspective"] },
+        { key: "causal", label: "Causal Reasoning", color: "#f2aa48", categories: ["causal"] },
+        { key: "prediction", label: "Prediction", color: "#f57d8a", categories: ["prediction"] },
+        { key: "other", label: "Custom / Other", color: "#94a3b8", categories: ["custom"] },
+      ];
 
       const PERSONA_CATEGORY_OPTIONS = [
         "The Dominator",
@@ -1598,6 +1983,7 @@
       const topBar = document.querySelector(".top-bar");
       const videoLayer = document.getElementById("video-layer");
       const video = document.getElementById("video");
+      const scrubPanel = document.querySelector(".scrub-panel");
       const playToggle = document.getElementById("play-toggle");
       const videoTitle = document.getElementById("video-title");
       const scrubber = document.getElementById("scrubber");
@@ -1609,6 +1995,9 @@
       const characterAddButton = document.getElementById("character-add");
       const characterList = document.getElementById("character-list");
       const status = document.getElementById("status");
+      const trimSetEndButton = document.getElementById("trim-set-end");
+      const trimDownloadButton = document.getElementById("trim-download");
+      const trimSummary = document.getElementById("trim-summary");
       const contextMenu = document.getElementById("context-menu");
       const contextList = document.getElementById("context-list");
       const contextTime = document.getElementById("context-time");
@@ -1616,6 +2005,21 @@
       const notesToggle = document.getElementById("toggle-notes");
       const sharedToggle = document.getElementById("shared-toggle");
       const sharedToggleArrow = document.getElementById("shared-toggle-arrow");
+      const analyticsPanel = document.getElementById("analytics-panel");
+      const analyticsToggle = document.getElementById("analytics-toggle");
+      const analyticsToggleArrow = document.getElementById("analytics-toggle-arrow");
+      const analyticsCloseButton = document.getElementById("analytics-close");
+      const analyticsStatusLabel = document.getElementById("analytics-status");
+      const analyticsVideoCount = document.getElementById("analytics-video-count");
+      const analyticsLayerCount = document.getElementById("analytics-layer-count");
+      const analyticsNoteCount = document.getElementById("analytics-note-count");
+      const analyticsAnnotatorCount = document.getElementById("analytics-annotator-count");
+      const analyticsSocialChart = document.getElementById("analytics-social-chart");
+      const analyticsSocialTotal = document.getElementById("analytics-social-total");
+      const analyticsSocialLegend = document.getElementById("analytics-social-legend");
+      const analyticsTaskChart = document.getElementById("analytics-task-chart");
+      const analyticsTaskTotal = document.getElementById("analytics-task-total");
+      const analyticsTaskLegend = document.getElementById("analytics-task-legend");
       const youtubeLinkInput = document.getElementById("youtube-link");
       const youtubeImportButton = document.getElementById("youtube-import");
       const localUploadTriggerButton = document.getElementById("local-upload-trigger");
@@ -1652,9 +2056,51 @@
       let sharedAuthToken = "";
       let sharedAuthenticatedAnnotator = "";
       let contextPoint = { x: 0, y: 0 };
+      const MIN_TRIM_DURATION_SEC = 0.1;
+      const TRIM_RECORDING_MIME_CANDIDATES = [
+        'video/mp4;codecs="avc1.42E01E,mp4a.40.2"',
+        'video/mp4;codecs="avc1.4d401f,mp4a.40.2"',
+        "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+        "video/mp4;codecs=avc1.4d401f,mp4a.40.2",
+        "video/mp4;codecs=h264,aac",
+        "video/mp4",
+      ];
       const state = { notes: [], nextId: 1, characters: [] };
       const sharedVideoIndex = new Map();
       const sharedEntryMetaIndex = new Map();
+      const sharedEntryPayloadCache = new Map();
+      const analyticsSocialCategoryMap = buildAnalyticsCategoryMap(ANALYTICS_SOCIAL_DIMENSIONS);
+      const analyticsTaskCategoryMap = buildAnalyticsCategoryMap(ANALYTICS_COGNITIVE_TASKS);
+      const libraryAnalyticsState = {
+        loading: false,
+        loaded: false,
+        error: "",
+        partialFailures: 0,
+        totalVideos: 0,
+        totalLayers: 0,
+        totalNotes: 0,
+        totalAnnotators: 0,
+        socialDistribution: [],
+        taskDistribution: [],
+      };
+      const trimState = {
+        startSec: 0,
+        endSec: 0,
+        exporting: false,
+      };
+      let trimBoundaryMonitor = null;
+      let libraryAnalyticsRequestId = 0;
+
+      function buildAnalyticsCategoryMap(definitions) {
+        const map = new Map();
+        definitions.forEach((definition) => {
+          const categories = Array.isArray(definition.categories) ? definition.categories : [];
+          categories.forEach((categoryKey) => {
+            map.set(String(categoryKey || "").trim(), definition.key);
+          });
+        });
+        return map;
+      }
 
       function formatTimecode(seconds) {
         const safe = Number.isFinite(seconds) ? Math.max(0, seconds) : 0;
@@ -1675,10 +2121,792 @@
 
       function updateStatus(message) {
         status.textContent = message;
+        syncNotesToggleSize();
       }
 
       function updateSharedStatus(message) {
         sharedStatus.textContent = message;
+      }
+
+      function updateAnalyticsStatus(message) {
+        analyticsStatusLabel.textContent = String(message || "");
+      }
+
+      function updateAnalyticsToggleUi() {
+        const isOpen = analyticsPanel.classList.contains("visible");
+        analyticsToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        analyticsToggleArrow.innerHTML = isOpen ? "&#9652;" : "&#9662;";
+      }
+
+      function closeAnalyticsPanel() {
+        analyticsPanel.classList.remove("visible");
+        updateAnalyticsToggleUi();
+      }
+
+      async function openAnalyticsPanel() {
+        closeSharedPanel({ persist: false });
+        analyticsPanel.classList.add("visible");
+        updateAnalyticsToggleUi();
+        renderAnalyticsPanel();
+        await loadSharedEntries();
+      }
+
+      function buildAnalyticsDistributionFromNotes(notes, definitions, categoryMap) {
+        const fallbackKey = definitions.length ? definitions[definitions.length - 1].key : "";
+        const counts = new Map(definitions.map((definition) => [definition.key, 0]));
+        (Array.isArray(notes) ? notes : []).forEach((note) => {
+          const categoryKey = String(note && note.category || "").trim();
+          const bucketKey = categoryMap.get(categoryKey) || fallbackKey;
+          if (!counts.has(bucketKey)) {
+            return;
+          }
+          counts.set(bucketKey, (counts.get(bucketKey) || 0) + 1);
+        });
+        return definitions
+          .map((definition) => {
+            return {
+              key: definition.key,
+              label: definition.label,
+              color: definition.color,
+              count: counts.get(definition.key) || 0,
+            };
+          })
+          .filter((item) => item.count > 0);
+      }
+
+      function buildChartGradient(items) {
+        if (!items.length) {
+          return "conic-gradient(rgba(255, 255, 255, 0.08) 0deg, rgba(255, 255, 255, 0.08) 360deg)";
+        }
+        const total = items.reduce((sum, item) => sum + item.count, 0);
+        let currentAngle = 0;
+        return "conic-gradient(" + items.map((item) => {
+          const angle = total ? (item.count / total) * 360 : 0;
+          const start = currentAngle;
+          const end = currentAngle + angle;
+          currentAngle = end;
+          return item.color + " " + start + "deg " + end + "deg";
+        }).join(", ") + ")";
+      }
+
+      function renderAnalyticsLegend(container, items, totalCount) {
+        container.innerHTML = "";
+        if (!items.length) {
+          const empty = document.createElement("div");
+          empty.className = "analytics-empty";
+          empty.textContent = "No annotations loaded yet.";
+          container.appendChild(empty);
+          return;
+        }
+
+        items.forEach((item) => {
+          const row = document.createElement("div");
+          row.className = "analytics-legend-item";
+
+          const swatch = document.createElement("span");
+          swatch.className = "analytics-legend-swatch";
+          swatch.style.background = item.color;
+
+          const label = document.createElement("span");
+          label.className = "analytics-legend-label";
+          label.textContent = item.label;
+
+          const value = document.createElement("span");
+          value.className = "analytics-legend-value";
+          const percentage = totalCount ? Math.round((item.count / totalCount) * 100) : 0;
+          value.textContent = item.count + " • " + percentage + "%";
+
+          row.append(swatch, label, value);
+          container.appendChild(row);
+        });
+      }
+
+      function renderAnalyticsChart(chartElement, totalElement, legendElement, items) {
+        const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+        chartElement.style.background = buildChartGradient(items);
+        chartElement.classList.toggle("empty", items.length === 0);
+        totalElement.textContent = String(totalCount);
+        renderAnalyticsLegend(legendElement, items, totalCount);
+      }
+
+      function collectSharedLibraryMetadata() {
+        const videos = Array.from(sharedVideoIndex.values());
+        const uniqueAnnotators = new Set();
+        let totalLayers = 0;
+
+        videos.forEach((videoItem) => {
+          const annotations = Array.isArray(videoItem && videoItem.annotations) ? videoItem.annotations : [];
+          totalLayers += annotations.length;
+          annotations.forEach((entry) => {
+            const annotator = String(entry && entry.annotator || "").trim();
+            if (annotator) {
+              uniqueAnnotators.add(annotator);
+            }
+          });
+        });
+
+        return {
+          totalVideos: videos.length,
+          totalLayers: totalLayers,
+          totalAnnotators: uniqueAnnotators.size,
+        };
+      }
+
+      async function fetchSharedEntryPayloadCached(entryId) {
+        if (sharedEntryPayloadCache.has(entryId)) {
+          return sharedEntryPayloadCache.get(entryId);
+        }
+        const entry = await fetchSharedEntryPayload(entryId);
+        sharedEntryPayloadCache.set(entryId, entry);
+        return entry;
+      }
+
+      async function refreshLibraryAnalytics() {
+        const requestId = libraryAnalyticsRequestId + 1;
+        libraryAnalyticsRequestId = requestId;
+
+        const metadata = collectSharedLibraryMetadata();
+        libraryAnalyticsState.loading = true;
+        libraryAnalyticsState.loaded = false;
+        libraryAnalyticsState.error = "";
+        libraryAnalyticsState.partialFailures = 0;
+        libraryAnalyticsState.totalVideos = metadata.totalVideos;
+        libraryAnalyticsState.totalLayers = metadata.totalLayers;
+        libraryAnalyticsState.totalNotes = 0;
+        libraryAnalyticsState.totalAnnotators = metadata.totalAnnotators;
+        libraryAnalyticsState.socialDistribution = [];
+        libraryAnalyticsState.taskDistribution = [];
+        renderAnalyticsPanel();
+
+        if (!metadata.totalLayers) {
+          libraryAnalyticsState.loading = false;
+          libraryAnalyticsState.loaded = true;
+          renderAnalyticsPanel();
+          return;
+        }
+
+        const entryIds = Array.from(sharedEntryMetaIndex.keys());
+        const settledEntries = await Promise.allSettled(entryIds.map((entryId) => {
+          return fetchSharedEntryPayloadCached(entryId);
+        }));
+
+        if (requestId !== libraryAnalyticsRequestId) {
+          return;
+        }
+
+        const allNotes = [];
+        let partialFailures = 0;
+
+        settledEntries.forEach((result) => {
+          if (result.status !== "fulfilled") {
+            partialFailures += 1;
+            return;
+          }
+          const entry = result.value;
+          const parsed = parseAnnotationWorkspaceData(entry && entry.annotation || {}, {
+            annotator: entry && entry.annotator || "",
+            editable: false,
+            preserveIds: false,
+            startId: 1,
+            fallbackCharacters: [],
+          });
+          allNotes.push(...parsed.notes);
+        });
+
+        libraryAnalyticsState.loading = false;
+        libraryAnalyticsState.loaded = true;
+        libraryAnalyticsState.error = "";
+        libraryAnalyticsState.partialFailures = partialFailures;
+        libraryAnalyticsState.totalVideos = metadata.totalVideos;
+        libraryAnalyticsState.totalLayers = metadata.totalLayers;
+        libraryAnalyticsState.totalNotes = allNotes.length;
+        libraryAnalyticsState.totalAnnotators = metadata.totalAnnotators;
+        libraryAnalyticsState.socialDistribution = buildAnalyticsDistributionFromNotes(
+          allNotes,
+          ANALYTICS_SOCIAL_DIMENSIONS,
+          analyticsSocialCategoryMap
+        );
+        libraryAnalyticsState.taskDistribution = buildAnalyticsDistributionFromNotes(
+          allNotes,
+          ANALYTICS_COGNITIVE_TASKS,
+          analyticsTaskCategoryMap
+        );
+        renderAnalyticsPanel();
+      }
+
+      function renderAnalyticsPanel() {
+        analyticsVideoCount.textContent = String(libraryAnalyticsState.totalVideos);
+        analyticsLayerCount.textContent = String(libraryAnalyticsState.totalLayers);
+        analyticsNoteCount.textContent = String(libraryAnalyticsState.totalNotes);
+        analyticsAnnotatorCount.textContent = String(libraryAnalyticsState.totalAnnotators);
+
+        if (libraryAnalyticsState.loading) {
+          updateAnalyticsStatus(
+            "Analyzing "
+            + String(libraryAnalyticsState.totalLayers)
+            + " annotation layer(s) across "
+            + String(libraryAnalyticsState.totalVideos)
+            + " shared video(s)..."
+          );
+        } else if (libraryAnalyticsState.error) {
+          updateAnalyticsStatus("Shared-library analytics failed (" + libraryAnalyticsState.error + ").");
+        } else if (!libraryAnalyticsState.loaded) {
+          updateAnalyticsStatus("Load the shared library to compute dataset-wide analytics.");
+        } else if (!libraryAnalyticsState.totalLayers) {
+          updateAnalyticsStatus("No shared annotation layers are available yet.");
+        } else if (libraryAnalyticsState.partialFailures > 0) {
+          updateAnalyticsStatus(
+            "Loaded analytics for "
+            + String(libraryAnalyticsState.totalVideos)
+            + " videos and "
+            + String(libraryAnalyticsState.totalLayers)
+            + " review layer(s). "
+            + String(libraryAnalyticsState.partialFailures)
+            + " layer(s) could not be analyzed."
+          );
+        } else {
+          updateAnalyticsStatus(
+            "Across "
+            + String(libraryAnalyticsState.totalVideos)
+            + " videos, "
+            + String(libraryAnalyticsState.totalLayers)
+            + " review layer(s), and "
+            + String(libraryAnalyticsState.totalNotes)
+            + " annotations."
+          );
+        }
+
+        renderAnalyticsChart(
+          analyticsSocialChart,
+          analyticsSocialTotal,
+          analyticsSocialLegend,
+          libraryAnalyticsState.socialDistribution
+        );
+        renderAnalyticsChart(
+          analyticsTaskChart,
+          analyticsTaskTotal,
+          analyticsTaskLegend,
+          libraryAnalyticsState.taskDistribution
+        );
+      }
+
+      function hasLoadedVideoSource() {
+        return Boolean(String(video.src || "").trim());
+      }
+
+      function getVideoDurationSec() {
+        const duration = Number(video.duration);
+        return Number.isFinite(duration) && duration > 0 ? duration : 0;
+      }
+
+      function normalizeTrimSelection(startSec, endSec, duration = getVideoDurationSec()) {
+        const safeDuration = Number.isFinite(duration) && duration > 0 ? duration : 0;
+        if (!safeDuration) {
+          return {
+            startSec: 0,
+            endSec: 0,
+            valid: false,
+          };
+        }
+
+        const minClipDuration = Math.min(MIN_TRIM_DURATION_SEC, safeDuration);
+        let nextStart = clamp(Number.isFinite(startSec) ? startSec : 0, 0, safeDuration);
+        let nextEnd = clamp(Number.isFinite(endSec) ? endSec : safeDuration, 0, safeDuration);
+
+        if (nextEnd < nextStart) {
+          const swap = nextStart;
+          nextStart = nextEnd;
+          nextEnd = swap;
+        }
+
+        if (nextEnd - nextStart < minClipDuration) {
+          if (nextStart + minClipDuration <= safeDuration) {
+            nextEnd = nextStart + minClipDuration;
+          } else {
+            nextEnd = safeDuration;
+            nextStart = Math.max(0, safeDuration - minClipDuration);
+          }
+        }
+
+        return {
+          startSec: nextStart,
+          endSec: nextEnd,
+          valid: nextEnd > nextStart,
+        };
+      }
+
+      function syncTrimSelection(duration = getVideoDurationSec()) {
+        const normalized = normalizeTrimSelection(0, trimState.endSec, duration);
+        trimState.startSec = 0;
+        trimState.endSec = normalized.endSec;
+        return normalized;
+      }
+
+      function formatTrimFilenameTime(seconds) {
+        const safe = Number.isFinite(seconds) ? Math.max(0, seconds) : 0;
+        const hours = String(Math.floor(safe / 3600)).padStart(2, "0");
+        const minutes = String(Math.floor((safe % 3600) / 60)).padStart(2, "0");
+        const secs = String(Math.floor(safe % 60)).padStart(2, "0");
+        const hundredths = String(Math.floor((safe - Math.floor(safe)) * 100)).padStart(2, "0");
+        return [hours, minutes, secs, hundredths].join("-");
+      }
+
+      function sanitizeFilenameBase(value) {
+        const cleaned = String(value || "")
+          .trim()
+          .replace(/[<>:"/\\|?*\u0000-\u001f]+/g, "-")
+          .replace(/\s+/g, "-")
+          .replace(/-+/g, "-")
+          .replace(/^-+|-+$/g, "");
+        return cleaned || "video";
+      }
+
+      function buildTrimmedFilename(startSec, endSec) {
+        const rawTitle = String(videoTitle.textContent || videoFilePath || "video").trim();
+        const basename = rawTitle
+          .split(/[\\/]/)
+          .filter(Boolean)
+          .pop() || rawTitle || "video";
+        const withoutExtension = basename.replace(/\.[a-z0-9]{2,5}$/i, "");
+        return sanitizeFilenameBase(withoutExtension)
+          + "-trim-"
+          + formatTrimFilenameTime(startSec)
+          + "-to-"
+          + formatTrimFilenameTime(endSec)
+          + ".mp4";
+      }
+
+      function triggerBlobDownload(blob, filename) {
+        const objectUrl = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = objectUrl;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.setTimeout(() => {
+          URL.revokeObjectURL(objectUrl);
+        }, 0);
+      }
+
+      function getSupportedTrimMp4MimeType() {
+        const captureSupported = typeof video.captureStream === "function" || typeof video.mozCaptureStream === "function";
+        if (!captureSupported || typeof MediaRecorder === "undefined" || typeof MediaRecorder.isTypeSupported !== "function") {
+          return "";
+        }
+        return TRIM_RECORDING_MIME_CANDIDATES.find((candidate) => {
+          try {
+            return MediaRecorder.isTypeSupported(candidate);
+          } catch (error) {
+            return false;
+          }
+        }) || "";
+      }
+
+      function updateScrubberTrimOverlay() {
+        const duration = getVideoDurationSec();
+        if (!duration) {
+          scrubber.style.background = "";
+          return;
+        }
+        const selection = syncTrimSelection(duration);
+        const startPercent = (selection.startSec / duration) * 100;
+        const endPercent = (selection.endSec / duration) * 100;
+        scrubber.style.background = "linear-gradient(90deg,"
+          + " rgba(255, 255, 255, 0.16) 0%,"
+          + " rgba(255, 255, 255, 0.16) " + startPercent + "%,"
+          + " rgba(111, 214, 255, 0.78) " + startPercent + "%,"
+          + " rgba(111, 214, 255, 0.78) " + endPercent + "%,"
+          + " rgba(255, 255, 255, 0.16) " + endPercent + "%,"
+          + " rgba(255, 255, 255, 0.16) 100%)";
+      }
+
+      function updateTrimUi() {
+        const duration = getVideoDurationSec();
+        const selection = syncTrimSelection(duration);
+        const hasDuration = duration > 0;
+        const mp4MimeType = getSupportedTrimMp4MimeType();
+        const trimDuration = Math.max(0, selection.endSec - selection.startSec);
+        const controlsDisabled = !hasDuration || trimState.exporting;
+
+        trimSetEndButton.disabled = controlsDisabled;
+        trimDownloadButton.disabled = controlsDisabled || !mp4MimeType;
+
+        trimSetEndButton.textContent = "Set End: " + formatTimecode(selection.endSec);
+        trimSetEndButton.title = "Set trim end to the current playhead";
+        trimDownloadButton.textContent = trimState.exporting ? "Rendering..." : "Download MP4";
+        trimDownloadButton.title = mp4MimeType
+          ? "Render the selected range and download it as MP4"
+          : "MP4 trim download is not supported in this browser";
+
+        if (!hasLoadedVideoSource()) {
+          trimSummary.textContent = "Load a video to set trim points.";
+        } else if (!hasDuration) {
+          trimSummary.textContent = "Waiting for video metadata before trimming.";
+        } else if (trimState.exporting) {
+          trimSummary.textContent = "Rendering " + formatTimecode(trimDuration) + " to MP4 in real time. Keep this tab active.";
+        } else if (!mp4MimeType) {
+          trimSummary.textContent = "Selection " + formatTimecode(selection.startSec) + " to " + formatTimecode(selection.endSec) + " (" + formatTimecode(trimDuration) + "). MP4 download is not supported in this browser.";
+        } else {
+          trimSummary.textContent = "Selection " + formatTimecode(selection.startSec) + " to " + formatTimecode(selection.endSec) + " (" + formatTimecode(trimDuration) + ").";
+        }
+
+        updateScrubberTrimOverlay();
+        syncNotesToggleSize();
+      }
+
+      function stopTrimBoundaryMonitor(reason = "cancel") {
+        if (!trimBoundaryMonitor) {
+          return;
+        }
+        const monitor = trimBoundaryMonitor;
+        trimBoundaryMonitor = null;
+        monitor.finish(reason);
+      }
+
+      function startTrimBoundaryMonitor(targetTime, handlers = {}) {
+        stopTrimBoundaryMonitor("cancel");
+        const boundary = Math.max(0, Number(targetTime) || 0);
+        const threshold = 0.02;
+        let settled = false;
+        let animationFrameId = 0;
+        let videoFrameCallbackId = 0;
+
+        const cleanup = () => {
+          video.removeEventListener("timeupdate", onTimeUpdate);
+          video.removeEventListener("ended", onEnded);
+          video.removeEventListener("error", onError);
+          if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+          }
+          if (videoFrameCallbackId && typeof video.cancelVideoFrameCallback === "function") {
+            video.cancelVideoFrameCallback(videoFrameCallbackId);
+          }
+        };
+
+        const finish = (reason) => {
+          if (settled) {
+            return;
+          }
+          settled = true;
+          cleanup();
+          if (trimBoundaryMonitor && trimBoundaryMonitor.finish === finish) {
+            trimBoundaryMonitor = null;
+          }
+          const handler = handlers[reason];
+          if (typeof handler === "function") {
+            handler();
+          }
+        };
+
+        const checkPlayback = () => {
+          if (settled) {
+            return;
+          }
+          if (video.currentTime >= Math.max(0, boundary - threshold) || video.ended) {
+            finish("reach");
+            return;
+          }
+          if (video.paused) {
+            finish("pause");
+            return;
+          }
+          scheduleCheck();
+        };
+
+        const scheduleCheck = () => {
+          if (typeof video.requestVideoFrameCallback === "function") {
+            videoFrameCallbackId = video.requestVideoFrameCallback(() => {
+              videoFrameCallbackId = 0;
+              checkPlayback();
+            });
+            return;
+          }
+          animationFrameId = requestAnimationFrame(() => {
+            animationFrameId = 0;
+            checkPlayback();
+          });
+        };
+
+        const onTimeUpdate = () => {
+          if (video.currentTime >= Math.max(0, boundary - threshold)) {
+            finish("reach");
+          }
+        };
+
+        const onEnded = () => {
+          finish("reach");
+        };
+
+        const onError = () => {
+          finish("error");
+        };
+
+        video.addEventListener("timeupdate", onTimeUpdate);
+        video.addEventListener("ended", onEnded);
+        video.addEventListener("error", onError);
+        scheduleCheck();
+
+        trimBoundaryMonitor = { finish: finish };
+      }
+
+      function resetTrimSelection(options = {}) {
+        const duration = Number.isFinite(options.duration) ? Math.max(0, options.duration) : getVideoDurationSec();
+        stopTrimBoundaryMonitor("cancel");
+        if (options.resetExport !== false) {
+          trimState.exporting = false;
+        }
+        trimState.startSec = 0;
+        trimState.endSec = duration > 0 ? duration : 0;
+        updateTrimUi();
+      }
+
+      function ensureTrimSelectionReady(actionLabel) {
+        if (!hasLoadedVideoSource()) {
+          updateStatus("Load a video before " + actionLabel + ".");
+          return false;
+        }
+        const selection = syncTrimSelection();
+        if (!selection.valid) {
+          updateStatus("Wait for the video duration before " + actionLabel + ".");
+          return false;
+        }
+        return true;
+      }
+
+      function setTrimEndBoundary() {
+        if (trimState.exporting || !ensureTrimSelectionReady("setting trim points")) {
+          return;
+        }
+
+        const duration = getVideoDurationSec();
+        const playhead = clamp(video.currentTime || 0, 0, duration);
+        stopTrimBoundaryMonitor("cancel");
+        trimState.startSec = 0;
+        trimState.endSec = playhead;
+
+        const selection = syncTrimSelection(duration);
+        updateTrimUi();
+        updateStatus("Trim end set to " + formatTimecode(selection.endSec) + ".");
+      }
+
+      function seekVideo(targetTime) {
+        const duration = getVideoDurationSec();
+        const fallbackMax = Number.isFinite(targetTime) ? Math.max(0, targetTime) : 0;
+        const nextTime = clamp(Number(targetTime) || 0, 0, duration || fallbackMax);
+        if (Math.abs((video.currentTime || 0) - nextTime) <= 0.02) {
+          return Promise.resolve();
+        }
+        return new Promise((resolve, reject) => {
+          let settled = false;
+          let timeoutId = 0;
+
+          const cleanup = () => {
+            video.removeEventListener("seeked", onSeeked);
+            video.removeEventListener("error", onError);
+            if (timeoutId) {
+              window.clearTimeout(timeoutId);
+            }
+          };
+
+          const finish = () => {
+            if (settled) {
+              return;
+            }
+            settled = true;
+            cleanup();
+            resolve();
+          };
+
+          const fail = () => {
+            if (settled) {
+              return;
+            }
+            settled = true;
+            cleanup();
+            reject(new Error("Video seek failed."));
+          };
+
+          const onSeeked = () => {
+            finish();
+          };
+
+          const onError = () => {
+            fail();
+          };
+
+          timeoutId = window.setTimeout(() => {
+            finish();
+          }, 1600);
+
+          video.addEventListener("seeked", onSeeked);
+          video.addEventListener("error", onError);
+
+          try {
+            video.currentTime = nextTime;
+          } catch (error) {
+            cleanup();
+            reject(error);
+          }
+        });
+      }
+
+      function createTrimRecorder(mimeType) {
+        const stream = typeof video.captureStream === "function"
+          ? video.captureStream()
+          : (typeof video.mozCaptureStream === "function" ? video.mozCaptureStream() : null);
+        if (!stream) {
+          throw new Error("This browser cannot capture the loaded video for trimming.");
+        }
+
+        try {
+          const recorder = new MediaRecorder(stream, {
+            mimeType: mimeType,
+            videoBitsPerSecond: 8000000,
+            audioBitsPerSecond: 128000,
+          });
+          return {
+            recorder: recorder,
+            cleanup: () => {
+              stream.getTracks().forEach((track) => {
+                try {
+                  track.stop();
+                } catch (error) {
+                  // Ignore track cleanup failures.
+                }
+              });
+            },
+          };
+        } catch (error) {
+          stream.getTracks().forEach((track) => {
+            try {
+              track.stop();
+            } catch (cleanupError) {
+              // Ignore track cleanup failures.
+            }
+          });
+          throw error;
+        }
+      }
+
+      async function downloadTrimmedVideo() {
+        if (trimState.exporting || !ensureTrimSelectionReady("downloading a trimmed MP4")) {
+          return;
+        }
+
+        const mimeType = getSupportedTrimMp4MimeType();
+        if (!mimeType) {
+          updateTrimUi();
+          updateStatus("MP4 trim download is not supported in this browser.");
+          return;
+        }
+
+        const selection = syncTrimSelection();
+        const recordedChunks = [];
+        let recorderHandle = null;
+        let stoppedPromise = null;
+        let stoppedPromiseResolve = null;
+        let stoppedPromiseReject = null;
+        const previousPlaybackRate = video.playbackRate;
+
+        trimState.exporting = true;
+        stopTrimBoundaryMonitor("cancel");
+        updateTrimUi();
+
+        try {
+          video.pause();
+          await seekVideo(selection.startSec);
+          recorderHandle = createTrimRecorder(mimeType);
+          const recorder = recorderHandle.recorder;
+          stoppedPromise = new Promise((resolve, reject) => {
+            stoppedPromiseResolve = resolve;
+            stoppedPromiseReject = reject;
+          });
+
+          recorder.addEventListener("dataavailable", (event) => {
+            if (event.data && event.data.size > 0) {
+              recordedChunks.push(event.data);
+            }
+          });
+          recorder.addEventListener("stop", () => {
+            if (typeof stoppedPromiseResolve === "function") {
+              stoppedPromiseResolve();
+            }
+          }, { once: true });
+          recorder.addEventListener("error", (event) => {
+            const message = event && event.error && event.error.message
+              ? event.error.message
+              : "MediaRecorder failed.";
+            if (typeof stoppedPromiseReject === "function") {
+              stoppedPromiseReject(new Error(message));
+            }
+          }, { once: true });
+
+          recorder.start(250);
+          updateStatus("Rendering trimmed MP4 in real time. Keep this tab active until the download starts.");
+
+          const playAttempt = video.play();
+          if (playAttempt && typeof playAttempt.then === "function") {
+            await playAttempt;
+          }
+
+          await new Promise((resolve, reject) => {
+            startTrimBoundaryMonitor(selection.endSec, {
+              reach: () => {
+                resolve();
+              },
+              pause: () => {
+                reject(new Error("Playback stopped before the trim finished rendering."));
+              },
+              error: () => {
+                reject(new Error("Playback failed while rendering the trim."));
+              },
+              cancel: () => {
+                reject(new Error("Trim rendering was cancelled."));
+              },
+            });
+          });
+
+          video.pause();
+          await seekVideo(selection.endSec);
+          stopTrimBoundaryMonitor("cancel");
+
+          if (recorder.state !== "inactive") {
+            recorder.stop();
+          }
+          await stoppedPromise;
+
+          const blobType = recorder.mimeType || mimeType || "video/mp4";
+          const outputBlob = new Blob(recordedChunks, { type: blobType });
+          if (!outputBlob.size) {
+            throw new Error("The browser returned an empty trimmed file.");
+          }
+
+          const filename = buildTrimmedFilename(selection.startSec, selection.endSec);
+          triggerBlobDownload(outputBlob, filename);
+          updateStatus("Downloaded trimmed MP4: " + filename);
+        } catch (error) {
+          stopTrimBoundaryMonitor("cancel");
+          if (recorderHandle && recorderHandle.recorder.state !== "inactive") {
+            try {
+              recorderHandle.recorder.stop();
+            } catch (stopError) {
+              // Ignore recorder stop races after failures.
+            }
+          }
+          if (stoppedPromise) {
+            await stoppedPromise.catch(() => {});
+          }
+          const message = error && error.message ? String(error.message) : "Unknown error";
+          updateStatus("Trim download failed (" + message + ").");
+        } finally {
+          video.playbackRate = previousPlaybackRate;
+          trimState.exporting = false;
+          if (recorderHandle) {
+            recorderHandle.cleanup();
+          }
+          updateTrimUi();
+        }
       }
 
       function persistSharedSettings() {
@@ -1731,11 +2959,16 @@
 
       function updateSharedAuthUi() {
         const loggedIn = Boolean(sharedAuthToken && sharedAuthenticatedAnnotator);
+        const adminLoggedIn = loggedIn && isAdminAnnotatorName(sharedAuthenticatedAnnotator);
         sharedAuthChip.textContent = loggedIn ? ("Signed in as " + sharedAuthenticatedAnnotator) : "Not logged in";
         sharedAuthChip.classList.toggle("logged-in", loggedIn);
         sharedAuthChip.classList.toggle("logged-out", !loggedIn);
         sharedAuthLabel.textContent = loggedIn
-          ? "Publishing and uploads will be attributed to this annotator account."
+          ? (
+              adminLoggedIn
+                ? "Publishing uses this annotator account. Gordon can also edit other annotators' layers."
+                : "Publishing and uploads will be attributed to this annotator account."
+            )
           : "Register a new annotator or log in to publish.";
         sharedLogoutButton.disabled = !loggedIn;
       }
@@ -1843,13 +3076,26 @@
         { accent: "#ff8787", background: "rgba(255, 135, 135, 0.22)", border: "rgba(255, 135, 135, 0.55)", color: "#ffe1e1" },
         { accent: "#66d9e8", background: "rgba(102, 217, 232, 0.22)", border: "rgba(102, 217, 232, 0.55)", color: "#d8fbff" },
       ];
+      const ADMIN_ANNOTATOR_KEYS = new Set(["gordon"]);
 
       function annotatorKey(name) {
         return String(name || "").trim().toLowerCase();
       }
 
+      function isAdminAnnotatorName(name) {
+        return ADMIN_ANNOTATOR_KEYS.has(annotatorKey(name));
+      }
+
       function getCurrentAnnotatorName() {
         return String(sharedAuthenticatedAnnotator || annotatorNameInput.value || "").trim();
+      }
+
+      function getEditableWorkspaceAnnotatorName() {
+        return String(currentWorkspaceAnnotator || getCurrentAnnotatorName()).trim();
+      }
+
+      function isCurrentAdminAnnotator() {
+        return Boolean(sharedAuthToken && isAdminAnnotatorName(sharedAuthenticatedAnnotator));
       }
 
       function buildSharedAuthHeaders(extraHeaders = {}) {
@@ -1992,6 +3238,7 @@
           playToggle.setAttribute("title", "Pause");
         }
         highlightActiveNotes(current);
+        updateScrubberTrimOverlay();
       }
 
       function normalizeCategory(rawCategory) {
@@ -2471,7 +3718,14 @@
         }
         const topBarRect = topBar.getBoundingClientRect();
         const panelTop = Math.max(92, Math.round((topBarRect.bottom || 0) + 12));
+        let panelBottom = 126;
+        if (scrubPanel) {
+          const appRect = app.getBoundingClientRect();
+          const scrubPanelRect = scrubPanel.getBoundingClientRect();
+          panelBottom = Math.max(32, Math.round((appRect.bottom || window.innerHeight) - (scrubPanelRect.top || window.innerHeight) + 12));
+        }
         app.style.setProperty("--floating-panel-top", panelTop + "px");
+        app.style.setProperty("--floating-panel-bottom", panelBottom + "px");
       }
 
       function applyNotesVisibility(options = {}) {
@@ -3198,7 +4452,7 @@
         if (!sourceNote) {
           return;
         }
-        const annotator = getCurrentAnnotatorName();
+        const annotator = getEditableWorkspaceAnnotatorName();
         if (!annotator) {
           updateStatus("Type your annotator name before duplicating a shared note.");
           showErrorPopup("Type your annotator name before duplicating a shared note.");
@@ -3221,7 +4475,7 @@
         renderNotes();
         renderJsonPreview();
         updateStatus(
-          "Copied " + String(sourceNote.label || "note") + " from " + String(sourceNote.ownerAnnotator || "Unknown") + " into your annotations."
+          "Copied " + String(sourceNote.label || "note") + " from " + String(sourceNote.ownerAnnotator || "Unknown") + " into the editable annotation layer."
         );
       }
 
@@ -3229,6 +4483,7 @@
         noteCount.textContent = String(state.notes.length);
         noteList.innerHTML = "";
         if (!state.notes.length) {
+          renderAnalyticsPanel();
           const empty = document.createElement("div");
           empty.className = "empty-notes";
           empty.textContent = "No notes yet. Right click on the video and choose a category.";
@@ -3238,7 +4493,12 @@
 
         state.notes.forEach((note) => {
           const editable = isEditableNote(note);
+          const currentAnnotator = getCurrentAnnotatorName();
           const ownerName = String(note.ownerAnnotator || (editable ? "You" : "Unknown"));
+          const ownerKey = annotatorKey(ownerName);
+          const currentAnnotatorKey = annotatorKey(currentAnnotator);
+          const editingOwnLayer = Boolean(editable && ownerKey && currentAnnotatorKey && ownerKey === currentAnnotatorKey);
+          const adminEditingOtherLayer = Boolean(editable && isCurrentAdminAnnotator() && !editingOwnLayer);
           const card = document.createElement("article");
           card.className = "note-card";
           if (!editable) {
@@ -3270,7 +4530,7 @@
 
           const ownerChip = document.createElement("span");
           ownerChip.className = "note-owner-chip";
-          ownerChip.textContent = editable ? ownerName + " (you)" : ownerName;
+          ownerChip.textContent = editingOwnLayer ? ownerName + " (you)" : ownerName;
           const ownerColors = annotatorColor(ownerName);
           ownerChip.style.setProperty("--annotator-accent", ownerColors.accent);
           ownerChip.style.background = ownerColors.background;
@@ -3279,9 +4539,11 @@
 
           const ownerHint = document.createElement("span");
           ownerHint.className = "note-owner-hint";
-          ownerHint.textContent = editable
-            ? "Editable by you"
-            : "Reference note. Duplicate it to create your own version.";
+          ownerHint.textContent = adminEditingOtherLayer
+            ? ("Editable by " + currentAnnotator + " as admin.")
+            : (editable
+                ? "Editable by you"
+                : "Reference note. Duplicate it to create your own version.");
           ownerRow.append(ownerChip, ownerHint);
 
           card.append(ownerRow);
@@ -3394,7 +4656,7 @@
             const duplicateButton = document.createElement("button");
             duplicateButton.type = "button";
             duplicateButton.className = "secondary";
-            duplicateButton.textContent = "Duplicate To Mine";
+            duplicateButton.textContent = "Duplicate To Editable Layer";
             duplicateButton.addEventListener("click", () => duplicateNoteToCurrentAnnotator(note.id));
             actions.append(duplicateButton);
           }
@@ -3414,6 +4676,7 @@
         });
 
         highlightActiveNotes(video.currentTime || 0);
+        renderAnalyticsPanel();
       }
 
       function hideContextMenu() {
@@ -3453,7 +4716,7 @@
         const category = CATEGORY_CONFIG[categoryKey] || CATEGORY_CONFIG.custom;
         const duration = Number.isFinite(video.duration) ? video.duration : 0;
         const noteTime = clamp(video.currentTime || 0, 0, duration || Number.MAX_SAFE_INTEGER);
-        const annotator = getCurrentAnnotatorName();
+        const annotator = getEditableWorkspaceAnnotatorName();
         const note = {
           id: state.nextId,
           category: categoryKey,
@@ -3560,6 +4823,7 @@
       }
 
       async function openSharedPanel(options = {}) {
+        closeAnalyticsPanel();
         sharedPanel.classList.add("visible");
         updateSharedToggleUi();
         persistSharedSettings();
@@ -3602,6 +4866,11 @@
         const title = String(options.title || "").trim();
         const filePath = String(options.filePath || "").trim();
         const remoteUrl = String(options.remoteUrl || "").trim();
+
+        resetTrimSelection({
+          duration: 0,
+          resetExport: true,
+        });
 
         if (!src) {
           if (!quiet) {
@@ -4087,6 +5356,13 @@
       function indexSharedVideos(videos) {
         sharedVideoIndex.clear();
         sharedEntryMetaIndex.clear();
+        sharedEntryPayloadCache.clear();
+        libraryAnalyticsState.loaded = false;
+        libraryAnalyticsState.error = "";
+        libraryAnalyticsState.partialFailures = 0;
+        libraryAnalyticsState.totalNotes = 0;
+        libraryAnalyticsState.socialDistribution = [];
+        libraryAnalyticsState.taskDistribution = [];
         if (!Array.isArray(videos)) {
           return;
         }
@@ -4261,11 +5537,19 @@
         const currentAnnotator = getCurrentAnnotatorName();
         const currentAnnotatorKey = annotatorKey(currentAnnotator);
         const focusEntry = sharedEntries.find((entry) => entry.id === focusEntryId) || sharedEntries[0];
-        const editableEntry = currentAnnotatorKey
-          ? (sharedEntries.find((entry) => annotatorKey(entry.annotator) === currentAnnotatorKey) || null)
-          : null;
+        const adminEditingEnabled = isCurrentAdminAnnotator();
+        const editableEntry = adminEditingEnabled
+          ? focusEntry
+          : (
+              currentAnnotatorKey
+                ? (sharedEntries.find((entry) => annotatorKey(entry.annotator) === currentAnnotatorKey) || null)
+                : null
+            );
+        const editableEntryId = editableEntry && Number.isInteger(editableEntry.id) ? editableEntry.id : null;
 
-        currentWorkspaceAnnotator = currentAnnotator;
+        currentWorkspaceAnnotator = editableEntry && String(editableEntry.annotator || "").trim()
+          ? String(editableEntry.annotator || "").trim()
+          : currentAnnotator;
         currentWorkspaceVideoRef = Number.isInteger(focusEntry.videoRef) ? focusEntry.videoRef : null;
 
         let nextWorkspaceId = 1;
@@ -4281,12 +5565,12 @@
           const parsed = parseAnnotationWorkspaceData(entry.annotation || {}, {
             annotator: entry.annotator,
             entryId: entry.id,
-            editable: Boolean(currentAnnotatorKey && annotatorKey(entry.annotator) === currentAnnotatorKey),
+            editable: Boolean(editableEntryId && entry.id === editableEntryId),
             preserveIds: false,
             makeNoteId: makeNoteId,
             fallbackCharacters: [],
           });
-          if (editableEntry && entry.id === editableEntry.id) {
+          if (editableEntryId && entry.id === editableEntryId) {
             editableCharacters = parsed.characters.slice();
           }
           combinedNotes.push(...parsed.notes);
@@ -4324,12 +5608,23 @@
 
         const annotatorSummary = sharedEntries.map((entry) => String(entry.annotator || "Unknown")).join(", ");
         if (editableEntry) {
-          updateSharedStatus(
-            "Loaded shared review for " + annotatorSummary + ". Only " + String(editableEntry.annotator || "Unknown") + "'s notes are editable."
-          );
-          updateStatus(
-            "Loaded shared video with " + String(sharedEntries.length) + " annotator layers. Only your notes are editable."
-          );
+          const editableAnnotator = String(editableEntry.annotator || "Unknown");
+          const adminEditingOtherLayer = Boolean(adminEditingEnabled && annotatorKey(editableAnnotator) !== currentAnnotatorKey);
+          if (adminEditingOtherLayer) {
+            updateSharedStatus(
+              "Loaded shared review for " + annotatorSummary + ". Gordon can edit " + editableAnnotator + "'s notes as admin."
+            );
+            updateStatus(
+              "Loaded shared video with " + String(sharedEntries.length) + " annotator layers. Editing " + editableAnnotator + "'s layer as admin."
+            );
+          } else {
+            updateSharedStatus(
+              "Loaded shared review for " + annotatorSummary + ". Only " + editableAnnotator + "'s notes are editable."
+            );
+            updateStatus(
+              "Loaded shared video with " + String(sharedEntries.length) + " annotator layers. Only your notes are editable."
+            );
+          }
         } else {
           updateSharedStatus(
             "Loaded shared review for " + annotatorSummary + ". Existing notes are locked; duplicate a note to create your own version."
@@ -4454,11 +5749,20 @@
           }
           indexSharedVideos(payload.videos);
           renderSharedEntries(payload.videos);
+          if (analyticsPanel.classList.contains("visible")) {
+            await refreshLibraryAnalytics();
+          } else {
+            renderAnalyticsPanel();
+          }
           updateSharedStatus("Loaded " + String((payload.videos && payload.videos.length) || 0) + " shared videos.");
         } catch (error) {
           const message = error && error.message ? String(error.message) : "Unknown error";
           indexSharedVideos([]);
           renderSharedEntries([]);
+          libraryAnalyticsState.loading = false;
+          libraryAnalyticsState.loaded = true;
+          libraryAnalyticsState.error = message;
+          renderAnalyticsPanel();
           updateSharedStatus(
             "Could not reach shared library (" + message + "). Start the shared bridge with: python preprocessing/yt_mp4_bridge.py --host 0.0.0.0"
           );
@@ -4661,6 +5965,7 @@
           return;
         }
         const annotator = getCurrentAnnotatorName();
+        const publishAnnotator = getEditableWorkspaceAnnotatorName() || annotator;
         if (!video.src) {
           updateSharedStatus("Import a YouTube video before publishing.");
           showErrorPopup("Import a YouTube video before publishing.");
@@ -4678,7 +5983,7 @@
               "Content-Type": "application/json",
             }),
             body: JSON.stringify({
-              annotator: annotator,
+              annotator: publishAnnotator,
               videoRef: videoRef,
               annotation: buildExportPayload(),
             }),
@@ -4695,8 +6000,8 @@
             currentRemoteVideoUrl = String(payload.entry.videoUrl || "").trim();
           }
           renderJsonPreview();
-          updateSharedStatus("Published shared entry #" + payload.entry.id + ".");
-          updateStatus("Published shared entry #" + payload.entry.id + ".");
+          updateSharedStatus("Published shared entry #" + payload.entry.id + " for " + publishAnnotator + ".");
+          updateStatus("Published shared entry #" + payload.entry.id + " for " + publishAnnotator + ".");
           loadSharedEntries();
         } catch (error) {
           const message = error && error.message ? String(error.message) : "Unknown error";
@@ -4850,14 +6155,22 @@
       video.addEventListener("pause", updatePlaybackUi);
       video.addEventListener("timeupdate", updatePlaybackUi);
       video.addEventListener("loadedmetadata", () => {
+        resetTrimSelection({
+          duration: video.duration || 0,
+        });
         updatePlaybackUi();
         renderJsonPreview();
         updateStatus("Video duration: " + formatTimecode(video.duration || 0));
       });
       video.addEventListener("durationchange", () => {
+        syncTrimSelection(video.duration || 0);
+        updateTrimUi();
         renderJsonPreview();
       });
       video.addEventListener("error", () => {
+        stopTrimBoundaryMonitor("error");
+        trimState.exporting = false;
+        updateTrimUi();
         updateStatus("Video could not be loaded. Try importing the YouTube video again.");
       });
 
@@ -4886,7 +6199,7 @@
       });
 
       videoLayer.addEventListener("contextmenu", (event) => {
-        const blocker = event.target.closest(".top-bar, .note-rail, .scrub-panel, .shared-panel, .context-menu");
+        const blocker = event.target.closest(".top-bar, .note-rail, .scrub-panel, .shared-panel, .analytics-panel, .context-menu");
         if (blocker) {
           return;
         }
@@ -4918,8 +6231,20 @@
         await openSharedPanel();
       });
 
+      analyticsToggle.addEventListener("click", () => {
+        if (analyticsPanel.classList.contains("visible")) {
+          closeAnalyticsPanel();
+          return;
+        }
+        openAnalyticsPanel();
+      });
+
       sharedCloseButton.addEventListener("click", () => {
         closeSharedPanel();
+      });
+
+      analyticsCloseButton.addEventListener("click", () => {
+        closeAnalyticsPanel();
       });
 
       sharedRefreshButton.addEventListener("click", async () => {
@@ -4969,6 +6294,14 @@
         localUploadInput.value = "";
       });
 
+      trimSetEndButton.addEventListener("click", () => {
+        setTrimEndBoundary();
+      });
+
+      trimDownloadButton.addEventListener("click", () => {
+        downloadTrimmedVideo();
+      });
+
       youtubeLinkInput.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
           event.preventDefault();
@@ -4996,6 +6329,7 @@
       restoreSharedAuth();
       fetchSharedAuthMe({ quiet: true });
       updateSharedToggleUi();
+      updateAnalyticsToggleUi();
       renderCharactersPanel();
       const restored = restoreSession();
       if (!restored) {
@@ -5004,6 +6338,8 @@
         updatePlaybackUi();
         updateStatus("Import a video from YouTube to begin annotating.");
       }
+      updateTrimUi();
+      renderAnalyticsPanel();
       applyNotesVisibility({ persist: false });
       syncNotesToggleSize();
     </script>
