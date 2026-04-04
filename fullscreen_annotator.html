@@ -1830,13 +1830,13 @@
             <article class="analytics-chart-card">
               <div class="analytics-chart-header">
                 <strong>Cognitive Tasks</strong>
-                <span>Reasoning families represented across the full library</span>
+                <span>Counts only notes with non-empty comprehension, reasoning, or prediction fields</span>
               </div>
               <div class="analytics-chart-layout">
                 <div class="analytics-chart" id="analytics-task-chart">
                   <div class="analytics-chart-hole">
                     <strong id="analytics-task-total">0</strong>
-                    <span>notes</span>
+                    <span>fields</span>
                   </div>
                 </div>
                 <div class="analytics-legend" id="analytics-task-legend"></div>
@@ -1888,12 +1888,9 @@
       ];
 
       const ANALYTICS_COGNITIVE_TASKS = [
-        { key: "perception", label: "Perception", color: "#36b5ff", categories: ["perception"] },
-        { key: "understanding", label: "Understanding", color: "#6ec86a", categories: ["understanding", "understanding_emotions", "understanding_persona", "understanding_situation_awareness", "understanding_relationship", "understanding_intent", "understanding_norms", "emotion", "social"] },
-        { key: "perspective", label: "Perspective-Taking", color: "#51b9a5", categories: ["perspective"] },
-        { key: "causal", label: "Causal Reasoning", color: "#f2aa48", categories: ["causal"] },
-        { key: "prediction", label: "Prediction", color: "#f57d8a", categories: ["prediction"] },
-        { key: "other", label: "Custom / Other", color: "#94a3b8", categories: ["custom"] },
+        { key: "comprehension", label: "Comprehension", color: "#6ec86a", fields: ["comprehension", "noteComprehension"] },
+        { key: "reasoning", label: "Reasoning", color: "#f2aa48", fields: ["reasoning", "noteReasoning"] },
+        { key: "prediction", label: "Prediction", color: "#f57d8a", fields: ["prediction", "notePrediction"] },
       ];
 
       const PERSONA_CATEGORY_OPTIONS = [
@@ -2070,7 +2067,6 @@
       const sharedEntryMetaIndex = new Map();
       const sharedEntryPayloadCache = new Map();
       const analyticsSocialCategoryMap = buildAnalyticsCategoryMap(ANALYTICS_SOCIAL_DIMENSIONS);
-      const analyticsTaskCategoryMap = buildAnalyticsCategoryMap(ANALYTICS_COGNITIVE_TASKS);
       const libraryAnalyticsState = {
         loading: false,
         loaded: false,
@@ -2151,11 +2147,15 @@
         await loadSharedEntries();
       }
 
-      function buildAnalyticsDistributionFromNotes(notes, definitions, categoryMap) {
+      function hasNonEmptyTextValue(value) {
+        return String(value || "").trim().length > 0;
+      }
+
+      function buildSocialDistributionFromRawNotes(notes, definitions, categoryMap) {
         const fallbackKey = definitions.length ? definitions[definitions.length - 1].key : "";
         const counts = new Map(definitions.map((definition) => [definition.key, 0]));
         (Array.isArray(notes) ? notes : []).forEach((note) => {
-          const categoryKey = String(note && note.category || "").trim();
+          const categoryKey = normalizeCategory(note && (note.category || note.label) || "");
           const bucketKey = categoryMap.get(categoryKey) || fallbackKey;
           if (!counts.has(bucketKey)) {
             return;
@@ -2169,6 +2169,27 @@
               label: definition.label,
               color: definition.color,
               count: counts.get(definition.key) || 0,
+            };
+          })
+          .filter((item) => item.count > 0);
+      }
+
+      function buildCognitiveTaskDistributionFromRawNotes(notes, definitions) {
+        const rawNotes = Array.isArray(notes) ? notes : [];
+        return definitions
+          .map((definition) => {
+            const fields = Array.isArray(definition.fields) ? definition.fields : [];
+            const count = rawNotes.reduce((sum, note) => {
+              const matches = fields.some((field) => {
+                return hasNonEmptyTextValue(note && note[field]);
+              });
+              return sum + (matches ? 1 : 0);
+            }, 0);
+            return {
+              key: definition.key,
+              label: definition.label,
+              color: definition.color,
+              count: count,
             };
           })
           .filter((item) => item.count > 0);
@@ -2294,7 +2315,7 @@
           return;
         }
 
-        const allNotes = [];
+        const allRawNotes = [];
         let partialFailures = 0;
 
         settledEntries.forEach((result) => {
@@ -2303,14 +2324,10 @@
             return;
           }
           const entry = result.value;
-          const parsed = parseAnnotationWorkspaceData(entry && entry.annotation || {}, {
-            annotator: entry && entry.annotator || "",
-            editable: false,
-            preserveIds: false,
-            startId: 1,
-            fallbackCharacters: [],
-          });
-          allNotes.push(...parsed.notes);
+          const rawNotes = Array.isArray(entry && entry.annotation && entry.annotation.notes)
+            ? entry.annotation.notes
+            : [];
+          allRawNotes.push(...rawNotes);
         });
 
         libraryAnalyticsState.loading = false;
@@ -2319,17 +2336,16 @@
         libraryAnalyticsState.partialFailures = partialFailures;
         libraryAnalyticsState.totalVideos = metadata.totalVideos;
         libraryAnalyticsState.totalLayers = metadata.totalLayers;
-        libraryAnalyticsState.totalNotes = allNotes.length;
+        libraryAnalyticsState.totalNotes = allRawNotes.length;
         libraryAnalyticsState.totalAnnotators = metadata.totalAnnotators;
-        libraryAnalyticsState.socialDistribution = buildAnalyticsDistributionFromNotes(
-          allNotes,
+        libraryAnalyticsState.socialDistribution = buildSocialDistributionFromRawNotes(
+          allRawNotes,
           ANALYTICS_SOCIAL_DIMENSIONS,
           analyticsSocialCategoryMap
         );
-        libraryAnalyticsState.taskDistribution = buildAnalyticsDistributionFromNotes(
-          allNotes,
-          ANALYTICS_COGNITIVE_TASKS,
-          analyticsTaskCategoryMap
+        libraryAnalyticsState.taskDistribution = buildCognitiveTaskDistributionFromRawNotes(
+          allRawNotes,
+          ANALYTICS_COGNITIVE_TASKS
         );
         renderAnalyticsPanel();
       }
