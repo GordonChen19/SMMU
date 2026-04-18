@@ -20,7 +20,7 @@ class AnswerChoice(str, Enum):
     H = "H"
 
 class ResponseMCQ(BaseModel):
-    choice: List[AnswerChoice] = Field(..., description="The correct answer choice(s) to the question. (More than one may apply)")
+    choice: List[AnswerChoice] = Field(..., description="The correct answer choice(s) to the question.")
 
 
 class PlausibleAnswer(BaseModel):

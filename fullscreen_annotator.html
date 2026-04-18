@@ -154,6 +154,13 @@
         gap: 8px;
       }
 
+      .gemini-thinking-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+      }
+
       .top-bar-break {
         flex-basis: 100%;
         height: 0;
@@ -1240,13 +1247,27 @@
         display: flex;
       }
 
+      .gemini-backdrop {
+        position: absolute;
+        inset: 0;
+        z-index: 39;
+        display: none;
+        background: rgba(5, 8, 12, 0.52);
+        backdrop-filter: blur(4px);
+      }
+
+      .gemini-backdrop.visible {
+        display: block;
+      }
+
       .gemini-panel {
         position: absolute;
-        left: 16px;
-        bottom: calc(var(--floating-panel-bottom) + 12px);
-        z-index: 29;
-        width: min(560px, 52vw);
-        max-height: min(46vh, 520px);
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 40;
+        width: min(680px, calc(100vw - 32px));
+        max-height: min(62vh, 640px);
         border-radius: 16px;
         border: 1px solid rgba(218, 224, 232, 0.48);
         background: rgba(14, 18, 26, 0.94);
@@ -1830,8 +1851,8 @@
         }
 
         .gemini-panel {
-          width: calc(100% - 32px);
-          max-height: 34vh;
+          width: calc(100% - 24px);
+          max-height: min(70vh, calc(100vh - 32px));
         }
 
         .analytics-summary-grid,
@@ -1917,6 +1938,14 @@
           <span>Analytics</span>
           <span class="shared-toggle-arrow" id="analytics-toggle-arrow" aria-hidden="true">&#9662;</span>
         </button>
+        <button
+          class="btn ghost shared-toggle-button"
+          id="gemini-thinking-toggle"
+          type="button"
+          title="Cycle Gemini thinking level"
+        >
+          <span id="gemini-thinking-label">Gemini: Low</span>
+        </button>
         <span class="video-title" id="video-title" hidden aria-hidden="true">No video loaded</span>
         <span class="hint"></span>
       </div>
@@ -1952,6 +1981,14 @@
           <span class="timecode" id="current-time">00:00:00.00</span>
           <input class="scrubber" id="scrubber" type="range" min="0" max="0" step="0.01" value="0">
           <span class="timecode" id="duration-time">00:00:00.00</span>
+          <button
+            class="btn ghost gemini-thinking-button"
+            id="gemini-thinking-toggle-inline"
+            type="button"
+            title="Cycle Gemini thinking level"
+          >
+            <span id="gemini-thinking-label-inline">Gemini: Low</span>
+          </button>
           <span class="status" id="status">Import a video from YouTube to begin annotating.</span>
         </div>
         <div class="trim-row">
@@ -2091,6 +2128,8 @@
         </div>
       </section>
 
+      <div class="gemini-backdrop" id="gemini-backdrop"></div>
+
       <section class="gemini-panel" id="gemini-panel" aria-live="polite">
         <div class="shared-header">
           <strong>Gemini</strong>
@@ -2099,7 +2138,7 @@
           </div>
         </div>
         <div class="gemini-body">
-          <div class="gemini-meta" id="gemini-meta">Use Quiz Gemini to answer a multiple-choice question, or Ask Gemini to fill empty distractor slots from the clip ending at the note timestamp.</div>
+          <div class="gemini-meta" id="gemini-meta">Use note-level Quiz Gemini to answer comprehension, reasoning, and prediction together, or use each task's Ask Gemini button to fill empty answer fields from the clip ending at the note timestamp.</div>
           <div class="gemini-question" id="gemini-question" hidden>
             <strong>Question</strong>
             <span id="gemini-question-text"></span>
@@ -2123,7 +2162,12 @@
         understanding_situation_awareness: { label: "Situation Awareness", color: "#5eb8d6", rgb: "94,184,214" },
         understanding_relationship: { label: "Relationship", color: "#7f9ef7", rgb: "127,158,247" },
         understanding_intent: { label: "Intent", color: "#e0ae4a", rgb: "224,174,74" },
+        understanding_communicative_intent: { label: "Communicative Intent", color: "#d8953d", rgb: "216,149,61" },
+        understanding_knowledge_state: { label: "Knowledge State", color: "#7dcb77", rgb: "125,203,119" },
         understanding_norms: { label: "Social Norms", color: "#aeb4c1", rgb: "174,180,193" },
+        understanding_cultural_conventions: { label: "Cultural Conventions", color: "#9aa8b8", rgb: "154,168,184" },
+        understanding_moral_judgment: { label: "Moral Judgment", color: "#c48d98", rgb: "196,141,152" },
+        understanding_role_institutional_knowledge: { label: "Role / Institutional Knowledge", color: "#6c9fc6", rgb: "108,159,198" },
         perspective: { label: "Perspective", color: "#6ec86a", rgb: "110,200,106" },
         causal: { label: "Causal", color: "#f2aa48", rgb: "242,170,72" },
         emotion: { label: "Emotion", color: "#f57d8a", rgb: "245,125,138" },
@@ -2134,11 +2178,16 @@
       const CONTEXT_MENU_STRUCTURE = {
         root: [
           "perspective",
+          "understanding_knowledge_state",
           "understanding_emotions",
           "understanding_persona",
           "understanding_relationship",
           "understanding_intent",
+          "understanding_communicative_intent",
           "understanding_norms",
+          "understanding_cultural_conventions",
+          "understanding_moral_judgment",
+          "understanding_role_institutional_knowledge",
         ],
       };
 
@@ -2146,10 +2195,10 @@
         { key: "emotions", label: "Emotions", color: "#f57d8a", categories: ["understanding_emotions", "emotion"] },
         { key: "persona", label: "Persona", color: "#51b9a5", categories: ["understanding_persona"] },
         { key: "relationship", label: "Relationship", color: "#7f9ef7", categories: ["understanding_relationship"] },
-        { key: "intent", label: "Intent", color: "#e0ae4a", categories: ["understanding_intent"] },
-        { key: "norms", label: "Social Norms", color: "#aeb4c1", categories: ["understanding_norms"] },
+        { key: "intent", label: "Intent", color: "#e0ae4a", categories: ["understanding_intent", "understanding_communicative_intent"] },
+        { key: "norms", label: "Social Norms", color: "#aeb4c1", categories: ["understanding_norms", "understanding_cultural_conventions", "understanding_moral_judgment", "understanding_role_institutional_knowledge"] },
         { key: "situation_awareness", label: "Situation Awareness", color: "#5eb8d6", categories: ["understanding_situation_awareness"] },
-        { key: "perspective", label: "Perspective", color: "#6ec86a", categories: ["perspective"] },
+        { key: "perspective", label: "Perspective", color: "#6ec86a", categories: ["perspective", "understanding_knowledge_state"] },
         { key: "general", label: "General / Other", color: "#94a3b8", categories: ["perception", "understanding", "prediction", "causal", "social", "custom"] },
       ];
 
@@ -2158,6 +2207,109 @@
         { key: "reasoning", label: "Reasoning", color: "#f2aa48", fields: ["reasoning", "noteReasoning"] },
         { key: "prediction", label: "Prediction", color: "#f57d8a", fields: ["prediction", "notePrediction"] },
       ];
+
+      const NOTE_ANALYSIS_ITEMS = [
+        {
+          field: "comprehension",
+          label: "Comprehension",
+          questionField: "comprehensionQuestion",
+          questionPlaceholder: "Write the comprehension question...",
+          placeholder: "Summarize what is happening in this moment...",
+          distractorField: "comprehensionDistractors",
+          distractorPlaceholderPrefix: "Wrong comprehension answer",
+        },
+        {
+          field: "reasoning",
+          label: "Reasoning",
+          questionField: "reasoningQuestion",
+          questionPlaceholder: "Write the reasoning question...",
+          placeholder: "Explain why you interpret the moment this way...",
+          distractorField: "reasoningDistractors",
+          distractorPlaceholderPrefix: "Wrong reasoning answer",
+        },
+        {
+          field: "prediction",
+          label: "Prediction",
+          questionField: "predictionQuestion",
+          questionPlaceholder: "Write the prediction question...",
+          placeholder: "Describe what you expect to happen next...",
+          distractorField: "predictionDistractors",
+          distractorPlaceholderPrefix: "Wrong prediction answer",
+        },
+      ];
+
+      // Mirror extraction_chain/prompt_template.py QUESTION_MAPPINGS in the browser so
+      // note questions can be auto-seeded when annotators create or retarget a note.
+      const QUESTION_TEMPLATE_MAPPINGS = {
+        Emotion: {
+          Reasoning: "Which of the following best describes what causes {character} to feel how they feel in this scene?",
+          Comprehension: "Which of the following correctly describes what {character} is feeling at this point in the video?",
+          Prediction: "Given how {character} is feeling at this point in the video, which of the following actions is {character} most likely to take next?",
+        },
+        Intent: {
+          Reasoning: "Which of the following best explains why {character}'s intent in this scene is what it is?",
+          Comprehension: "Which of the following correctly describes what {character}'s intent is at this point in the video?",
+          Prediction: "Given {character}'s intent, which of the following outcomes is {character} most likely to pursue next?",
+        },
+        "Perspective/Belief": {
+          Reasoning: "Which of the following best describes why {character} has the perspective/belief that he does?",
+          Comprehension: "Which of the following correctly describes {character}'s perspective/belief at this point in the video?",
+          Prediction: "Given {character}'s perspective/belief, which of the following beliefs or actions is {character} most likely to have or take next?",
+        },
+        Knowledge_State: {
+          Reasoning: "Which of the following best explains why {character} knows or does not know what they do in this scene?",
+          Comprehension: "Which of the following correctly describes what {character} knows or does not know at this point in the video?",
+          Prediction: "Given what {character} knows or does not know, which of the following beliefs or actions is {character} most likely to have or take next?",
+        },
+        Communicative_Intent: {
+          Reasoning: "Which of the following best explains why {character} is communicating what they are in this scene?",
+          Comprehension: "Which of the following correctly describes what {character}'s communicative intent is at this point in the video?",
+          Prediction: "Given {character}'s communicative intent, what type of reaction is {character} most likely to elicit from others?",
+        },
+        Relationship: {
+          Reasoning: "Which of the following best explains why {character1} has the relationship with {character2} that they do in this scene?",
+          Comprehension: "Which of the following correctly describes the relationship between {character1} and {character2} at this point in the video?",
+          Prediction: "Given the relationship between {character1} and {character2}, which of the following interactions is most likely to occur next between them?",
+        },
+        Social_Norms: {
+          Reasoning: "Explain how {character} is adhering to or violating social norms in this scene.",
+          Comprehension: "Is {character} adhering or violating a social norm? If so, which social norm?",
+          Prediction: "Given the norm violation or conformity observed from {character}, which of the following social consequences is most likely to follow?",
+        },
+        Cultural_Conventions: {
+          Reasoning: "Explain how {character} is adhering to or violating cultural conventions in this scene.",
+          Comprehension: "Is {character} adhering or violating a cultural convention? If so, which cultural convention?",
+          Prediction: "Given the convention violation or conformity observed from {character}, which of the following cultural consequences is most likely to follow?",
+        },
+        Moral_Judgement: {
+          Reasoning: "Explain how {character}'s action is morally good or bad in this scene.",
+          Comprehension: "Is {character}'s action morally good, bad, or neutral? Explain what type of moral judgement it represents.",
+          Prediction: "Given the moral judgement that {character} makes, which of the following consequences is most likely to follow?",
+        },
+        "Role/Institutional_Knowledge": {
+          Reasoning: "Explain how {character} is adhering to or violating their role and institutional knowledge in this scene.",
+          Comprehension: "Is {character} adhering or violating their role and institutional knowledge? If so, which aspects?",
+          Prediction: "Given {character}'s role and institutional knowledge, which of the following consequences is most likely to follow?",
+        },
+      };
+
+      const QUESTION_TEMPLATE_KEYS_BY_CATEGORY = {
+        understanding_emotions: "Emotion",
+        emotion: "Emotion",
+        understanding_intent: "Intent",
+        understanding_communicative_intent: "Communicative_Intent",
+        perspective: "Perspective/Belief",
+        understanding_knowledge_state: "Knowledge_State",
+        understanding_relationship: "Relationship",
+        understanding_norms: "Social_Norms",
+        understanding_cultural_conventions: "Cultural_Conventions",
+        understanding_moral_judgment: "Moral_Judgement",
+        understanding_role_institutional_knowledge: "Role/Institutional_Knowledge",
+      };
+
+      const QUESTION_TEMPLATE_CHARACTER_PLACEHOLDER = "[character]";
+      const QUESTION_TEMPLATE_RELATIONSHIP_CHARACTER1_PLACEHOLDER = "[character 1]";
+      const QUESTION_TEMPLATE_RELATIONSHIP_CHARACTER2_PLACEHOLDER = "[character 2]";
 
       const PERSONA_CATEGORY_OPTIONS = [
         "The Dominator",
@@ -2231,6 +2383,7 @@
       const SHARED_SERVER_STORAGE_KEY = "fullscreen-video-annotator-shared-server-v1";
       const ANNOTATOR_NAME_STORAGE_KEY = "fullscreen-video-annotator-annotator-v1";
       const SHARED_AUTH_STORAGE_KEY = "fullscreen-video-annotator-shared-auth-v1";
+      const GEMINI_THINKING_STORAGE_KEY = "fullscreen-video-annotator-gemini-thinking-v1";
       const DEFAULT_SHARED_SERVER_URL = "http://127.0.0.1:8765";
       const YT_IMPORT_ENDPOINT_PATH = "/api/yt-mp4";
       const YT_TRIM_ENDPOINT_PATH = "/api/yt-mp4/trim";
@@ -2277,6 +2430,10 @@
       const analyticsPanel = document.getElementById("analytics-panel");
       const analyticsToggle = document.getElementById("analytics-toggle");
       const analyticsToggleArrow = document.getElementById("analytics-toggle-arrow");
+      const geminiThinkingToggle = document.getElementById("gemini-thinking-toggle");
+      const geminiThinkingLabel = document.getElementById("gemini-thinking-label");
+      const geminiThinkingToggleInline = document.getElementById("gemini-thinking-toggle-inline");
+      const geminiThinkingLabelInline = document.getElementById("gemini-thinking-label-inline");
       const analyticsCloseButton = document.getElementById("analytics-close");
       const analyticsStatusLabel = document.getElementById("analytics-status");
       const analyticsVideoCount = document.getElementById("analytics-video-count");
@@ -2289,6 +2446,7 @@
       const analyticsTaskChart = document.getElementById("analytics-task-chart");
       const analyticsTaskTotal = document.getElementById("analytics-task-total");
       const analyticsTaskLegend = document.getElementById("analytics-task-legend");
+      const geminiBackdrop = document.getElementById("gemini-backdrop");
       const geminiPanel = document.getElementById("gemini-panel");
       const geminiCloseButton = document.getElementById("gemini-close");
       const geminiMeta = document.getElementById("gemini-meta");
@@ -2373,9 +2531,11 @@
         endSec: 0,
         exporting: false,
       };
+      const GEMINI_THINKING_LEVELS = ["low", "medium", "high"];
       let trimBoundaryMonitor = null;
       let libraryAnalyticsRequestId = 0;
       let geminiAssistRequestId = 0;
+      let geminiThinkingLevel = "low";
 
       function buildAnalyticsCategoryMap(definitions) {
         const map = new Map();
@@ -2424,6 +2584,49 @@
         analyticsToggleArrow.innerHTML = isOpen ? "&#9652;" : "&#9662;";
       }
 
+      function normalizeGeminiThinkingLevel(value) {
+        const normalized = String(value || "").trim().toLowerCase();
+        return GEMINI_THINKING_LEVELS.includes(normalized) ? normalized : "low";
+      }
+
+      function formatGeminiThinkingLevel(value) {
+        const normalized = normalizeGeminiThinkingLevel(value);
+        return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+      }
+
+      function persistGeminiThinkingLevel() {
+        try {
+          localStorage.setItem(GEMINI_THINKING_STORAGE_KEY, normalizeGeminiThinkingLevel(geminiThinkingLevel));
+        } catch (error) {
+          // Ignore privacy mode/localStorage failures.
+        }
+      }
+
+      function updateGeminiThinkingUi() {
+        const label = "Gemini: " + formatGeminiThinkingLevel(geminiThinkingLevel);
+        geminiThinkingLabel.textContent = label;
+        geminiThinkingLabelInline.textContent = label;
+        geminiThinkingToggle.setAttribute(
+          "title",
+          label + ". Click to cycle between low, medium, and high thinking."
+        );
+        geminiThinkingToggleInline.setAttribute(
+          "title",
+          label + ". Click to cycle between low, medium, and high thinking."
+        );
+      }
+
+      function cycleGeminiThinkingLevel() {
+        const currentIndex = GEMINI_THINKING_LEVELS.indexOf(normalizeGeminiThinkingLevel(geminiThinkingLevel));
+        const nextIndex = currentIndex >= 0
+          ? (currentIndex + 1) % GEMINI_THINKING_LEVELS.length
+          : 0;
+        geminiThinkingLevel = GEMINI_THINKING_LEVELS[nextIndex];
+        persistGeminiThinkingLevel();
+        updateGeminiThinkingUi();
+        updateStatus("Gemini thinking level set to " + formatGeminiThinkingLevel(geminiThinkingLevel) + ".");
+      }
+
       function closeAnalyticsPanel() {
         analyticsPanel.classList.remove("visible");
         updateAnalyticsToggleUi();
@@ -2439,10 +2642,12 @@
       }
 
       function closeGeminiPanel() {
+        geminiBackdrop.classList.remove("visible");
         geminiPanel.classList.remove("visible");
       }
 
       function openGeminiPanel() {
+        geminiBackdrop.classList.add("visible");
         geminiPanel.classList.add("visible");
       }
 
@@ -2450,7 +2655,12 @@
         const question = String(payload.question || "").trim();
         const taskLabel = String(payload.taskLabel || "Question").trim();
         const endSec = Number(payload.endSec) || 0;
-        geminiMeta.textContent = taskLabel + " | Clip 00:00:00.00 to " + formatTimecode(endSec) + ".";
+        geminiMeta.textContent = taskLabel
+          + " | Thinking "
+          + formatGeminiThinkingLevel(geminiThinkingLevel)
+          + " | Clip 00:00:00.00 to "
+          + formatTimecode(endSec)
+          + ".";
         geminiQuestion.hidden = !question;
         geminiQuestionText.textContent = question;
         geminiStatus.classList.remove("error");
@@ -2465,7 +2675,12 @@
         const response = String(payload.response || "").trim();
         const taskLabel = String(payload.taskLabel || "Question").trim();
         const endSec = Number(payload.endSec) || 0;
-        geminiMeta.textContent = taskLabel + " | Clip 00:00:00.00 to " + formatTimecode(endSec) + ".";
+        geminiMeta.textContent = taskLabel
+          + " | Thinking "
+          + formatGeminiThinkingLevel(geminiThinkingLevel)
+          + " | Clip 00:00:00.00 to "
+          + formatTimecode(endSec)
+          + ".";
         geminiQuestion.hidden = !question;
         geminiQuestionText.textContent = question;
         geminiStatus.classList.remove("error");
@@ -2479,7 +2694,12 @@
         const question = String(payload.question || "").trim();
         const taskLabel = String(payload.taskLabel || "Question").trim();
         const endSec = Number(payload.endSec) || 0;
-        geminiMeta.textContent = taskLabel + " | Clip 00:00:00.00 to " + formatTimecode(endSec) + ".";
+        geminiMeta.textContent = taskLabel
+          + " | Thinking "
+          + formatGeminiThinkingLevel(geminiThinkingLevel)
+          + " | Clip 00:00:00.00 to "
+          + formatTimecode(endSec)
+          + ".";
         geminiQuestion.hidden = !question;
         geminiQuestionText.textContent = question;
         geminiStatus.classList.add("error");
@@ -3215,6 +3435,85 @@
         }
       }
 
+      function getGeminiClipEndSec(note) {
+        const duration = getVideoDurationSec();
+        const clipEnd = clamp(Number(note && note.timeSec || 0), 0, duration || Number.MAX_SAFE_INTEGER);
+        if (!Number.isFinite(clipEnd) || clipEnd <= 0) {
+          throw new Error("Set the note timestamp after 00:00:00.00 before asking Gemini about a clip.");
+        }
+        return clipEnd;
+      }
+
+      function getGeminiClipQuestionSetup(note, item) {
+        const question = String(note && note[item.questionField] || "").trim();
+        if (!question) {
+          throw new Error("Write the " + String(item.label || "question").toLowerCase() + " question first.");
+        }
+        const choiceCandidates = [
+          String(note && note[item.field] || "").trim(),
+          ...toEditableDistractorSlots(note && note[item.distractorField]).map((value) => String(value || "").trim()),
+        ];
+        const seenChoiceKeys = new Set();
+        const choices = choiceCandidates.filter((value) => {
+          const key = value.toLowerCase();
+          if (!value || seenChoiceKeys.has(key)) {
+            return false;
+          }
+          seenChoiceKeys.add(key);
+          return true;
+        });
+        if (choices.length < 2) {
+          throw new Error("Add the correct answer and at least one distractor before asking Gemini.");
+        }
+        return {
+          question: question,
+          choices: choices,
+        };
+      }
+
+      async function runGeminiClipAnalysis(note, item, clipEnd) {
+        const setup = getGeminiClipQuestionSetup(note, item);
+        const sourceInfo = currentSourceInfoPayload();
+        const response = await fetch(resolveSharedApiUrl(GEMINI_CLIP_QUESTION_PATH), {
+          method: "POST",
+          headers: buildSharedAuthHeaders({
+            "Content-Type": "application/json",
+          }),
+          body: JSON.stringify({
+            noteId: note.id,
+            taskLabel: item.label,
+            question: setup.question,
+            choices: setup.choices,
+            endSec: Number(clipEnd.toFixed(3)),
+            videoRef: Number.isInteger(currentServerVideoRef) ? currentServerVideoRef : null,
+            videoUrl: String(currentRemoteVideoUrl || video.currentSrc || video.src || "").trim() || null,
+            filePath: String(videoFilePath || "").trim() || null,
+            sourceUrl: sourceInfo.sourceUrl,
+            model: "gemini-3.1-pro-preview",
+            thinkingLevel: geminiThinkingLevel,
+          }),
+        });
+
+        let payload = null;
+        try {
+          payload = await response.json();
+        } catch (error) {
+          payload = null;
+        }
+
+        if (!response.ok || !payload || typeof payload.response !== "string") {
+          const message = payload && payload.error ? String(payload.error) : "Gemini clip analysis failed.";
+          throw new Error(message);
+        }
+
+        return {
+          question: setup.question,
+          response: String(payload.response || "").trim(),
+          selectedChoice: String(payload.selectedChoice || "").trim(),
+          selectedLabel: String(payload.selectedLabel || "").trim(),
+        };
+      }
+
       async function requestGeminiClipAnswer(noteId, item, triggerButton) {
         if (!requireSharedLogin("asking Gemini about a clip")) {
           return;
@@ -3233,34 +3532,13 @@
           showErrorPopup("Could not find that note anymore.");
           return;
         }
-
-        const question = String(note[item.questionField] || "").trim();
-        if (!question) {
-          showErrorPopup("Write the " + String(item.label || "question").toLowerCase() + " question first.");
-          return;
-        }
-        const choiceCandidates = [
-          String(note[item.field] || "").trim(),
-          ...toEditableDistractorSlots(note[item.distractorField]).map((value) => String(value || "").trim()),
-        ];
-        const seenChoiceKeys = new Set();
-        const choices = choiceCandidates.filter((value) => {
-          const key = value.toLowerCase();
-          if (!value || seenChoiceKeys.has(key)) {
-            return false;
-          }
-          seenChoiceKeys.add(key);
-          return true;
-        });
-        if (choices.length < 2) {
-          showErrorPopup("Add the correct answer and at least one distractor before asking Gemini.");
-          return;
-        }
-
-        const duration = getVideoDurationSec();
-        const clipEnd = clamp(Number(note.timeSec || 0), 0, duration || Number.MAX_SAFE_INTEGER);
-        if (!Number.isFinite(clipEnd) || clipEnd <= 0) {
-          showErrorPopup("Set the note timestamp after 00:00:00.00 before asking Gemini about a clip.");
+        let clipEnd = 0;
+        let question = "";
+        try {
+          clipEnd = getGeminiClipEndSec(note);
+          question = getGeminiClipQuestionSetup(note, item).question;
+        } catch (error) {
+          showErrorPopup(error && error.message ? String(error.message) : "Gemini clip analysis could not be prepared.");
           return;
         }
 
@@ -3280,38 +3558,7 @@
         });
 
         try {
-          const sourceInfo = currentSourceInfoPayload();
-          const response = await fetch(resolveSharedApiUrl(GEMINI_CLIP_QUESTION_PATH), {
-            method: "POST",
-            headers: buildSharedAuthHeaders({
-              "Content-Type": "application/json",
-            }),
-            body: JSON.stringify({
-              noteId: note.id,
-              taskLabel: item.label,
-              question: question,
-              choices: choices,
-              endSec: Number(clipEnd.toFixed(3)),
-              videoRef: Number.isInteger(currentServerVideoRef) ? currentServerVideoRef : null,
-              videoUrl: String(currentRemoteVideoUrl || video.currentSrc || video.src || "").trim() || null,
-              filePath: String(videoFilePath || "").trim() || null,
-              sourceUrl: sourceInfo.sourceUrl,
-              model: "gemini-3.1-pro-preview",
-              thinkingLevel: "low",
-            }),
-          });
-
-          let payload = null;
-          try {
-            payload = await response.json();
-          } catch (error) {
-            payload = null;
-          }
-
-          if (!response.ok || !payload || typeof payload.response !== "string") {
-            const message = payload && payload.error ? String(payload.error) : "Gemini clip analysis failed.";
-            throw new Error(message);
-          }
+          const payload = await runGeminiClipAnalysis(note, item, clipEnd);
 
           if (requestId !== geminiAssistRequestId) {
             return;
@@ -3330,6 +3577,130 @@
             setGeminiPanelError({
               question: question,
               taskLabel: item.label,
+              endSec: clipEnd,
+              message: message,
+            });
+          }
+          updateStatus("Gemini clip analysis failed (" + message + ").");
+          showErrorPopup("Gemini clip analysis failed: " + message);
+        } finally {
+          if (triggerButton) {
+            triggerButton.disabled = false;
+            triggerButton.textContent = previousButtonLabel || "Quiz Gemini";
+          }
+        }
+      }
+
+      async function requestGeminiNoteQuiz(noteId, triggerButton) {
+        if (!requireSharedLogin("asking Gemini about all note questions")) {
+          return;
+        }
+        if (!hasLoadedVideoSource()) {
+          showErrorPopup("Load a video before asking Gemini about a clip.");
+          return;
+        }
+        if (currentVideoFile && !isServerManagedVideoSource() && !Number.isInteger(currentServerVideoRef)) {
+          showErrorPopup("Gemini clip analysis currently needs a server-visible video source. Reopen the video from the shared library or publish/register it first.");
+          return;
+        }
+
+        const note = getNoteById(noteId);
+        if (!note) {
+          showErrorPopup("Could not find that note anymore.");
+          return;
+        }
+
+        let clipEnd = 0;
+        try {
+          clipEnd = getGeminiClipEndSec(note);
+        } catch (error) {
+          showErrorPopup(error && error.message ? String(error.message) : "Gemini clip analysis could not be prepared.");
+          return;
+        }
+
+        const runnableItems = [];
+        const skippedItems = [];
+        NOTE_ANALYSIS_ITEMS.forEach((item) => {
+          try {
+            const setup = getGeminiClipQuestionSetup(note, item);
+            runnableItems.push({
+              item: item,
+              question: setup.question,
+            });
+          } catch (error) {
+            skippedItems.push(
+              String(item.label || "Question")
+              + ": "
+              + (error && error.message ? String(error.message) : "Skipped.")
+            );
+          }
+        });
+
+        if (!runnableItems.length) {
+          showErrorPopup("Add at least one complete question with answer choices before using Quiz Gemini.");
+          return;
+        }
+
+        const requestId = geminiAssistRequestId + 1;
+        geminiAssistRequestId = requestId;
+
+        const previousButtonLabel = triggerButton ? triggerButton.textContent : "";
+        if (triggerButton) {
+          triggerButton.disabled = true;
+          triggerButton.textContent = "Asking...";
+        }
+
+        const questionSummary = runnableItems
+          .map((entry) => String(entry.item.label || "Question") + ": " + entry.question)
+          .join("\n\n");
+
+        setGeminiPanelLoading({
+          question: questionSummary,
+          taskLabel: "All Questions",
+          endSec: clipEnd,
+        });
+
+        try {
+          const responseSections = [];
+          for (const entry of runnableItems) {
+            try {
+              const result = await runGeminiClipAnalysis(note, entry.item, clipEnd);
+              if (requestId !== geminiAssistRequestId) {
+                return;
+              }
+              responseSections.push(String(entry.item.label || "Question") + "\n" + result.response);
+            } catch (error) {
+              responseSections.push(
+                String(entry.item.label || "Question")
+                + "\nFailed: "
+                + (error && error.message ? String(error.message) : "Unknown error")
+              );
+            }
+          }
+
+          if (skippedItems.length) {
+            responseSections.push("Skipped\n" + skippedItems.join("\n"));
+          }
+
+          setGeminiPanelResult({
+            question: questionSummary,
+            taskLabel: "All Questions",
+            endSec: clipEnd,
+            response: responseSections.join("\n\n"),
+          });
+          updateStatus(
+            "Gemini quizzed "
+            + String(runnableItems.length)
+            + " question"
+            + (runnableItems.length === 1 ? "" : "s")
+            + " for this note."
+          );
+        } catch (error) {
+          const message = error && error.message ? String(error.message) : "Unknown error";
+          if (requestId === geminiAssistRequestId) {
+            setGeminiPanelError({
+              question: questionSummary,
+              taskLabel: "All Questions",
               endSec: clipEnd,
               message: message,
             });
@@ -3373,6 +3744,8 @@
           return;
         }
 
+        const currentCorrectAnswer = String(note[item.field] || "").trim();
+        const shouldFillCorrectAnswer = !currentCorrectAnswer;
         const distractorSlots = toEditableDistractorSlots(note[item.distractorField]);
         const emptyIndexes = [];
         distractorSlots.forEach((value, index) => {
@@ -3380,13 +3753,13 @@
             emptyIndexes.push(index);
           }
         });
-        if (!emptyIndexes.length) {
-          showErrorPopup("All distractor slots are already filled for this question.");
+        if (!shouldFillCorrectAnswer && !emptyIndexes.length) {
+          showErrorPopup("The correct answer and all distractor slots are already filled for this question.");
           return;
         }
 
         const existingCandidates = [
-          String(note[item.field] || "").trim(),
+          currentCorrectAnswer,
           ...distractorSlots.map((value) => String(value || "").trim()),
         ];
         const seenExistingKeys = new Set();
@@ -3398,10 +3771,6 @@
           seenExistingKeys.add(key);
           return true;
         });
-        if (!existingAnswers.length) {
-          showErrorPopup("Fill at least one existing answer choice before asking Gemini for more.");
-          return;
-        }
 
         const duration = getVideoDurationSec();
         const clipEnd = clamp(Number(note.timeSec || 0), 0, duration || Number.MAX_SAFE_INTEGER);
@@ -3438,13 +3807,15 @@
               question: question,
               existingAnswers: existingAnswers,
               missingCount: emptyIndexes.length,
+              currentCorrectAnswer: currentCorrectAnswer || null,
+              fillCorrectAnswer: shouldFillCorrectAnswer,
               endSec: Number(clipEnd.toFixed(3)),
               videoRef: Number.isInteger(currentServerVideoRef) ? currentServerVideoRef : null,
               videoUrl: String(currentRemoteVideoUrl || video.currentSrc || video.src || "").trim() || null,
               filePath: String(videoFilePath || "").trim() || null,
               sourceUrl: sourceInfo.sourceUrl,
               model: "gemini-3.1-pro-preview",
-              thinkingLevel: "low",
+              thinkingLevel: geminiThinkingLevel,
             }),
           });
 
@@ -3458,13 +3829,28 @@
           const generatedChoices = Array.isArray(payload && payload.generatedChoices)
             ? payload.generatedChoices.map((value) => String(value || "").trim()).filter(Boolean)
             : [];
-          if (!response.ok || !payload || !generatedChoices.length) {
+          const generatedCorrectAnswer = String(payload && payload.generatedCorrectAnswer || "").trim();
+          if (
+            !response.ok
+            || !payload
+            || (
+              shouldFillCorrectAnswer
+                ? (!generatedCorrectAnswer && !generatedChoices.length)
+                : !generatedChoices.length
+            )
+          ) {
             const message = payload && payload.error ? String(payload.error) : "Gemini choice generation failed.";
             throw new Error(message);
           }
 
           if (requestId !== geminiAssistRequestId) {
             return;
+          }
+
+          let generatedSomething = false;
+          if (shouldFillCorrectAnswer && generatedCorrectAnswer) {
+            note[item.field] = generatedCorrectAnswer;
+            generatedSomething = true;
           }
 
           const nextSlots = toEditableDistractorSlots(note[item.distractorField]);
@@ -3476,28 +3862,48 @@
             }
             nextSlots[slotIndex] = generatedValue;
             insertedChoices.push(generatedValue);
+            generatedSomething = true;
           });
 
-          if (!insertedChoices.length) {
-            throw new Error("Gemini did not return enough new choices to fill the empty distractors.");
+          if (!generatedSomething) {
+            throw new Error("Gemini did not return a usable correct answer or enough new distractors.");
           }
 
           note[item.distractorField] = nextSlots;
           renderNotes();
           renderJsonPreview();
 
-          const responseText = insertedChoices.join("\n");
+          const responseLines = [];
+          if (shouldFillCorrectAnswer && generatedCorrectAnswer) {
+            responseLines.push("Correct Answer: " + generatedCorrectAnswer);
+          }
+          if (insertedChoices.length) {
+            responseLines.push("Distractors:");
+            insertedChoices.forEach((value) => {
+              responseLines.push(value);
+            });
+          }
+          const responseText = responseLines.join("\n");
           setGeminiPanelResult({
             question: question,
             taskLabel: item.label + " choices",
             endSec: clipEnd,
             response: responseText,
           });
+          const statusParts = [];
+          if (shouldFillCorrectAnswer && generatedCorrectAnswer) {
+            statusParts.push("the correct answer");
+          }
+          if (insertedChoices.length) {
+            statusParts.push(
+              String(insertedChoices.length)
+              + " distractor"
+              + (insertedChoices.length === 1 ? "" : "s")
+            );
+          }
           updateStatus(
             "Gemini filled "
-            + String(insertedChoices.length)
-            + " distractor"
-            + (insertedChoices.length === 1 ? "" : "s")
+            + statusParts.join(" and ")
             + " for "
             + String(item.label || "this question").toLowerCase()
             + "."
@@ -3744,6 +4150,12 @@
         } catch (error) {
           // Ignore privacy mode/localStorage failures.
         }
+        try {
+          geminiThinkingLevel = normalizeGeminiThinkingLevel(localStorage.getItem(GEMINI_THINKING_STORAGE_KEY) || "low");
+        } catch (error) {
+          geminiThinkingLevel = "low";
+        }
+        updateGeminiThinkingUi();
       }
 
       function restoreSharedAuth() {
@@ -4056,6 +4468,108 @@
 
       function isSituationAwarenessCategory(categoryKey) {
         return categoryKey === "understanding_situation_awareness";
+      }
+
+      function getQuestionTemplateKeyForCategory(categoryKey) {
+        const normalized = normalizeCategory(categoryKey);
+        return QUESTION_TEMPLATE_KEYS_BY_CATEGORY[normalized] || "";
+      }
+
+      function shouldApplyAutoQuestionValue(currentValue, previousAutoValue) {
+        const current = String(currentValue || "").trim();
+        const previousAuto = String(previousAutoValue || "").trim();
+        return !current || (previousAuto && current === previousAuto);
+      }
+
+      function fillQuestionTemplate(template, replacements) {
+        return String(template || "").replace(/\{([^}]+)\}/g, (match, key) => {
+          const replacement = replacements[key];
+          return typeof replacement === "string" ? replacement : match;
+        });
+      }
+
+      function resolveQuestionTemplateReplacements(note) {
+        const genericCharacter = normalizeCharacterName(
+          note && (
+            note.character
+            || note.emotionCharacter
+            || note.personaCharacter
+            || note.intentCharacter
+            || note.perspectiveCharacter
+            || note.normsCharacter
+          )
+        ) || QUESTION_TEMPLATE_CHARACTER_PLACEHOLDER;
+        const relationshipCharacter1 = normalizeCharacterName(note && note.relationshipCharacterA)
+          || QUESTION_TEMPLATE_RELATIONSHIP_CHARACTER1_PLACEHOLDER;
+        const relationshipCharacter2 = normalizeCharacterName(note && note.relationshipCharacterB)
+          || QUESTION_TEMPLATE_RELATIONSHIP_CHARACTER2_PLACEHOLDER;
+        return {
+          character: genericCharacter,
+          character1: relationshipCharacter1,
+          character2: relationshipCharacter2,
+        };
+      }
+
+      function syncAutoQuestionInputs(note) {
+        if (!note) {
+          return;
+        }
+        const comprehensionInput = document.getElementById("comprehension-question-" + note.id);
+        const reasoningInput = document.getElementById("reasoning-question-" + note.id);
+        const predictionInput = document.getElementById("prediction-question-" + note.id);
+        if (comprehensionInput && comprehensionInput.value !== String(note.comprehensionQuestion || "")) {
+          comprehensionInput.value = String(note.comprehensionQuestion || "");
+        }
+        if (reasoningInput && reasoningInput.value !== String(note.reasoningQuestion || "")) {
+          reasoningInput.value = String(note.reasoningQuestion || "");
+        }
+        if (predictionInput && predictionInput.value !== String(note.predictionQuestion || "")) {
+          predictionInput.value = String(note.predictionQuestion || "");
+        }
+      }
+
+      function applyAutoQuestionTemplates(note) {
+        if (!note) {
+          return false;
+        }
+        const templateKey = getQuestionTemplateKeyForCategory(note.category);
+        const mappings = QUESTION_TEMPLATE_MAPPINGS[templateKey];
+        if (!mappings) {
+          return false;
+        }
+
+        const replacements = resolveQuestionTemplateReplacements(note);
+        const previousAutoComprehension = String(note.autoComprehensionQuestion || "");
+        const previousAutoReasoning = String(note.autoReasoningQuestion || "");
+        const previousAutoPrediction = String(note.autoPredictionQuestion || "");
+        const nextAutoComprehension = fillQuestionTemplate(mappings.Comprehension, replacements);
+        const nextAutoReasoning = fillQuestionTemplate(mappings.Reasoning, replacements);
+        const nextAutoPrediction = fillQuestionTemplate(mappings.Prediction, replacements);
+        let changed = false;
+
+        if (shouldApplyAutoQuestionValue(note.comprehensionQuestion, previousAutoComprehension)) {
+          if (String(note.comprehensionQuestion || "") !== nextAutoComprehension) {
+            note.comprehensionQuestion = nextAutoComprehension;
+            changed = true;
+          }
+        }
+        if (shouldApplyAutoQuestionValue(note.reasoningQuestion, previousAutoReasoning)) {
+          if (String(note.reasoningQuestion || "") !== nextAutoReasoning) {
+            note.reasoningQuestion = nextAutoReasoning;
+            changed = true;
+          }
+        }
+        if (shouldApplyAutoQuestionValue(note.predictionQuestion, previousAutoPrediction)) {
+          if (String(note.predictionQuestion || "") !== nextAutoPrediction) {
+            note.predictionQuestion = nextAutoPrediction;
+            changed = true;
+          }
+        }
+
+        note.autoComprehensionQuestion = nextAutoComprehension;
+        note.autoReasoningQuestion = nextAutoReasoning;
+        note.autoPredictionQuestion = nextAutoPrediction;
+        return changed;
       }
 
       function normalizePersonaCategory(rawValue) {
@@ -4660,6 +5174,8 @@
           return;
         }
         note.character = normalizeCharacterName(value);
+        applyAutoQuestionTemplates(note);
+        syncAutoQuestionInputs(note);
         renderJsonPreview();
       }
 
@@ -4675,6 +5191,8 @@
         } else {
           return;
         }
+        applyAutoQuestionTemplates(note);
+        syncAutoQuestionInputs(note);
         renderJsonPreview();
       }
 
@@ -4774,22 +5292,12 @@
         const questionActions = document.createElement("div");
         questionActions.className = "note-inline-actions";
 
-        const askGeminiButton = document.createElement("button");
-        askGeminiButton.type = "button";
-        askGeminiButton.className = "note-inline-action";
-        askGeminiButton.textContent = "Quiz Gemini";
-        askGeminiButton.title = "Clip the video from the start to this note's timestamp and have Gemini answer this multiple-choice question.";
-        askGeminiButton.addEventListener("click", () => {
-          requestGeminiClipAnswer(note.id, item, askGeminiButton);
-        });
-        questionActions.append(askGeminiButton);
-
         if (isEditableNote(note)) {
           const fillChoicesButton = document.createElement("button");
           fillChoicesButton.type = "button";
           fillChoicesButton.className = "note-inline-action";
           fillChoicesButton.textContent = "Ask Gemini";
-          fillChoicesButton.title = "Fill empty distractor slots from the clip ending at this note's timestamp without changing answer choices that are already filled.";
+          fillChoicesButton.title = "Fill the correct answer if it is empty, and fill any empty distractor slots from the clip ending at this note's timestamp without changing fields that are already filled.";
           fillChoicesButton.addEventListener("click", () => {
             requestGeminiFillChoices(note.id, item, fillChoicesButton);
           });
@@ -5759,35 +6267,7 @@
           const analysisFields = document.createElement("div");
           analysisFields.className = "note-analysis-fields";
 
-          [
-            {
-              field: "comprehension",
-              label: "Comprehension",
-              questionField: "comprehensionQuestion",
-              questionPlaceholder: "Write the comprehension question...",
-              placeholder: "Summarize what is happening in this moment...",
-              distractorField: "comprehensionDistractors",
-              distractorPlaceholderPrefix: "Wrong comprehension answer",
-            },
-            {
-              field: "reasoning",
-              label: "Reasoning",
-              questionField: "reasoningQuestion",
-              questionPlaceholder: "Write the reasoning question...",
-              placeholder: "Explain why you interpret the moment this way...",
-              distractorField: "reasoningDistractors",
-              distractorPlaceholderPrefix: "Wrong reasoning answer",
-            },
-            {
-              field: "prediction",
-              label: "Prediction",
-              questionField: "predictionQuestion",
-              questionPlaceholder: "Write the prediction question...",
-              placeholder: "Describe what you expect to happen next...",
-              distractorField: "predictionDistractors",
-              distractorPlaceholderPrefix: "Wrong prediction answer",
-            },
-          ].forEach((item) => {
+          NOTE_ANALYSIS_ITEMS.forEach((item) => {
             analysisFields.append(createAnalysisSection(note, item));
           });
 
@@ -5795,6 +6275,12 @@
 
           const actions = document.createElement("div");
           actions.className = "note-actions";
+
+          const quizAllButton = document.createElement("button");
+          quizAllButton.type = "button";
+          quizAllButton.textContent = "Quiz Gemini";
+          quizAllButton.title = "Clip the video from the start to this note's timestamp and have Gemini answer the comprehension, reasoning, and prediction questions together.";
+          quizAllButton.addEventListener("click", () => requestGeminiNoteQuiz(note.id, quizAllButton));
 
           const jumpButton = document.createElement("button");
           jumpButton.type = "button";
@@ -5812,7 +6298,7 @@
           deleteButton.textContent = "Delete";
           deleteButton.addEventListener("click", () => removeNote(note.id));
 
-          actions.append(jumpButton);
+          actions.append(quizAllButton, jumpButton);
           if (editable) {
             actions.append(pinButton, deleteButton);
           } else {
@@ -5898,6 +6384,9 @@
           reasoning: "",
           predictionQuestion: "",
           prediction: "",
+          autoComprehensionQuestion: "",
+          autoReasoningQuestion: "",
+          autoPredictionQuestion: "",
           comprehensionDistractors: [],
           reasoningDistractors: [],
           predictionDistractors: [],
@@ -5939,6 +6428,7 @@
           copiedFromEntryId: null,
           copiedFromAnnotator: "",
         };
+        applyAutoQuestionTemplates(note);
         state.nextId += 1;
         state.notes.push(note);
         state.notes.sort((a, b) => a.timeSec - b.timeSec || a.id - b.id);
@@ -6399,6 +6889,10 @@
               copiedFromEntryId: Number.isInteger(raw.copiedFromEntryId) ? raw.copiedFromEntryId : null,
               copiedFromAnnotator: String(raw.copiedFromAnnotator || ""),
             });
+          });
+
+          parsedNotes.forEach((note) => {
+            applyAutoQuestionTemplates(note);
           });
 
           parsedNotes.forEach((note) => {
@@ -7458,7 +7952,7 @@
       });
 
       videoLayer.addEventListener("contextmenu", (event) => {
-        const blocker = event.target.closest(".top-bar, .note-rail, .scrub-panel, .shared-panel, .analytics-panel, .context-menu");
+        const blocker = event.target.closest(".top-bar, .note-rail, .scrub-panel, .shared-panel, .analytics-panel, .gemini-panel, .gemini-backdrop, .context-menu");
         if (blocker) {
           return;
         }
@@ -7498,6 +7992,14 @@
         openAnalyticsPanel();
       });
 
+      geminiThinkingToggle.addEventListener("click", () => {
+        cycleGeminiThinkingLevel();
+      });
+
+      geminiThinkingToggleInline.addEventListener("click", () => {
+        cycleGeminiThinkingLevel();
+      });
+
       sharedCloseButton.addEventListener("click", () => {
         closeSharedPanel();
       });
@@ -7507,6 +8009,10 @@
       });
 
       geminiCloseButton.addEventListener("click", () => {
+        closeGeminiPanel();
+      });
+
+      geminiBackdrop.addEventListener("click", () => {
         closeGeminiPanel();
       });
 
