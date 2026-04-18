@@ -1981,14 +1981,6 @@
           <span class="timecode" id="current-time">00:00:00.00</span>
           <input class="scrubber" id="scrubber" type="range" min="0" max="0" step="0.01" value="0">
           <span class="timecode" id="duration-time">00:00:00.00</span>
-          <button
-            class="btn ghost gemini-thinking-button"
-            id="gemini-thinking-toggle-inline"
-            type="button"
-            title="Cycle Gemini thinking level"
-          >
-            <span id="gemini-thinking-label-inline">Gemini: Low</span>
-          </button>
           <span class="status" id="status">Import a video from YouTube to begin annotating.</span>
         </div>
         <div class="trim-row">
@@ -2246,6 +2238,11 @@
           Comprehension: "Which of the following correctly describes what {character} is feeling at this point in the video?",
           Prediction: "Given how {character} is feeling at this point in the video, which of the following actions is {character} most likely to take next?",
         },
+        Persona: {
+          Reasoning: "Which of the following best explains why {character}'s persona in this scene is what it is?",
+          Comprehension: "Which of the following correctly describes {character}'s persona at this point in the video?",
+          Prediction: "Given {character}'s persona in this scene, which of the following actions is {character} most likely to take next?",
+        },
         Intent: {
           Reasoning: "Which of the following best explains why {character}'s intent in this scene is what it is?",
           Comprehension: "Which of the following correctly describes what {character}'s intent is at this point in the video?",
@@ -2270,6 +2267,11 @@
           Reasoning: "Which of the following best explains why {character1} has the relationship with {character2} that they do in this scene?",
           Comprehension: "Which of the following correctly describes the relationship between {character1} and {character2} at this point in the video?",
           Prediction: "Given the relationship between {character1} and {character2}, which of the following interactions is most likely to occur next between them?",
+        },
+        Situation_Awareness: {
+          Reasoning: "Which of the following best explains how {character} understands the social situation in this scene?",
+          Comprehension: "Which of the following correctly describes {character}'s situation awareness at this point in the video?",
+          Prediction: "Given {character}'s understanding of the current social situation, which of the following actions is {character} most likely to take next?",
         },
         Social_Norms: {
           Reasoning: "Explain how {character} is adhering to or violating social norms in this scene.",
@@ -2296,11 +2298,13 @@
       const QUESTION_TEMPLATE_KEYS_BY_CATEGORY = {
         understanding_emotions: "Emotion",
         emotion: "Emotion",
+        understanding_persona: "Persona",
         understanding_intent: "Intent",
         understanding_communicative_intent: "Communicative_Intent",
         perspective: "Perspective/Belief",
         understanding_knowledge_state: "Knowledge_State",
         understanding_relationship: "Relationship",
+        understanding_situation_awareness: "Situation_Awareness",
         understanding_norms: "Social_Norms",
         understanding_cultural_conventions: "Cultural_Conventions",
         understanding_moral_judgment: "Moral_Judgement",
@@ -2432,8 +2436,6 @@
       const analyticsToggleArrow = document.getElementById("analytics-toggle-arrow");
       const geminiThinkingToggle = document.getElementById("gemini-thinking-toggle");
       const geminiThinkingLabel = document.getElementById("gemini-thinking-label");
-      const geminiThinkingToggleInline = document.getElementById("gemini-thinking-toggle-inline");
-      const geminiThinkingLabelInline = document.getElementById("gemini-thinking-label-inline");
       const analyticsCloseButton = document.getElementById("analytics-close");
       const analyticsStatusLabel = document.getElementById("analytics-status");
       const analyticsVideoCount = document.getElementById("analytics-video-count");
@@ -2605,12 +2607,7 @@
       function updateGeminiThinkingUi() {
         const label = "Gemini: " + formatGeminiThinkingLevel(geminiThinkingLevel);
         geminiThinkingLabel.textContent = label;
-        geminiThinkingLabelInline.textContent = label;
         geminiThinkingToggle.setAttribute(
-          "title",
-          label + ". Click to cycle between low, medium, and high thinking."
-        );
-        geminiThinkingToggleInline.setAttribute(
           "title",
           label + ". Click to cycle between low, medium, and high thinking."
         );
@@ -4475,12 +4472,6 @@
         return QUESTION_TEMPLATE_KEYS_BY_CATEGORY[normalized] || "";
       }
 
-      function shouldApplyAutoQuestionValue(currentValue, previousAutoValue) {
-        const current = String(currentValue || "").trim();
-        const previousAuto = String(previousAutoValue || "").trim();
-        return !current || (previousAuto && current === previousAuto);
-      }
-
       function fillQuestionTemplate(template, replacements) {
         return String(template || "").replace(/\{([^}]+)\}/g, (match, key) => {
           const replacement = replacements[key];
@@ -4539,31 +4530,22 @@
         }
 
         const replacements = resolveQuestionTemplateReplacements(note);
-        const previousAutoComprehension = String(note.autoComprehensionQuestion || "");
-        const previousAutoReasoning = String(note.autoReasoningQuestion || "");
-        const previousAutoPrediction = String(note.autoPredictionQuestion || "");
         const nextAutoComprehension = fillQuestionTemplate(mappings.Comprehension, replacements);
         const nextAutoReasoning = fillQuestionTemplate(mappings.Reasoning, replacements);
         const nextAutoPrediction = fillQuestionTemplate(mappings.Prediction, replacements);
         let changed = false;
 
-        if (shouldApplyAutoQuestionValue(note.comprehensionQuestion, previousAutoComprehension)) {
-          if (String(note.comprehensionQuestion || "") !== nextAutoComprehension) {
-            note.comprehensionQuestion = nextAutoComprehension;
-            changed = true;
-          }
+        if (String(note.comprehensionQuestion || "") !== nextAutoComprehension) {
+          note.comprehensionQuestion = nextAutoComprehension;
+          changed = true;
         }
-        if (shouldApplyAutoQuestionValue(note.reasoningQuestion, previousAutoReasoning)) {
-          if (String(note.reasoningQuestion || "") !== nextAutoReasoning) {
-            note.reasoningQuestion = nextAutoReasoning;
-            changed = true;
-          }
+        if (String(note.reasoningQuestion || "") !== nextAutoReasoning) {
+          note.reasoningQuestion = nextAutoReasoning;
+          changed = true;
         }
-        if (shouldApplyAutoQuestionValue(note.predictionQuestion, previousAutoPrediction)) {
-          if (String(note.predictionQuestion || "") !== nextAutoPrediction) {
-            note.predictionQuestion = nextAutoPrediction;
-            changed = true;
-          }
+        if (String(note.predictionQuestion || "") !== nextAutoPrediction) {
+          note.predictionQuestion = nextAutoPrediction;
+          changed = true;
         }
 
         note.autoComprehensionQuestion = nextAutoComprehension;
@@ -5308,12 +5290,13 @@
 
         const questionInput = document.createElement("textarea");
         questionInput.id = item.field + "-question-" + note.id;
-        questionInput.placeholder = item.questionPlaceholder;
         questionInput.value = String(note[item.questionField] || "");
         questionInput.setAttribute("aria-label", item.label + " question");
-        questionInput.addEventListener("input", () => {
-          updateNoteAnalysisField(note.id, item.questionField, questionInput.value);
-        });
+        questionInput.readOnly = true;
+        questionInput.setAttribute(
+          "title",
+          "This question is fixed by the category template and selected character."
+        );
         questionSection.append(questionHeader, questionInput);
         body.append(questionSection);
 
@@ -7993,10 +7976,6 @@
       });
 
       geminiThinkingToggle.addEventListener("click", () => {
-        cycleGeminiThinkingLevel();
-      });
-
-      geminiThinkingToggleInline.addEventListener("click", () => {
         cycleGeminiThinkingLevel();
       });
 

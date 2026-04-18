@@ -72,6 +72,11 @@ QUESTION_MAPPINGS = {
         "Comprehension": "Which of the following correctly describes what {character} is feeling at this point in the video?",
         "Prediction": "Given how {character} is feeling at this point in the video, which of the following actions is {character} most likely to take next?"
     },
+    "Persona": {
+        "Reasoning": "Which of the following best explains why {character}'s persona in this scene is what it is?",
+        "Comprehension": "Which of the following correctly describes {character}'s persona at this point in the video?",
+        "Prediction": "Given {character}'s persona in this scene, which of the following actions is {character} most likely to take next?"
+    },
     "Intent": {
         "Reasoning": "Which of the following best explains why {character}'s intent in this scene is what it is?",
         "Comprehension": "Which of the following correctly describes what {character}'s intent is at this point in the video?",
@@ -96,6 +101,11 @@ QUESTION_MAPPINGS = {
         "Reasoning": "Which of the following best explains why {character1} has the relationship with {character2} that they do in this scene?",
         "Comprehension": "Which of the following correctly describes the relationship between {character1} and {character2} at this point in the video?",
         "Prediction": "Given the relationship between {character1} and {character2}, which of the following interactions is most likely to occur next between them?"
+    },
+    "Situation_Awareness":{
+        "Reasoning": "Which of the following best explains how {character} understands the social situation in this scene?",
+        "Comprehension": "Which of the following correctly describes {character}'s situation awareness at this point in the video?",
+        "Prediction": "Given {character}'s understanding of the current social situation, which of the following actions is {character} most likely to take next?"
     },
     "Social_Norms":{
         "Reasoning": "Explain how {character} is adhering to or violating social norms in this scene.",
@@ -139,4 +149,3 @@ QUESTION_MAPPINGS = {
 # Others States
 #              - Relationships
 #              - Communicative Intent
-
