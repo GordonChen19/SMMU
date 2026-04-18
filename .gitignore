@@ -1,11 +1,12 @@
-/extraction_chain/*
+/extraction_chain/gemini_key.json
+/extraction_chain/__pycache__/*
 /venv/*
 .env
 preprocessing/__pycache__/*
 preprocessing/*
 .DS_Store
-/shared_library/*
+shared_library/*
 export_annotations_db.py
 __pycache__/*
-shared_library/annotations.export.json
 export_annotations_db.py
+eval_pipeline/__pycache__/*

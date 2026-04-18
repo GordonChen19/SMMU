@@ -312,8 +312,9 @@
         opacity: 0.85;
       }
 
-      .note-list {
+      .note-rail-body {
         flex: 1;
+        min-height: 0;
         overflow: auto;
         padding: 12px;
         display: grid;
@@ -321,11 +322,19 @@
         align-content: start;
       }
 
+      .note-list {
+        display: grid;
+        gap: 10px;
+        align-content: start;
+      }
+
       .character-panel {
         padding: 10px 12px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.16);
         display: grid;
         gap: 8px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(8, 12, 18, 0.22);
       }
 
       .character-panel-title {
@@ -367,6 +376,43 @@
         display: flex;
         flex-wrap: wrap;
         gap: 6px;
+      }
+
+      .workspace-perception-panel {
+        --note-color: #36b5ff;
+        --note-rgb: 54, 181, 255;
+        display: grid;
+        gap: 8px;
+      }
+
+      .workspace-perception-panel.readonly {
+        opacity: 0.86;
+      }
+
+      .workspace-perception-title {
+        color: rgba(240, 246, 252, 0.98);
+      }
+
+      .workspace-perception-hint {
+        font-size: 11px;
+        line-height: 1.4;
+        color: rgba(214, 226, 239, 0.82);
+      }
+
+      .workspace-perception-chip {
+        --annotator-accent: #36b5ff;
+        background: rgba(54, 181, 255, 0.18);
+        border-color: rgba(54, 181, 255, 0.35);
+        color: #dff4ff;
+      }
+
+      .workspace-perception-panel .note-analysis-section {
+        border-color: rgba(54, 181, 255, 0.26);
+        background: rgba(5, 20, 34, 0.34);
+      }
+
+      .workspace-perception-panel .note-analysis-summary {
+        color: rgba(225, 244, 255, 0.96);
       }
 
       .character-pill {
@@ -639,6 +685,121 @@
         padding: 0 10px 10px;
       }
 
+      .note-analysis-subsection {
+        display: grid;
+        gap: 8px;
+      }
+
+      .note-analysis-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .note-analysis-header .note-field-label {
+        margin-top: 0;
+      }
+
+      .note-inline-actions {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .note-static-line {
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.07);
+        color: #f3f8fd;
+        padding: 10px 12px;
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .note-static-line strong {
+        color: rgba(255, 255, 255, 0.86);
+      }
+
+      .note-distractor-list {
+        display: grid;
+        gap: 8px;
+      }
+
+      .note-distractor-row {
+        display: grid;
+        gap: 4px;
+      }
+
+      .note-inline-action {
+        flex: 0 0 auto;
+        border: 1px solid rgba(111, 201, 255, 0.42);
+        background: rgba(45, 107, 152, 0.32);
+        color: #e4f6ff;
+        border-radius: 999px;
+        padding: 4px 10px;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .note-inline-action:hover {
+        filter: brightness(1.08);
+      }
+
+      .note-inline-action:disabled {
+        opacity: 0.62;
+        cursor: wait;
+        filter: none;
+      }
+
+      .perception-choice-list {
+        display: grid;
+        gap: 8px;
+      }
+
+      .perception-choice-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .perception-choice-mapping {
+        grid-column: 1 / -1;
+        display: grid;
+        gap: 6px;
+      }
+
+      .perception-choice-mapping select {
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        background: rgba(10, 16, 24, 0.44);
+        color: #f7f9fc;
+        padding: 8px;
+        font: inherit;
+        font-size: 13px;
+      }
+
+      .perception-choice-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: rgba(242, 246, 251, 0.9);
+        white-space: nowrap;
+      }
+
+      .perception-choice-toggle input[type="checkbox"] {
+        width: 14px;
+        height: 14px;
+        margin: 0;
+      }
+
       .note-analysis-distractors {
         margin-top: 2px;
         background: rgba(10, 16, 24, 0.32);
@@ -655,7 +816,8 @@
         color: rgba(242, 246, 251, 0.9);
       }
 
-      .note-analysis-fields textarea {
+      .note-analysis-fields textarea,
+      .note-analysis-fields input[type="text"] {
         width: 100%;
         min-height: 70px;
         resize: vertical;
@@ -666,9 +828,16 @@
         padding: 8px;
         font: inherit;
         font-size: 13px;
+        box-sizing: border-box;
       }
 
-      .note-analysis-fields textarea:focus {
+      .note-analysis-fields input[type="text"] {
+        min-height: 0;
+        resize: none;
+      }
+
+      .note-analysis-fields textarea:focus,
+      .note-analysis-fields input[type="text"]:focus {
         outline: 2px solid rgba(250, 254, 255, 0.42);
         outline-offset: 1px;
       }
@@ -929,9 +1098,9 @@
         min-width: 220px;
         color: var(--overlay-muted);
         font-size: 12px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        line-height: 1.35;
       }
 
       .context-menu {
@@ -1071,6 +1240,27 @@
         display: flex;
       }
 
+      .gemini-panel {
+        position: absolute;
+        left: 16px;
+        bottom: calc(var(--floating-panel-bottom) + 12px);
+        z-index: 29;
+        width: min(560px, 52vw);
+        max-height: min(46vh, 520px);
+        border-radius: 16px;
+        border: 1px solid rgba(218, 224, 232, 0.48);
+        background: rgba(14, 18, 26, 0.94);
+        color: #ebf1f7;
+        box-shadow: var(--shadow);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .gemini-panel.visible {
+        display: flex;
+      }
+
       .shared-header {
         padding: 10px 12px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.16);
@@ -1117,6 +1307,54 @@
         display: grid;
         gap: 12px;
         overflow: auto;
+      }
+
+      .gemini-body {
+        padding: 12px;
+        display: grid;
+        gap: 12px;
+        overflow: auto;
+      }
+
+      .gemini-meta {
+        font-size: 12px;
+        color: rgba(221, 230, 240, 0.78);
+        line-height: 1.45;
+      }
+
+      .gemini-question,
+      .gemini-response {
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.06);
+        padding: 12px;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        line-height: 1.55;
+      }
+
+      .gemini-question strong,
+      .gemini-response strong {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 11px;
+        letter-spacing: 0.45px;
+        text-transform: uppercase;
+        color: rgba(221, 230, 240, 0.72);
+      }
+
+      .gemini-response {
+        color: #f5fbff;
+      }
+
+      .gemini-status {
+        font-size: 12px;
+        color: rgba(221, 230, 240, 0.82);
+        line-height: 1.45;
+      }
+
+      .gemini-status.error {
+        color: #ffcccc;
       }
 
       .analytics-intro {
@@ -1591,6 +1829,11 @@
           max-height: calc(100vh - var(--floating-panel-top) - var(--floating-panel-bottom));
         }
 
+        .gemini-panel {
+          width: calc(100% - 32px);
+          max-height: 34vh;
+        }
+
         .analytics-summary-grid,
         .analytics-chart-grid,
         .shared-controls {
@@ -1690,15 +1933,17 @@
           <strong>Sticky Notes</strong>
           <span class="note-count" id="note-count">0</span>
         </div>
-        <div class="character-panel">
-          <div class="character-panel-title">Characters In Video</div>
-          <div class="character-input-row">
-            <input id="character-input" type="text" placeholder="Type character name">
-            <button id="character-add" type="button">Add</button>
+        <div class="note-rail-body">
+          <div class="character-panel">
+            <div class="character-panel-title">Characters In Video</div>
+            <div class="character-input-row">
+              <input id="character-input" type="text" placeholder="Type character name">
+              <button id="character-add" type="button">Add</button>
+            </div>
+            <div class="character-list" id="character-list"></div>
           </div>
-          <div class="character-list" id="character-list"></div>
+          <div class="note-list" id="note-list"></div>
         </div>
-        <div class="note-list" id="note-list"></div>
       </aside>
 
       <div class="scrub-panel">
@@ -1710,10 +1955,10 @@
           <span class="status" id="status">Import a video from YouTube to begin annotating.</span>
         </div>
         <div class="trim-row">
-          <span class="trim-label">Trim</span>
+          <span class="trim-label">Trim Export</span>
           <button class="btn ghost trim-time" id="trim-set-end" type="button">Set End: 00:00:00.00</button>
-          <button class="btn alt" id="trim-download" type="button">Download MP4</button>
-          <span class="trim-summary" id="trim-summary">Load a video to set trim points.</span>
+          <button class="btn alt" id="trim-download" type="button">Download Clip</button>
+          <span class="trim-summary" id="trim-summary">Load a video to export a clip. This never changes the original/shared database video.</span>
         </div>
       </div>
 
@@ -1845,6 +2090,27 @@
           </div>
         </div>
       </section>
+
+      <section class="gemini-panel" id="gemini-panel" aria-live="polite">
+        <div class="shared-header">
+          <strong>Gemini</strong>
+          <div class="shared-header-actions">
+            <button type="button" id="gemini-close">Close</button>
+          </div>
+        </div>
+        <div class="gemini-body">
+          <div class="gemini-meta" id="gemini-meta">Use Quiz Gemini to answer a multiple-choice question, or Ask Gemini to fill empty distractor slots from the clip ending at the note timestamp.</div>
+          <div class="gemini-question" id="gemini-question" hidden>
+            <strong>Question</strong>
+            <span id="gemini-question-text"></span>
+          </div>
+          <div class="gemini-status" id="gemini-status">Waiting for a clip question.</div>
+          <div class="gemini-response" id="gemini-response" hidden>
+            <strong>Response</strong>
+            <span id="gemini-response-text"></span>
+          </div>
+        </div>
+      </section>
     </div>
 
     <script>
@@ -1967,6 +2233,9 @@
       const SHARED_AUTH_STORAGE_KEY = "fullscreen-video-annotator-shared-auth-v1";
       const DEFAULT_SHARED_SERVER_URL = "http://127.0.0.1:8765";
       const YT_IMPORT_ENDPOINT_PATH = "/api/yt-mp4";
+      const YT_TRIM_ENDPOINT_PATH = "/api/yt-mp4/trim";
+      const GEMINI_CLIP_QUESTION_PATH = "/api/gemini/clip-question";
+      const GEMINI_FILL_CHOICES_PATH = "/api/gemini/fill-choices";
       const SHARED_AUTH_REGISTER_PATH = "/api/shared-library/auth/register";
       const SHARED_AUTH_LOGIN_PATH = "/api/shared-library/auth/login";
       const SHARED_AUTH_ME_PATH = "/api/shared-library/auth/me";
@@ -1975,6 +2244,8 @@
       const SHARED_LIBRARY_ENTRIES_PATH = "/api/shared-library/entries";
       const SHARED_LIBRARY_VIDEO_UPLOAD_PATH = "/api/shared-library/video-assets";
       const SHARED_LIBRARY_LOCAL_VIDEO_REGISTER_PATH = "/api/shared-library/register-local-video";
+      const DISTRACTOR_COUNT_PER_TASK = 7;
+      const PERCEPTION_CHOICE_COUNT = 8;
 
       const app = document.getElementById("app");
       const topBar = document.querySelector(".top-bar");
@@ -1991,6 +2262,7 @@
       const characterInput = document.getElementById("character-input");
       const characterAddButton = document.getElementById("character-add");
       const characterList = document.getElementById("character-list");
+      const workspacePerceptionPanel = document.getElementById("workspace-perception-panel");
       const status = document.getElementById("status");
       const trimSetEndButton = document.getElementById("trim-set-end");
       const trimDownloadButton = document.getElementById("trim-download");
@@ -2017,6 +2289,14 @@
       const analyticsTaskChart = document.getElementById("analytics-task-chart");
       const analyticsTaskTotal = document.getElementById("analytics-task-total");
       const analyticsTaskLegend = document.getElementById("analytics-task-legend");
+      const geminiPanel = document.getElementById("gemini-panel");
+      const geminiCloseButton = document.getElementById("gemini-close");
+      const geminiMeta = document.getElementById("gemini-meta");
+      const geminiQuestion = document.getElementById("gemini-question");
+      const geminiQuestionText = document.getElementById("gemini-question-text");
+      const geminiStatus = document.getElementById("gemini-status");
+      const geminiResponse = document.getElementById("gemini-response");
+      const geminiResponseText = document.getElementById("gemini-response-text");
       const youtubeLinkInput = document.getElementById("youtube-link");
       const youtubeImportButton = document.getElementById("youtube-import");
       const localUploadTriggerButton = document.getElementById("local-upload-trigger");
@@ -2054,6 +2334,8 @@
       let sharedAuthenticatedAnnotator = "";
       let contextPoint = { x: 0, y: 0 };
       const MIN_TRIM_DURATION_SEC = 0.1;
+      const FIXED_PERCEPTION_QUESTION = "Which of the following do you observe from the video?";
+      const TRIM_EXPORT_ONLY_HINT = "This never changes the original/shared database video.";
       const TRIM_RECORDING_MIME_CANDIDATES = [
         'video/mp4;codecs="avc1.42E01E,mp4a.40.2"',
         'video/mp4;codecs="avc1.4d401f,mp4a.40.2"',
@@ -2062,7 +2344,14 @@
         "video/mp4;codecs=h264,aac",
         "video/mp4",
       ];
-      const state = { notes: [], nextId: 1, characters: [] };
+      const state = {
+        notes: [],
+        nextId: 1,
+        characters: [],
+        perceptionQuestion: FIXED_PERCEPTION_QUESTION,
+        perceptionChoices: toEditablePerceptionChoices([]),
+        perceptionEditable: true,
+      };
       const sharedVideoIndex = new Map();
       const sharedEntryMetaIndex = new Map();
       const sharedEntryPayloadCache = new Map();
@@ -2086,6 +2375,7 @@
       };
       let trimBoundaryMonitor = null;
       let libraryAnalyticsRequestId = 0;
+      let geminiAssistRequestId = 0;
 
       function buildAnalyticsCategoryMap(definitions) {
         const map = new Map();
@@ -2140,11 +2430,63 @@
       }
 
       async function openAnalyticsPanel() {
+        closeGeminiPanel();
         closeSharedPanel({ persist: false });
         analyticsPanel.classList.add("visible");
         updateAnalyticsToggleUi();
         renderAnalyticsPanel();
         await loadSharedEntries();
+      }
+
+      function closeGeminiPanel() {
+        geminiPanel.classList.remove("visible");
+      }
+
+      function openGeminiPanel() {
+        geminiPanel.classList.add("visible");
+      }
+
+      function setGeminiPanelLoading(payload = {}) {
+        const question = String(payload.question || "").trim();
+        const taskLabel = String(payload.taskLabel || "Question").trim();
+        const endSec = Number(payload.endSec) || 0;
+        geminiMeta.textContent = taskLabel + " | Clip 00:00:00.00 to " + formatTimecode(endSec) + ".";
+        geminiQuestion.hidden = !question;
+        geminiQuestionText.textContent = question;
+        geminiStatus.classList.remove("error");
+        geminiStatus.textContent = "Clipping the video and asking Gemini...";
+        geminiResponse.hidden = true;
+        geminiResponseText.textContent = "";
+        openGeminiPanel();
+      }
+
+      function setGeminiPanelResult(payload = {}) {
+        const question = String(payload.question || "").trim();
+        const response = String(payload.response || "").trim();
+        const taskLabel = String(payload.taskLabel || "Question").trim();
+        const endSec = Number(payload.endSec) || 0;
+        geminiMeta.textContent = taskLabel + " | Clip 00:00:00.00 to " + formatTimecode(endSec) + ".";
+        geminiQuestion.hidden = !question;
+        geminiQuestionText.textContent = question;
+        geminiStatus.classList.remove("error");
+        geminiStatus.textContent = "Gemini answered using the clip ending at the note timestamp.";
+        geminiResponse.hidden = false;
+        geminiResponseText.textContent = response || "Gemini returned an empty response.";
+        openGeminiPanel();
+      }
+
+      function setGeminiPanelError(payload = {}) {
+        const question = String(payload.question || "").trim();
+        const taskLabel = String(payload.taskLabel || "Question").trim();
+        const endSec = Number(payload.endSec) || 0;
+        geminiMeta.textContent = taskLabel + " | Clip 00:00:00.00 to " + formatTimecode(endSec) + ".";
+        geminiQuestion.hidden = !question;
+        geminiQuestionText.textContent = question;
+        geminiStatus.classList.add("error");
+        geminiStatus.textContent = String(payload.message || "Gemini clip analysis failed.");
+        geminiResponse.hidden = true;
+        geminiResponseText.textContent = "";
+        openGeminiPanel();
       }
 
       function hasNonEmptyTextValue(value) {
@@ -2505,6 +2847,65 @@
         }, 0);
       }
 
+      async function downloadServerTrimmedClip(selection) {
+        const canUseServerSource = isServerManagedVideoSource() || Number.isInteger(currentServerVideoRef);
+        if (!canUseServerSource) {
+          throw new Error("Server clip export requires a video imported from this shared server.");
+        }
+        const sourceVideoUrl = String(currentRemoteVideoUrl || video.currentSrc || video.src || "").trim();
+        if (!sourceVideoUrl && !Number.isInteger(currentServerVideoRef)) {
+          throw new Error("No server-managed video source is available for clip export.");
+        }
+
+        const requestedName = buildTrimmedFilename(selection.startSec, selection.endSec);
+        const trimResponse = await fetch(resolveSharedApiUrl(YT_TRIM_ENDPOINT_PATH), {
+          method: "POST",
+          headers: buildSharedAuthHeaders({
+            "Content-Type": "application/json",
+          }),
+          body: JSON.stringify({
+            startSec: Number(selection.startSec.toFixed(3)),
+            endSec: Number(selection.endSec.toFixed(3)),
+            videoRef: Number.isInteger(currentServerVideoRef) ? currentServerVideoRef : null,
+            videoUrl: sourceVideoUrl || null,
+            filePath: String(videoFilePath || "").trim() || null,
+            fileName: requestedName,
+            sourceInfo: currentSourceInfoPayload(),
+          }),
+        });
+
+        let trimPayload = null;
+        try {
+          trimPayload = await trimResponse.json();
+        } catch (error) {
+          trimPayload = null;
+        }
+        if (!trimResponse.ok || !trimPayload || typeof trimPayload.videoUrl !== "string") {
+          const message = trimPayload && trimPayload.error ? String(trimPayload.error) : "Server clip export failed.";
+          throw new Error(message);
+        }
+
+        const clipUrl = trimPayload.videoUrl.trim();
+        if (!clipUrl) {
+          throw new Error("Server clip export did not return a downloadable URL.");
+        }
+
+        const clipFetch = await fetch(clipUrl, {
+          headers: buildSharedAuthHeaders(),
+        });
+        if (!clipFetch.ok) {
+          throw new Error("Could not download the exported clip from the server.");
+        }
+        const clipBlob = await clipFetch.blob();
+        if (!clipBlob.size) {
+          throw new Error("Server returned an empty clip file.");
+        }
+
+        const clipFilename = String(trimPayload.fileName || requestedName || "clip.mp4").trim() || "clip.mp4";
+        triggerBlobDownload(clipBlob, clipFilename);
+        return clipFilename;
+      }
+
       function getSupportedTrimMp4MimeType() {
         const captureSupported = typeof video.captureStream === "function" || typeof video.mozCaptureStream === "function";
         if (!captureSupported || typeof MediaRecorder === "undefined" || typeof MediaRecorder.isTypeSupported !== "function") {
@@ -2542,29 +2943,38 @@
         const selection = syncTrimSelection(duration);
         const hasDuration = duration > 0;
         const mp4MimeType = getSupportedTrimMp4MimeType();
+        const canUseServerFallback = isServerManagedVideoSource() || Number.isInteger(currentServerVideoRef);
         const trimDuration = Math.max(0, selection.endSec - selection.startSec);
         const controlsDisabled = !hasDuration || trimState.exporting;
 
         trimSetEndButton.disabled = controlsDisabled;
-        trimDownloadButton.disabled = controlsDisabled || !mp4MimeType;
+        trimDownloadButton.disabled = controlsDisabled || (!mp4MimeType && !canUseServerFallback);
 
         trimSetEndButton.textContent = "Set End: " + formatTimecode(selection.endSec);
         trimSetEndButton.title = "Set trim end to the current playhead";
-        trimDownloadButton.textContent = trimState.exporting ? "Rendering..." : "Download MP4";
-        trimDownloadButton.title = mp4MimeType
-          ? "Render the selected range and download it as MP4"
-          : "MP4 trim download is not supported in this browser";
+        trimDownloadButton.textContent = trimState.exporting ? "Rendering..." : "Download Clip";
+        if (mp4MimeType) {
+          trimDownloadButton.title = "Render the selected range and download it as a new MP4 clip. " + TRIM_EXPORT_ONLY_HINT;
+        } else if (canUseServerFallback) {
+          trimDownloadButton.title = "Browser MP4 export is unavailable. Click to render this clip on the server. " + TRIM_EXPORT_ONLY_HINT;
+        } else {
+          trimDownloadButton.title = "MP4 clip export is not supported in this browser for this source. " + TRIM_EXPORT_ONLY_HINT;
+        }
 
         if (!hasLoadedVideoSource()) {
-          trimSummary.textContent = "Load a video to set trim points.";
+          trimSummary.textContent = "Load a video to export a clip. " + TRIM_EXPORT_ONLY_HINT;
         } else if (!hasDuration) {
-          trimSummary.textContent = "Waiting for video metadata before trimming.";
+          trimSummary.textContent = "Waiting for video metadata before clip export. " + TRIM_EXPORT_ONLY_HINT;
         } else if (trimState.exporting) {
-          trimSummary.textContent = "Rendering " + formatTimecode(trimDuration) + " to MP4 in real time. Keep this tab active.";
+          trimSummary.textContent = "Rendering " + formatTimecode(trimDuration) + " to a new MP4 clip in real time. Keep this tab active. " + TRIM_EXPORT_ONLY_HINT;
         } else if (!mp4MimeType) {
-          trimSummary.textContent = "Selection " + formatTimecode(selection.startSec) + " to " + formatTimecode(selection.endSec) + " (" + formatTimecode(trimDuration) + "). MP4 download is not supported in this browser.";
+          if (canUseServerFallback) {
+            trimSummary.textContent = "Selection " + formatTimecode(selection.startSec) + " to " + formatTimecode(selection.endSec) + " (" + formatTimecode(trimDuration) + "). Browser MP4 export is unavailable; use Download Clip for server export. " + TRIM_EXPORT_ONLY_HINT;
+          } else {
+            trimSummary.textContent = "Selection " + formatTimecode(selection.startSec) + " to " + formatTimecode(selection.endSec) + " (" + formatTimecode(trimDuration) + "). MP4 clip export is not supported in this browser for this source. " + TRIM_EXPORT_ONLY_HINT;
+          }
         } else {
-          trimSummary.textContent = "Selection " + formatTimecode(selection.startSec) + " to " + formatTimecode(selection.endSec) + " (" + formatTimecode(trimDuration) + ").";
+          trimSummary.textContent = "Selection " + formatTimecode(selection.startSec) + " to " + formatTimecode(selection.endSec) + " (" + formatTimecode(trimDuration) + "). Export downloads a new clip only. " + TRIM_EXPORT_ONLY_HINT;
         }
 
         updateScrubberTrimOverlay();
@@ -2703,7 +3113,7 @@
 
         const selection = syncTrimSelection(duration);
         updateTrimUi();
-        updateStatus("Trim end set to " + formatTimecode(selection.endSec) + ".");
+        updateStatus("Trim end set to " + formatTimecode(selection.endSec) + ". Export only; original/shared video is unchanged.");
       }
 
       function seekVideo(targetTime) {
@@ -2805,19 +3215,341 @@
         }
       }
 
+      async function requestGeminiClipAnswer(noteId, item, triggerButton) {
+        if (!requireSharedLogin("asking Gemini about a clip")) {
+          return;
+        }
+        if (!hasLoadedVideoSource()) {
+          showErrorPopup("Load a video before asking Gemini about a clip.");
+          return;
+        }
+        if (currentVideoFile && !isServerManagedVideoSource() && !Number.isInteger(currentServerVideoRef)) {
+          showErrorPopup("Gemini clip analysis currently needs a server-visible video source. Reopen the video from the shared library or publish/register it first.");
+          return;
+        }
+
+        const note = getNoteById(noteId);
+        if (!note) {
+          showErrorPopup("Could not find that note anymore.");
+          return;
+        }
+
+        const question = String(note[item.questionField] || "").trim();
+        if (!question) {
+          showErrorPopup("Write the " + String(item.label || "question").toLowerCase() + " question first.");
+          return;
+        }
+        const choiceCandidates = [
+          String(note[item.field] || "").trim(),
+          ...toEditableDistractorSlots(note[item.distractorField]).map((value) => String(value || "").trim()),
+        ];
+        const seenChoiceKeys = new Set();
+        const choices = choiceCandidates.filter((value) => {
+          const key = value.toLowerCase();
+          if (!value || seenChoiceKeys.has(key)) {
+            return false;
+          }
+          seenChoiceKeys.add(key);
+          return true;
+        });
+        if (choices.length < 2) {
+          showErrorPopup("Add the correct answer and at least one distractor before asking Gemini.");
+          return;
+        }
+
+        const duration = getVideoDurationSec();
+        const clipEnd = clamp(Number(note.timeSec || 0), 0, duration || Number.MAX_SAFE_INTEGER);
+        if (!Number.isFinite(clipEnd) || clipEnd <= 0) {
+          showErrorPopup("Set the note timestamp after 00:00:00.00 before asking Gemini about a clip.");
+          return;
+        }
+
+        const requestId = geminiAssistRequestId + 1;
+        geminiAssistRequestId = requestId;
+
+        const previousButtonLabel = triggerButton ? triggerButton.textContent : "";
+        if (triggerButton) {
+          triggerButton.disabled = true;
+          triggerButton.textContent = "Asking...";
+        }
+
+        setGeminiPanelLoading({
+          question: question,
+          taskLabel: item.label,
+          endSec: clipEnd,
+        });
+
+        try {
+          const sourceInfo = currentSourceInfoPayload();
+          const response = await fetch(resolveSharedApiUrl(GEMINI_CLIP_QUESTION_PATH), {
+            method: "POST",
+            headers: buildSharedAuthHeaders({
+              "Content-Type": "application/json",
+            }),
+            body: JSON.stringify({
+              noteId: note.id,
+              taskLabel: item.label,
+              question: question,
+              choices: choices,
+              endSec: Number(clipEnd.toFixed(3)),
+              videoRef: Number.isInteger(currentServerVideoRef) ? currentServerVideoRef : null,
+              videoUrl: String(currentRemoteVideoUrl || video.currentSrc || video.src || "").trim() || null,
+              filePath: String(videoFilePath || "").trim() || null,
+              sourceUrl: sourceInfo.sourceUrl,
+              model: "gemini-3.1-pro-preview",
+              thinkingLevel: "low",
+            }),
+          });
+
+          let payload = null;
+          try {
+            payload = await response.json();
+          } catch (error) {
+            payload = null;
+          }
+
+          if (!response.ok || !payload || typeof payload.response !== "string") {
+            const message = payload && payload.error ? String(payload.error) : "Gemini clip analysis failed.";
+            throw new Error(message);
+          }
+
+          if (requestId !== geminiAssistRequestId) {
+            return;
+          }
+
+          setGeminiPanelResult({
+            question: question,
+            taskLabel: item.label,
+            endSec: clipEnd,
+            response: payload.response,
+          });
+          updateStatus("Gemini answered the " + String(item.label || "question").toLowerCase() + " question from a clip ending at " + formatTimecode(clipEnd) + ".");
+        } catch (error) {
+          const message = error && error.message ? String(error.message) : "Unknown error";
+          if (requestId === geminiAssistRequestId) {
+            setGeminiPanelError({
+              question: question,
+              taskLabel: item.label,
+              endSec: clipEnd,
+              message: message,
+            });
+          }
+          updateStatus("Gemini clip analysis failed (" + message + ").");
+          showErrorPopup("Gemini clip analysis failed: " + message);
+        } finally {
+          if (triggerButton) {
+            triggerButton.disabled = false;
+            triggerButton.textContent = previousButtonLabel || "Quiz Gemini";
+          }
+        }
+      }
+
+      async function requestGeminiFillChoices(noteId, item, triggerButton) {
+        if (!requireSharedLogin("asking Gemini to fill answer choices")) {
+          return;
+        }
+        if (!hasLoadedVideoSource()) {
+          showErrorPopup("Load a video before asking Gemini to fill answer choices.");
+          return;
+        }
+        if (currentVideoFile && !isServerManagedVideoSource() && !Number.isInteger(currentServerVideoRef)) {
+          showErrorPopup("Gemini choice generation currently needs a server-visible video source. Reopen the video from the shared library or publish/register it first.");
+          return;
+        }
+
+        const note = getNoteById(noteId);
+        if (!note) {
+          showErrorPopup("Could not find that note anymore.");
+          return;
+        }
+        if (!isEditableNote(note)) {
+          showErrorPopup("Only editable notes can be updated with generated answer choices.");
+          return;
+        }
+
+        const question = String(note[item.questionField] || "").trim();
+        if (!question) {
+          showErrorPopup("Write the " + String(item.label || "question").toLowerCase() + " question first.");
+          return;
+        }
+
+        const distractorSlots = toEditableDistractorSlots(note[item.distractorField]);
+        const emptyIndexes = [];
+        distractorSlots.forEach((value, index) => {
+          if (!String(value || "").trim()) {
+            emptyIndexes.push(index);
+          }
+        });
+        if (!emptyIndexes.length) {
+          showErrorPopup("All distractor slots are already filled for this question.");
+          return;
+        }
+
+        const existingCandidates = [
+          String(note[item.field] || "").trim(),
+          ...distractorSlots.map((value) => String(value || "").trim()),
+        ];
+        const seenExistingKeys = new Set();
+        const existingAnswers = existingCandidates.filter((value) => {
+          const key = value.toLowerCase();
+          if (!value || seenExistingKeys.has(key)) {
+            return false;
+          }
+          seenExistingKeys.add(key);
+          return true;
+        });
+        if (!existingAnswers.length) {
+          showErrorPopup("Fill at least one existing answer choice before asking Gemini for more.");
+          return;
+        }
+
+        const duration = getVideoDurationSec();
+        const clipEnd = clamp(Number(note.timeSec || 0), 0, duration || Number.MAX_SAFE_INTEGER);
+        if (!Number.isFinite(clipEnd) || clipEnd <= 0) {
+          showErrorPopup("Set the note timestamp after 00:00:00.00 before asking Gemini to fill answer choices.");
+          return;
+        }
+
+        const requestId = geminiAssistRequestId + 1;
+        geminiAssistRequestId = requestId;
+
+        const previousButtonLabel = triggerButton ? triggerButton.textContent : "";
+        if (triggerButton) {
+          triggerButton.disabled = true;
+          triggerButton.textContent = "Asking...";
+        }
+
+        setGeminiPanelLoading({
+          question: question,
+          taskLabel: item.label + " choices",
+          endSec: clipEnd,
+        });
+
+        try {
+          const sourceInfo = currentSourceInfoPayload();
+          const response = await fetch(resolveSharedApiUrl(GEMINI_FILL_CHOICES_PATH), {
+            method: "POST",
+            headers: buildSharedAuthHeaders({
+              "Content-Type": "application/json",
+            }),
+            body: JSON.stringify({
+              noteId: note.id,
+              taskLabel: item.label,
+              question: question,
+              existingAnswers: existingAnswers,
+              missingCount: emptyIndexes.length,
+              endSec: Number(clipEnd.toFixed(3)),
+              videoRef: Number.isInteger(currentServerVideoRef) ? currentServerVideoRef : null,
+              videoUrl: String(currentRemoteVideoUrl || video.currentSrc || video.src || "").trim() || null,
+              filePath: String(videoFilePath || "").trim() || null,
+              sourceUrl: sourceInfo.sourceUrl,
+              model: "gemini-3.1-pro-preview",
+              thinkingLevel: "low",
+            }),
+          });
+
+          let payload = null;
+          try {
+            payload = await response.json();
+          } catch (error) {
+            payload = null;
+          }
+
+          const generatedChoices = Array.isArray(payload && payload.generatedChoices)
+            ? payload.generatedChoices.map((value) => String(value || "").trim()).filter(Boolean)
+            : [];
+          if (!response.ok || !payload || !generatedChoices.length) {
+            const message = payload && payload.error ? String(payload.error) : "Gemini choice generation failed.";
+            throw new Error(message);
+          }
+
+          if (requestId !== geminiAssistRequestId) {
+            return;
+          }
+
+          const nextSlots = toEditableDistractorSlots(note[item.distractorField]);
+          const insertedChoices = [];
+          emptyIndexes.forEach((slotIndex, index) => {
+            const generatedValue = String(generatedChoices[index] || "").trim();
+            if (!generatedValue) {
+              return;
+            }
+            nextSlots[slotIndex] = generatedValue;
+            insertedChoices.push(generatedValue);
+          });
+
+          if (!insertedChoices.length) {
+            throw new Error("Gemini did not return enough new choices to fill the empty distractors.");
+          }
+
+          note[item.distractorField] = nextSlots;
+          renderNotes();
+          renderJsonPreview();
+
+          const responseText = insertedChoices.join("\n");
+          setGeminiPanelResult({
+            question: question,
+            taskLabel: item.label + " choices",
+            endSec: clipEnd,
+            response: responseText,
+          });
+          updateStatus(
+            "Gemini filled "
+            + String(insertedChoices.length)
+            + " distractor"
+            + (insertedChoices.length === 1 ? "" : "s")
+            + " for "
+            + String(item.label || "this question").toLowerCase()
+            + "."
+          );
+        } catch (error) {
+          const message = error && error.message ? String(error.message) : "Unknown error";
+          if (requestId === geminiAssistRequestId) {
+            setGeminiPanelError({
+              question: question,
+              taskLabel: item.label + " choices",
+              endSec: clipEnd,
+              message: message,
+            });
+          }
+          updateStatus("Gemini choice generation failed (" + message + ").");
+          showErrorPopup("Gemini choice generation failed: " + message);
+        } finally {
+          if (triggerButton) {
+            triggerButton.disabled = false;
+            triggerButton.textContent = previousButtonLabel || "Ask Gemini";
+          }
+        }
+      }
+
       async function downloadTrimmedVideo() {
         if (trimState.exporting || !ensureTrimSelectionReady("downloading a trimmed MP4")) {
           return;
         }
 
+        const selection = syncTrimSelection();
         const mimeType = getSupportedTrimMp4MimeType();
         if (!mimeType) {
+          trimState.exporting = true;
+          stopTrimBoundaryMonitor("cancel");
           updateTrimUi();
-          updateStatus("MP4 trim download is not supported in this browser.");
+          try {
+            updateStatus("Browser MP4 clip export is unavailable. Exporting clip on the server...");
+            const filename = await downloadServerTrimmedClip(selection);
+            updateStatus("Downloaded trimmed clip: " + filename + ". Original/shared video was not changed.");
+          } catch (error) {
+            const message = error && error.message ? String(error.message) : "Unknown error";
+            updateStatus(
+              "MP4 clip export is not supported in this browser and server export failed (" + message + "). Original/shared video is unchanged."
+            );
+            showErrorPopup("Clip export failed: " + message);
+          } finally {
+            trimState.exporting = false;
+            updateTrimUi();
+          }
           return;
         }
 
-        const selection = syncTrimSelection();
         const recordedChunks = [];
         let recorderHandle = null;
         let stoppedPromise = null;
@@ -2859,7 +3591,7 @@
           }, { once: true });
 
           recorder.start(250);
-          updateStatus("Rendering trimmed MP4 in real time. Keep this tab active until the download starts.");
+          updateStatus("Rendering a new trimmed MP4 clip in real time. Original/shared video remains unchanged.");
 
           const playAttempt = video.play();
           if (playAttempt && typeof playAttempt.then === "function") {
@@ -2900,7 +3632,7 @@
 
           const filename = buildTrimmedFilename(selection.startSec, selection.endSec);
           triggerBlobDownload(outputBlob, filename);
-          updateStatus("Downloaded trimmed MP4: " + filename);
+          updateStatus("Downloaded trimmed clip: " + filename + ". Original/shared video was not changed.");
         } catch (error) {
           stopTrimBoundaryMonitor("cancel");
           if (recorderHandle && recorderHandle.recorder.state !== "inactive") {
@@ -3155,6 +3887,18 @@
 
       function getEditableNotes() {
         return state.notes.filter((note) => isEditableNote(note));
+      }
+
+      function formatPerceptionMappedNoteLabel(note) {
+        if (!note || typeof note !== "object") {
+          return "";
+        }
+        const pieces = [formatTimecode(Number(note.timeSec) || 0), String(note.label || "Note")];
+        const characters = collectNoteCharacterNames(note);
+        if (characters.length) {
+          pieces.push(characters.join(", "));
+        }
+        return pieces.filter((value) => String(value || "").trim()).join(" | ");
       }
 
       function collectNoteCharacterNames(note) {
@@ -3472,18 +4216,87 @@
         return normalized;
       }
 
+      function normalizeDistractorExportList(rawValue) {
+        return normalizeDistractorList(rawValue).slice(0, DISTRACTOR_COUNT_PER_TASK);
+      }
+
+      function normalizePerceptionChoice(rawValue) {
+        if (rawValue && typeof rawValue === "object" && !Array.isArray(rawValue)) {
+          const mappedNoteId = Number(rawValue.mappedNoteId);
+          return {
+            text: String(
+              rawValue.text
+              || rawValue.label
+              || rawValue.choice
+              || rawValue.answer
+              || ""
+            ),
+            correct: Boolean(
+              rawValue.correct === true
+              || rawValue.isCorrect === true
+              || rawValue.selected === true
+            ),
+            mappedNoteId: Number.isInteger(mappedNoteId) && mappedNoteId > 0 ? mappedNoteId : null,
+          };
+        }
+        return {
+          text: String(rawValue || ""),
+          correct: false,
+          mappedNoteId: null,
+        };
+      }
+
+      function normalizePerceptionChoices(rawValue) {
+        const source = Array.isArray(rawValue) ? rawValue : [];
+        return source.slice(0, PERCEPTION_CHOICE_COUNT).map((item) => {
+          const normalized = normalizePerceptionChoice(item);
+          return {
+            text: String(normalized.text || "").trim(),
+            correct: Boolean(normalized.correct),
+            mappedNoteId: Number.isInteger(normalized.mappedNoteId) && normalized.mappedNoteId > 0
+              ? normalized.mappedNoteId
+              : null,
+          };
+        });
+      }
+
+      function createEmptyPerceptionChoice() {
+        return { text: "", correct: false, mappedNoteId: null };
+      }
+
+      function toEditablePerceptionChoices(rawValue) {
+        const choices = normalizePerceptionChoices(rawValue);
+        while (choices.length < PERCEPTION_CHOICE_COUNT) {
+          choices.push(createEmptyPerceptionChoice());
+        }
+        return choices;
+      }
+
+      function hasPerceptionContent(question, choices) {
+        return normalizePerceptionChoices(choices).some((choice) => {
+          return String(choice.text || "").trim() || choice.correct;
+        });
+      }
+
+      function toEditableDistractorSlots(rawValue) {
+        const source = Array.isArray(rawValue)
+          ? rawValue.slice(0, DISTRACTOR_COUNT_PER_TASK).map((item) => String(item || ""))
+          : normalizeDistractorExportList(rawValue);
+        const slots = source.slice(0, DISTRACTOR_COUNT_PER_TASK);
+        while (slots.length < DISTRACTOR_COUNT_PER_TASK) {
+          slots.push("");
+        }
+        return slots;
+      }
+
       function firstNonEmptyDistractorList(...values) {
         for (let index = 0; index < values.length; index += 1) {
-          const normalized = normalizeDistractorList(values[index]);
+          const normalized = normalizeDistractorExportList(values[index]);
           if (normalized.length) {
             return normalized;
           }
         }
         return [];
-      }
-
-      function distractorListToText(value) {
-        return normalizeDistractorList(value).join("\n");
       }
 
       function deriveGenericCharacterValue(raw) {
@@ -3688,20 +4501,29 @@
         if (String(note.comprehension || "").trim()) {
           exported.comprehension = String(note.comprehension || "");
         }
+        if (String(note.comprehensionQuestion || "").trim()) {
+          exported.comprehensionQuestion = String(note.comprehensionQuestion || "");
+        }
         if (String(note.reasoning || "").trim()) {
           exported.reasoning = String(note.reasoning || "");
+        }
+        if (String(note.reasoningQuestion || "").trim()) {
+          exported.reasoningQuestion = String(note.reasoningQuestion || "");
         }
         if (String(note.prediction || "").trim()) {
           exported.prediction = String(note.prediction || "");
         }
+        if (String(note.predictionQuestion || "").trim()) {
+          exported.predictionQuestion = String(note.predictionQuestion || "");
+        }
         if (Array.isArray(note.comprehensionDistractors) && note.comprehensionDistractors.length) {
-          exported.comprehensionDistractors = normalizeDistractorList(note.comprehensionDistractors);
+          exported.comprehensionDistractors = normalizeDistractorExportList(note.comprehensionDistractors);
         }
         if (Array.isArray(note.reasoningDistractors) && note.reasoningDistractors.length) {
-          exported.reasoningDistractors = normalizeDistractorList(note.reasoningDistractors);
+          exported.reasoningDistractors = normalizeDistractorExportList(note.reasoningDistractors);
         }
         if (Array.isArray(note.predictionDistractors) && note.predictionDistractors.length) {
-          exported.predictionDistractors = normalizeDistractorList(note.predictionDistractors);
+          exported.predictionDistractors = normalizeDistractorExportList(note.predictionDistractors);
         }
         return exported;
       }
@@ -3710,7 +4532,7 @@
         const filePath = String(videoFilePath || "").trim();
         const sourceInfo = currentSourceInfoPayload();
         const sourceUrl = sourceInfo.sourceUrl || (isPersistableVideoUrl(currentRemoteVideoUrl) ? currentRemoteVideoUrl : null);
-        return {
+        const payload = {
           video: {
             title: videoTitle.textContent,
             filePath: filePath || null,
@@ -3725,6 +4547,20 @@
           characters: normalizeCharacterList(state.characters),
           notes: getEditableNotes().map((note) => noteToExport(note)),
         };
+        if (hasPerceptionContent(state.perceptionQuestion, state.perceptionChoices)) {
+          payload.perceptionQuestion = FIXED_PERCEPTION_QUESTION;
+          payload.perceptionChoices = toEditablePerceptionChoices(state.perceptionChoices).map((choice) => {
+            const exportedChoice = {
+              text: String(choice.text || ""),
+              correct: Boolean(choice.correct),
+            };
+            if (Number.isInteger(choice.mappedNoteId) && choice.mappedNoteId > 0) {
+              exportedChoice.mappedNoteId = choice.mappedNoteId;
+            }
+            return exportedChoice;
+          });
+        }
+        return payload;
       }
 
       function syncNotesToggleSize() {
@@ -3789,10 +4625,14 @@
         state.notes = [];
         state.nextId = 1;
         state.characters = [];
+        state.perceptionQuestion = FIXED_PERCEPTION_QUESTION;
+        state.perceptionChoices = toEditablePerceptionChoices([]);
+        state.perceptionEditable = true;
         currentSharedEntryId = null;
         currentWorkspaceVideoRef = null;
         currentWorkspaceAnnotator = "";
         renderCharactersPanel();
+        renderWorkspacePerceptionPanel();
         renderNotes();
       }
 
@@ -3843,20 +4683,67 @@
         if (!note) {
           return;
         }
-        if (field === "comprehension") {
+        if (field === "comprehensionQuestion") {
+          note.comprehensionQuestion = String(value || "");
+        } else if (field === "reasoningQuestion") {
+          note.reasoningQuestion = String(value || "");
+        } else if (field === "predictionQuestion") {
+          note.predictionQuestion = String(value || "");
+        } else if (field === "comprehension") {
           note.comprehension = String(value || "");
         } else if (field === "reasoning") {
           note.reasoning = String(value || "");
         } else if (field === "prediction") {
           note.prediction = String(value || "");
         } else if (field === "comprehensionDistractors") {
-          note.comprehensionDistractors = normalizeDistractorList(value);
+          note.comprehensionDistractors = normalizeDistractorExportList(value);
         } else if (field === "reasoningDistractors") {
-          note.reasoningDistractors = normalizeDistractorList(value);
+          note.reasoningDistractors = normalizeDistractorExportList(value);
         } else if (field === "predictionDistractors") {
-          note.predictionDistractors = normalizeDistractorList(value);
+          note.predictionDistractors = normalizeDistractorExportList(value);
         } else {
           return;
+        }
+        renderJsonPreview();
+      }
+
+      function updateNoteDistractorAtIndex(noteId, field, index, value) {
+        const note = getEditableNote(noteId);
+        if (!note || index < 0 || index >= DISTRACTOR_COUNT_PER_TASK) {
+          return;
+        }
+        const slots = toEditableDistractorSlots(note[field]);
+        slots[index] = String(value || "");
+        note[field] = slots;
+        renderJsonPreview();
+      }
+
+      function updateWorkspacePerceptionQuestion(value) {
+        state.perceptionQuestion = FIXED_PERCEPTION_QUESTION;
+        renderJsonPreview();
+      }
+
+      function updateWorkspacePerceptionChoice(index, field, value) {
+        if (!state.perceptionEditable || index < 0 || index >= PERCEPTION_CHOICE_COUNT) {
+          return;
+        }
+        const choices = toEditablePerceptionChoices(state.perceptionChoices);
+        if (!choices[index]) {
+          choices[index] = createEmptyPerceptionChoice();
+        }
+        if (field === "text") {
+          choices[index].text = String(value || "");
+        } else if (field === "correct") {
+          choices[index].correct = Boolean(value);
+        } else if (field === "mappedNoteId") {
+          const parsed = Number(value);
+          choices[index].mappedNoteId = Number.isInteger(parsed) && parsed > 0 ? parsed : null;
+        } else {
+          return;
+        }
+        state.perceptionChoices = choices;
+        if (field === "correct") {
+          renderWorkspacePerceptionPanel();
         }
         renderJsonPreview();
       }
@@ -3873,40 +4760,287 @@
         const body = document.createElement("div");
         body.className = "note-analysis-body";
 
-        const fieldInput = document.createElement("textarea");
-        fieldInput.id = item.field + "-" + note.id;
+        const questionSection = document.createElement("div");
+        questionSection.className = "note-analysis-subsection";
+
+        const questionHeader = document.createElement("div");
+        questionHeader.className = "note-analysis-header";
+
+        const questionLabel = document.createElement("label");
+        questionLabel.className = "note-field-label";
+        questionLabel.setAttribute("for", item.field + "-question-" + note.id);
+        questionLabel.textContent = "Question";
+
+        const questionActions = document.createElement("div");
+        questionActions.className = "note-inline-actions";
+
+        const askGeminiButton = document.createElement("button");
+        askGeminiButton.type = "button";
+        askGeminiButton.className = "note-inline-action";
+        askGeminiButton.textContent = "Quiz Gemini";
+        askGeminiButton.title = "Clip the video from the start to this note's timestamp and have Gemini answer this multiple-choice question.";
+        askGeminiButton.addEventListener("click", () => {
+          requestGeminiClipAnswer(note.id, item, askGeminiButton);
+        });
+        questionActions.append(askGeminiButton);
+
+        if (isEditableNote(note)) {
+          const fillChoicesButton = document.createElement("button");
+          fillChoicesButton.type = "button";
+          fillChoicesButton.className = "note-inline-action";
+          fillChoicesButton.textContent = "Ask Gemini";
+          fillChoicesButton.title = "Fill empty distractor slots from the clip ending at this note's timestamp without changing answer choices that are already filled.";
+          fillChoicesButton.addEventListener("click", () => {
+            requestGeminiFillChoices(note.id, item, fillChoicesButton);
+          });
+          questionActions.append(fillChoicesButton);
+        }
+
+        questionHeader.append(questionLabel, questionActions);
+
+        const questionInput = document.createElement("textarea");
+        questionInput.id = item.field + "-question-" + note.id;
+        questionInput.placeholder = item.questionPlaceholder;
+        questionInput.value = String(note[item.questionField] || "");
+        questionInput.setAttribute("aria-label", item.label + " question");
+        questionInput.addEventListener("input", () => {
+          updateNoteAnalysisField(note.id, item.questionField, questionInput.value);
+        });
+        questionSection.append(questionHeader, questionInput);
+        body.append(questionSection);
+
+        const answerSection = document.createElement("div");
+        answerSection.className = "note-analysis-subsection";
+
+        const answerLabel = document.createElement("label");
+        answerLabel.className = "note-field-label";
+        answerLabel.setAttribute("for", item.field + "-correct-" + note.id);
+        answerLabel.textContent = "Correct Answer";
+
+        const fieldInput = document.createElement("input");
+        fieldInput.type = "text";
+        fieldInput.id = item.field + "-correct-" + note.id;
         fieldInput.placeholder = item.placeholder;
         fieldInput.value = String(note[item.field] || "");
-        fieldInput.setAttribute("aria-label", item.label);
+        fieldInput.setAttribute("aria-label", item.label + " correct answer");
         fieldInput.addEventListener("input", () => {
           updateNoteAnalysisField(note.id, item.field, fieldInput.value);
         });
-        body.append(fieldInput);
+        answerSection.append(answerLabel, fieldInput);
+        body.append(answerSection);
 
-        const distractorSection = document.createElement("details");
-        distractorSection.className = "note-analysis-distractors";
-        distractorSection.open = Array.isArray(note[item.distractorField]) && note[item.distractorField].length > 0;
+        const distractorSection = document.createElement("div");
+        distractorSection.className = "note-analysis-subsection";
 
-        const distractorSummary = document.createElement("summary");
-        distractorSummary.textContent = "Distractors";
+        const distractorLabel = document.createElement("label");
+        distractorLabel.className = "note-field-label";
+        distractorLabel.textContent = "Distractors (7 required)";
 
-        const distractorBody = document.createElement("div");
-        distractorBody.className = "note-analysis-distractors-body";
+        const distractorList = document.createElement("div");
+        distractorList.className = "note-distractor-list";
 
-        const distractorInput = document.createElement("textarea");
-        distractorInput.id = item.field + "-distractors-" + note.id;
-        distractorInput.placeholder = item.distractorPlaceholder;
-        distractorInput.value = distractorListToText(note[item.distractorField]);
-        distractorInput.setAttribute("aria-label", item.label + " distractors");
-        distractorInput.addEventListener("input", () => {
-          updateNoteAnalysisField(note.id, item.distractorField, distractorInput.value);
+        toEditableDistractorSlots(note[item.distractorField]).forEach((distractorValue, index) => {
+          const row = document.createElement("div");
+          row.className = "note-distractor-row";
+
+          const distractorInput = document.createElement("input");
+          distractorInput.type = "text";
+          distractorInput.id = item.field + "-distractor-" + (index + 1) + "-" + note.id;
+          distractorInput.placeholder = item.distractorPlaceholderPrefix + " " + String(index + 1) + "...";
+          distractorInput.value = distractorValue;
+          distractorInput.setAttribute("aria-label", item.label + " distractor " + String(index + 1));
+          distractorInput.addEventListener("input", () => {
+            updateNoteDistractorAtIndex(note.id, item.distractorField, index, distractorInput.value);
+          });
+
+          row.append(distractorInput);
+          distractorList.append(row);
         });
 
-        distractorBody.append(distractorInput);
-        distractorSection.append(distractorSummary, distractorBody);
+        distractorSection.append(distractorLabel, distractorList);
         body.append(distractorSection);
         section.append(summary, body);
         return section;
+      }
+
+      function renderWorkspacePerceptionPanel() {
+        if (!workspacePerceptionPanel) {
+          return;
+        }
+        workspacePerceptionPanel.innerHTML = "";
+        workspacePerceptionPanel.classList.toggle("readonly", !state.perceptionEditable);
+
+        const top = document.createElement("div");
+        top.className = "note-top";
+
+        const title = document.createElement("div");
+        title.className = "note-label workspace-perception-title";
+        title.textContent = "Perception";
+
+        top.append(title);
+
+        const ownerRow = document.createElement("div");
+        ownerRow.className = "note-owner-row";
+
+        const chip = document.createElement("span");
+        chip.className = "note-owner-chip workspace-perception-chip";
+        chip.textContent = "Video-Wide";
+
+        const hint = document.createElement("span");
+        hint.className = "note-owner-hint workspace-perception-hint";
+        hint.textContent = state.perceptionEditable
+          ? "One perception question for this video. Add 8 choices and mark all correct answers."
+          : "Perception question for the current layer.";
+
+        ownerRow.append(chip, hint);
+
+        const analysisFields = document.createElement("div");
+        analysisFields.className = "note-analysis-fields";
+
+        const questionSectionCard = document.createElement("details");
+        questionSectionCard.className = "note-analysis-section";
+        questionSectionCard.open = true;
+
+        const questionSummary = document.createElement("summary");
+        questionSummary.className = "note-analysis-summary";
+        questionSummary.textContent = "Perception Question";
+
+        const questionBody = document.createElement("div");
+        questionBody.className = "note-analysis-body";
+
+        const questionSection = document.createElement("div");
+        questionSection.className = "note-analysis-subsection";
+
+        const questionText = document.createElement("div");
+        questionText.className = "note-static-line";
+        questionText.setAttribute("aria-label", "Perception question");
+
+        const questionPrefix = document.createElement("strong");
+        questionPrefix.textContent = "Question: ";
+
+        const questionValue = document.createElement("span");
+        questionValue.textContent = FIXED_PERCEPTION_QUESTION;
+
+        questionText.append(questionPrefix, questionValue);
+        questionSection.append(questionText);
+        questionBody.append(questionSection);
+        questionSectionCard.append(questionSummary, questionBody);
+        analysisFields.append(questionSectionCard);
+
+        const choicesSectionCard = document.createElement("details");
+        choicesSectionCard.className = "note-analysis-section";
+        choicesSectionCard.open = true;
+
+        const choicesSummary = document.createElement("summary");
+        choicesSummary.className = "note-analysis-summary";
+        choicesSummary.textContent = "Choices";
+
+        const choicesBody = document.createElement("div");
+        choicesBody.className = "note-analysis-body";
+
+        const choicesSection = document.createElement("div");
+        choicesSection.className = "note-analysis-subsection";
+
+        const choicesLabel = document.createElement("label");
+        choicesLabel.className = "note-field-label";
+        choicesLabel.textContent = "Choices (8 total, mark all correct answers)";
+
+        const choiceList = document.createElement("div");
+        choiceList.className = "perception-choice-list";
+        const editableNotes = getEditableNotes();
+
+        toEditablePerceptionChoices(state.perceptionChoices).forEach((choice, index) => {
+          const row = document.createElement("div");
+          row.className = "perception-choice-row";
+
+          const choiceInput = document.createElement("input");
+          choiceInput.type = "text";
+          choiceInput.id = "workspace-perception-choice-" + (index + 1);
+          choiceInput.placeholder = "Choice " + String(index + 1) + "...";
+          choiceInput.value = String(choice.text || "");
+          choiceInput.setAttribute("aria-label", "Perception choice " + String(index + 1));
+          choiceInput.readOnly = !state.perceptionEditable;
+          choiceInput.addEventListener("input", () => {
+            updateWorkspacePerceptionChoice(index, "text", choiceInput.value);
+          });
+
+          const toggle = document.createElement("label");
+          toggle.className = "perception-choice-toggle";
+          toggle.setAttribute("for", "workspace-perception-choice-correct-" + (index + 1));
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.id = "workspace-perception-choice-correct-" + (index + 1);
+          checkbox.checked = Boolean(choice.correct);
+          checkbox.disabled = !state.perceptionEditable;
+          checkbox.setAttribute("aria-label", "Mark perception choice " + String(index + 1) + " as correct");
+          checkbox.addEventListener("change", () => {
+            updateWorkspacePerceptionChoice(index, "correct", checkbox.checked);
+          });
+
+          const toggleText = document.createElement("span");
+          toggleText.textContent = "Correct";
+
+          toggle.append(checkbox, toggleText);
+          row.append(choiceInput, toggle);
+
+          if (choice.correct) {
+            const mappingWrap = document.createElement("div");
+            mappingWrap.className = "perception-choice-mapping";
+
+            const mappingLabel = document.createElement("label");
+            mappingLabel.className = "note-field-label";
+            mappingLabel.setAttribute("for", "workspace-perception-choice-map-" + (index + 1));
+            mappingLabel.textContent = "Map To Note";
+
+            const mappingSelect = document.createElement("select");
+            mappingSelect.id = "workspace-perception-choice-map-" + (index + 1);
+            mappingSelect.disabled = !state.perceptionEditable;
+            mappingSelect.setAttribute("aria-label", "Map perception choice " + String(index + 1) + " to note");
+
+            const noneOption = document.createElement("option");
+            noneOption.value = "";
+            noneOption.textContent = editableNotes.length ? "No note mapping" : "No editable notes available";
+            mappingSelect.appendChild(noneOption);
+
+            editableNotes.forEach((note) => {
+              const option = document.createElement("option");
+              option.value = String(note.id);
+              option.textContent = formatPerceptionMappedNoteLabel(note);
+              mappingSelect.appendChild(option);
+            });
+
+            if (
+              Number.isInteger(choice.mappedNoteId)
+              && choice.mappedNoteId > 0
+              && !editableNotes.some((note) => note.id === choice.mappedNoteId)
+            ) {
+              const missingOption = document.createElement("option");
+              missingOption.value = String(choice.mappedNoteId);
+              missingOption.textContent = "Missing note #" + String(choice.mappedNoteId);
+              mappingSelect.appendChild(missingOption);
+            }
+
+            mappingSelect.value = Number.isInteger(choice.mappedNoteId) && choice.mappedNoteId > 0
+              ? String(choice.mappedNoteId)
+              : "";
+            mappingSelect.addEventListener("change", () => {
+              updateWorkspacePerceptionChoice(index, "mappedNoteId", mappingSelect.value);
+            });
+
+            mappingWrap.append(mappingLabel, mappingSelect);
+            row.append(mappingWrap);
+          }
+
+          choiceList.append(row);
+        });
+
+        choicesSection.append(choicesLabel, choiceList);
+        choicesBody.append(choicesSection);
+        choicesSectionCard.append(choicesSummary, choicesBody);
+        analysisFields.append(choicesSectionCard);
+
+        workspacePerceptionPanel.append(top, ownerRow, analysisFields);
       }
 
       function buildIntentObservation(note) {
@@ -4496,6 +5630,7 @@
       }
 
       function renderNotes() {
+        renderWorkspacePerceptionPanel();
         noteCount.textContent = String(state.notes.length);
         noteList.innerHTML = "";
         if (!state.notes.length) {
@@ -4555,11 +5690,17 @@
 
           const ownerHint = document.createElement("span");
           ownerHint.className = "note-owner-hint";
-          ownerHint.textContent = adminEditingOtherLayer
+          const modifierLabel = note.lastModifiedBy && annotatorKey(note.lastModifiedBy) !== ownerKey
+            ? formatModifierLabel(note.lastModifiedBy, note.lastModifiedAt)
+            : "";
+          const editabilityLabel = adminEditingOtherLayer
             ? ("Editable by " + currentAnnotator + " as admin.")
             : (editable
-                ? "Editable by you"
+                ? "Editable by you."
                 : "Reference note. Duplicate it to create your own version.");
+          ownerHint.textContent = modifierLabel
+            ? (modifierLabel + " " + editabilityLabel).trim()
+            : editabilityLabel;
           ownerRow.append(ownerChip, ownerHint);
 
           card.append(ownerRow);
@@ -4622,23 +5763,29 @@
             {
               field: "comprehension",
               label: "Comprehension",
+              questionField: "comprehensionQuestion",
+              questionPlaceholder: "Write the comprehension question...",
               placeholder: "Summarize what is happening in this moment...",
               distractorField: "comprehensionDistractors",
-              distractorPlaceholder: "Add wrong comprehension answers, one per line...",
+              distractorPlaceholderPrefix: "Wrong comprehension answer",
             },
             {
               field: "reasoning",
               label: "Reasoning",
+              questionField: "reasoningQuestion",
+              questionPlaceholder: "Write the reasoning question...",
               placeholder: "Explain why you interpret the moment this way...",
               distractorField: "reasoningDistractors",
-              distractorPlaceholder: "Add wrong reasoning answers, one per line...",
+              distractorPlaceholderPrefix: "Wrong reasoning answer",
             },
             {
               field: "prediction",
               label: "Prediction",
+              questionField: "predictionQuestion",
+              questionPlaceholder: "Write the prediction question...",
               placeholder: "Describe what you expect to happen next...",
               distractorField: "predictionDistractors",
-              distractorPlaceholder: "Add wrong prediction answers, one per line...",
+              distractorPlaceholderPrefix: "Wrong prediction answer",
             },
           ].forEach((item) => {
             analysisFields.append(createAnalysisSection(note, item));
@@ -4682,6 +5829,9 @@
             });
             card.querySelectorAll('input[type="text"]').forEach((element) => {
               element.readOnly = true;
+            });
+            card.querySelectorAll('input[type="checkbox"]').forEach((element) => {
+              element.disabled = true;
             });
             card.querySelectorAll("select").forEach((element) => {
               element.disabled = true;
@@ -4742,8 +5892,11 @@
           timeSec: noteTime,
           text: "",
           character: "",
+          comprehensionQuestion: "",
           comprehension: "",
+          reasoningQuestion: "",
           reasoning: "",
+          predictionQuestion: "",
           prediction: "",
           comprehensionDistractors: [],
           reasoningDistractors: [],
@@ -4839,6 +5992,7 @@
       }
 
       async function openSharedPanel(options = {}) {
+        closeGeminiPanel();
         closeAnalyticsPanel();
         sharedPanel.classList.add("visible");
         updateSharedToggleUi();
@@ -5003,11 +6157,22 @@
         const notes = Array.isArray(payload && payload.notes) ? payload.notes : null;
         const hasNotesSection = Array.isArray(notes);
         const hasCharactersSection = Array.isArray(payload && payload.characters);
+        let workspacePerceptionQuestion = FIXED_PERCEPTION_QUESTION;
+        let workspacePerceptionChoices = toEditablePerceptionChoices(
+          payload && (
+            payload.perceptionChoices
+            || payload.notePerceptionChoices
+            || payload.perceptionOptions
+            || []
+          )
+        );
         const fallbackCharacters = Array.isArray(options.fallbackCharacters) ? options.fallbackCharacters : [];
         const hydratedCharacters = hasCharactersSection
           ? normalizeCharacterList(payload.characters)
           : (hasNotesSection ? [] : normalizeCharacterList(fallbackCharacters));
         const workspaceAnnotator = String(options.annotator || "").trim();
+        const workspaceLastModifiedBy = String(payload && payload.lastModifiedBy || "").trim();
+        const workspaceLastModifiedAt = String(payload && payload.lastModifiedAt || "").trim();
         const isEditableWorkspace = options.editable !== false;
         const makeNoteId = typeof options.makeNoteId === "function"
           ? options.makeNoteId
@@ -5062,6 +6227,18 @@
               relationshipFields && relationshipFields.valence,
               relationshipFields && relationshipFields.trajectory,
             ].filter((value) => String(value || "").trim()).join(" | ");
+            if (!hasPerceptionContent(workspacePerceptionQuestion, workspacePerceptionChoices)) {
+              const legacyPerceptionChoices = toEditablePerceptionChoices(
+                raw.perceptionChoices
+                || raw.notePerceptionChoices
+                || raw.perceptionOptions
+                || []
+              );
+              if (hasPerceptionContent(FIXED_PERCEPTION_QUESTION, legacyPerceptionChoices)) {
+                workspacePerceptionQuestion = FIXED_PERCEPTION_QUESTION;
+                workspacePerceptionChoices = legacyPerceptionChoices;
+              }
+            }
             const ownerAnnotator = String(raw.annotator || workspaceAnnotator || "").trim();
             parsedNotes.push({
               id: options.preserveIds && Number.isInteger(raw.id) && raw.id > 0 ? raw.id : makeNoteId(),
@@ -5075,6 +6252,11 @@
               character: isRelationshipCategory(categoryKey) ? "" : deriveGenericCharacterValue(raw),
               relationshipCharacterA: isRelationshipCategory(categoryKey) ? relationshipPair.characterA : "",
               relationshipCharacterB: isRelationshipCategory(categoryKey) ? relationshipPair.characterB : "",
+              comprehensionQuestion: firstNonEmptyText(
+                raw.comprehensionQuestion,
+                raw.noteComprehensionQuestion,
+                raw.cognitiveTasks && raw.cognitiveTasks.comprehension && raw.cognitiveTasks.comprehension.question
+              ),
               comprehension: firstNonEmptyText(
                 raw.comprehension,
                 raw.noteComprehension,
@@ -5085,6 +6267,11 @@
                 perspectiveFields && perspectiveFields.explanation,
                 relationshipSummary,
                 raw.situationAwarenessExplanation
+              ),
+              reasoningQuestion: firstNonEmptyText(
+                raw.reasoningQuestion,
+                raw.noteReasoningQuestion,
+                raw.cognitiveTasks && raw.cognitiveTasks.reasoning && raw.cognitiveTasks.reasoning.question
               ),
               reasoning: firstNonEmptyText(
                 raw.reasoning,
@@ -5098,25 +6285,30 @@
                 raw.normReasoning,
                 raw.violationReasoning
               ),
+              predictionQuestion: firstNonEmptyText(
+                raw.predictionQuestion,
+                raw.notePredictionQuestion,
+                raw.cognitiveTasks && raw.cognitiveTasks.prediction && raw.cognitiveTasks.prediction.question
+              ),
               prediction: String(raw.prediction || raw.notePrediction || ""),
-              comprehensionDistractors: firstNonEmptyDistractorList(
+              comprehensionDistractors: normalizeDistractorExportList(firstNonEmptyDistractorList(
                 raw.comprehensionDistractors,
                 raw.noteComprehensionDistractors,
                 raw.comprehensionWrongAnswers,
                 raw.distractors && raw.distractors.comprehension
-              ),
-              reasoningDistractors: firstNonEmptyDistractorList(
+              )),
+              reasoningDistractors: normalizeDistractorExportList(firstNonEmptyDistractorList(
                 raw.reasoningDistractors,
                 raw.noteReasoningDistractors,
                 raw.reasoningWrongAnswers,
                 raw.distractors && raw.distractors.reasoning
-              ),
-              predictionDistractors: firstNonEmptyDistractorList(
+              )),
+              predictionDistractors: normalizeDistractorExportList(firstNonEmptyDistractorList(
                 raw.predictionDistractors,
                 raw.notePredictionDistractors,
                 raw.predictionWrongAnswers,
                 raw.distractors && raw.distractors.prediction
-              ),
+              )),
               perceptionCues: isPerceptionCategory(categoryKey)
                 ? normalizePerceptionCues(raw.perceptionCues, observation)
                 : [],
@@ -5198,6 +6390,8 @@
               createdAt: typeof raw.createdAt === "string" ? raw.createdAt : new Date().toISOString(),
               ownerAnnotator: ownerAnnotator,
               ownerAnnotatorKey: annotatorKey(ownerAnnotator),
+              lastModifiedBy: workspaceLastModifiedBy,
+              lastModifiedAt: workspaceLastModifiedAt,
               sourceEntryId: Number.isInteger(options.entryId)
                 ? options.entryId
                 : (Number.isInteger(raw.sourceEntryId) ? raw.sourceEntryId : null),
@@ -5221,6 +6415,8 @@
           hasCharactersSection: hasCharactersSection,
           notes: parsedNotes,
           characters: normalizeCharacterList(hydratedCharacters),
+          perceptionQuestion: FIXED_PERCEPTION_QUESTION,
+          perceptionChoices: toEditablePerceptionChoices(workspacePerceptionChoices),
         };
       }
 
@@ -5245,6 +6441,10 @@
           state.characters = parsedWorkspace.characters;
           renderCharactersPanel();
         }
+        state.perceptionQuestion = FIXED_PERCEPTION_QUESTION;
+        state.perceptionChoices = toEditablePerceptionChoices(parsedWorkspace.perceptionChoices);
+        state.perceptionEditable = true;
+        renderWorkspacePerceptionPanel();
         if (hasNotesSection) {
           renderNotes();
         }
@@ -5367,6 +6567,19 @@
           return timestamp;
         }
         return parsed.toLocaleString();
+      }
+
+      function formatModifierLabel(modifiedBy, modifiedAt) {
+        const modifier = String(modifiedBy || "").trim();
+        if (!modifier) {
+          return "";
+        }
+        const modifiedAtLabel = String(modifiedAt || "").trim()
+          ? formatSharedTimestamp(modifiedAt)
+          : "";
+        return modifiedAtLabel
+          ? ("Modified by " + modifier + " on " + modifiedAtLabel + ".")
+          : ("Modified by " + modifier + ".");
       }
 
       function indexSharedVideos(videos) {
@@ -5577,6 +6790,9 @@
 
         const combinedNotes = [];
         let editableCharacters = [];
+        let workspacePerceptionQuestion = FIXED_PERCEPTION_QUESTION;
+        let workspacePerceptionChoices = toEditablePerceptionChoices([]);
+        let workspacePerceptionEditable = true;
         sharedEntries.forEach((entry) => {
           const parsed = parseAnnotationWorkspaceData(entry.annotation || {}, {
             annotator: entry.annotator,
@@ -5588,14 +6804,26 @@
           });
           if (editableEntryId && entry.id === editableEntryId) {
             editableCharacters = parsed.characters.slice();
+            workspacePerceptionQuestion = FIXED_PERCEPTION_QUESTION;
+            workspacePerceptionChoices = toEditablePerceptionChoices(parsed.perceptionChoices);
+            workspacePerceptionEditable = true;
           }
-          combinedNotes.push(...parsed.notes);
+          if (adminEditingEnabled) {
+            if (editableEntryId && entry.id === editableEntryId) {
+              combinedNotes.push(...parsed.notes);
+            }
+          } else {
+            combinedNotes.push(...parsed.notes);
+          }
         });
 
         combinedNotes.sort((a, b) => a.timeSec - b.timeSec || a.id - b.id);
         state.notes = combinedNotes;
         state.nextId = nextWorkspaceId;
         state.characters = editableCharacters;
+        state.perceptionQuestion = FIXED_PERCEPTION_QUESTION;
+        state.perceptionChoices = workspacePerceptionChoices;
+        state.perceptionEditable = workspacePerceptionEditable;
         renderCharactersPanel();
         renderNotes();
 
@@ -5626,19 +6854,30 @@
         if (editableEntry) {
           const editableAnnotator = String(editableEntry.annotator || "Unknown");
           const adminEditingOtherLayer = Boolean(adminEditingEnabled && annotatorKey(editableAnnotator) !== currentAnnotatorKey);
+          const modifierLabel = editableEntry.lastModifiedBy && annotatorKey(editableEntry.lastModifiedBy) !== annotatorKey(editableAnnotator)
+            ? formatModifierLabel(editableEntry.lastModifiedBy, editableEntry.lastModifiedAt)
+            : "";
           if (adminEditingOtherLayer) {
             updateSharedStatus(
-              "Loaded shared review for " + annotatorSummary + ". Gordon can edit " + editableAnnotator + "'s notes as admin."
+              "Loaded shared review for " + annotatorSummary + ". "
+              + (modifierLabel ? (modifierLabel + " ") : "")
+              + "Gordon can edit " + editableAnnotator + "'s notes as admin."
             );
             updateStatus(
-              "Loaded shared video with " + String(sharedEntries.length) + " annotator layers. Editing " + editableAnnotator + "'s layer as admin."
+              "Loaded shared video with " + String(sharedEntries.length) + " annotator layers. "
+              + (modifierLabel ? (modifierLabel + " ") : "")
+              + "Editing " + editableAnnotator + "'s layer as admin."
             );
           } else {
             updateSharedStatus(
-              "Loaded shared review for " + annotatorSummary + ". Only " + editableAnnotator + "'s notes are editable."
+              "Loaded shared review for " + annotatorSummary + ". "
+              + (modifierLabel ? (modifierLabel + " ") : "")
+              + "Only " + editableAnnotator + "'s notes are editable."
             );
             updateStatus(
-              "Loaded shared video with " + String(sharedEntries.length) + " annotator layers. Only your notes are editable."
+              "Loaded shared video with " + String(sharedEntries.length) + " annotator layers. "
+              + (modifierLabel ? (modifierLabel + " ") : "")
+              + "Only your notes are editable."
             );
           }
         } else {
@@ -5718,7 +6957,10 @@
               chip.style.background = colors.background;
               chip.style.borderColor = colors.border;
               chip.style.color = colors.color;
-              chip.title = "Load shared review focused on " + String(entry.annotator || "Unknown");
+              const modifierLabel = entry.lastModifiedBy && annotatorKey(entry.lastModifiedBy) !== annotatorKey(entry.annotator)
+                ? (" " + formatModifierLabel(entry.lastModifiedBy, entry.lastModifiedAt))
+                : "";
+              chip.title = "Load shared review focused on " + String(entry.annotator || "Unknown") + "." + modifierLabel;
               chip.addEventListener("click", () => {
                 loadSharedEntry(entry.id);
               });
@@ -5999,6 +7241,7 @@
               "Content-Type": "application/json",
             }),
             body: JSON.stringify({
+              entryId: Number.isInteger(currentSharedEntryId) ? currentSharedEntryId : null,
               annotator: publishAnnotator,
               videoRef: videoRef,
               annotation: buildExportPayload(),
@@ -6261,6 +7504,10 @@
 
       analyticsCloseButton.addEventListener("click", () => {
         closeAnalyticsPanel();
+      });
+
+      geminiCloseButton.addEventListener("click", () => {
+        closeGeminiPanel();
       });
 
       sharedRefreshButton.addEventListener("click", async () => {
