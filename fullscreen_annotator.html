@@ -1105,6 +1105,27 @@
         background: rgba(38, 78, 112, 0.28);
       }
 
+      .note-actions button.quiz-gemini {
+        border-color: rgba(255, 227, 148, 0.9);
+        background: linear-gradient(135deg, #ffb347 0%, #ffd166 55%, #ffe7a3 100%);
+        color: #2d1a00;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+        box-shadow: 0 0 0 1px rgba(255, 210, 110, 0.45), 0 6px 14px rgba(0, 0, 0, 0.28);
+      }
+
+      .note-actions button.quiz-gemini:hover {
+        filter: none;
+        transform: translateY(-1px);
+        box-shadow: 0 0 0 1px rgba(255, 210, 110, 0.55), 0 8px 16px rgba(0, 0, 0, 0.32);
+      }
+
+      .note-actions button.quiz-gemini:disabled {
+        opacity: 0.72;
+        transform: none;
+        box-shadow: 0 0 0 1px rgba(255, 210, 110, 0.28), 0 3px 8px rgba(0, 0, 0, 0.22);
+      }
+
       .note-actions button:hover {
         filter: brightness(1.08);
       }
@@ -7477,6 +7498,7 @@
 
           const quizAllButton = document.createElement("button");
           quizAllButton.type = "button";
+          quizAllButton.className = "quiz-gemini";
           quizAllButton.textContent = "Quiz Gemini";
           quizAllButton.title = "Clip the video from the start to this note's timestamp and ask Gemini each note question separately.";
           quizAllButton.addEventListener("click", () => requestGeminiNoteQuiz(note.id, quizAllButton));
