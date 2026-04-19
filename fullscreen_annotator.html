@@ -137,6 +137,17 @@
         line-height: 1;
       }
 
+      .next-question-button {
+        border-color: rgba(173, 216, 255, 0.46);
+        background: rgba(38, 78, 112, 0.28);
+        color: #f7fcff;
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
       .btn.alt {
         border-color: #385670;
         background: #4f7291;
@@ -317,6 +328,32 @@
       .note-count {
         font-size: 12px;
         opacity: 0.85;
+      }
+
+      .note-rail-header-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .take-quiz-button {
+        border: 1px solid rgba(173, 216, 255, 0.46);
+        background: rgba(38, 78, 112, 0.28);
+        color: #f7fcff;
+        border-radius: 999px;
+        padding: 5px 10px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .take-quiz-button.active {
+        border-color: rgba(255, 174, 174, 0.62);
+        background: rgba(121, 26, 26, 0.34);
+      }
+
+      .take-quiz-button:hover {
+        filter: brightness(1.08);
       }
 
       .note-rail-body {
@@ -1393,6 +1430,133 @@
         color: #ffcccc;
       }
 
+      .take-quiz-backdrop {
+        position: absolute;
+        inset: 0;
+        z-index: 41;
+        display: none;
+        background: rgba(5, 8, 12, 0.5);
+        backdrop-filter: blur(4px);
+      }
+
+      .take-quiz-backdrop.visible {
+        display: block;
+      }
+
+      .take-quiz-panel {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 42;
+        width: min(740px, calc(100vw - 32px));
+        max-height: min(72vh, 720px);
+        border-radius: 16px;
+        border: 1px solid rgba(218, 224, 232, 0.48);
+        background: rgba(14, 18, 26, 0.96);
+        color: #ebf1f7;
+        box-shadow: var(--shadow);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .take-quiz-panel.visible {
+        display: flex;
+      }
+
+      .take-quiz-body {
+        padding: 12px;
+        display: grid;
+        gap: 12px;
+        overflow: auto;
+      }
+
+      .take-quiz-meta {
+        font-size: 12px;
+        color: rgba(221, 230, 240, 0.78);
+        line-height: 1.45;
+      }
+
+      .take-quiz-question {
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.06);
+        padding: 12px;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        line-height: 1.55;
+      }
+
+      .take-quiz-question strong {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 11px;
+        letter-spacing: 0.45px;
+        text-transform: uppercase;
+        color: rgba(221, 230, 240, 0.72);
+      }
+
+      .take-quiz-options {
+        display: grid;
+        gap: 8px;
+      }
+
+      .take-quiz-option {
+        width: 100%;
+        text-align: left;
+        border: 1px solid rgba(214, 229, 243, 0.36);
+        background: rgba(255, 255, 255, 0.08);
+        color: #f6fbff;
+        border-radius: 10px;
+        padding: 8px 10px;
+        font: inherit;
+        font-size: 13px;
+        line-height: 1.45;
+        cursor: pointer;
+      }
+
+      .take-quiz-option:hover {
+        filter: brightness(1.08);
+      }
+
+      .take-quiz-option.selected {
+        border-color: rgba(173, 216, 255, 0.65);
+        background: rgba(59, 112, 150, 0.38);
+      }
+
+      .take-quiz-option.correct {
+        border-color: rgba(132, 220, 158, 0.74);
+        background: rgba(34, 114, 67, 0.34);
+      }
+
+      .take-quiz-option.wrong {
+        border-color: rgba(255, 164, 164, 0.76);
+        background: rgba(121, 34, 34, 0.34);
+      }
+
+      .take-quiz-option:disabled {
+        opacity: 0.92;
+        cursor: default;
+      }
+
+      .take-quiz-feedback {
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .take-quiz-feedback.correct {
+        color: #b9f3c8;
+      }
+
+      .take-quiz-feedback.wrong {
+        color: #ffd0d0;
+      }
+
+      .take-quiz-feedback.pending {
+        color: rgba(221, 230, 240, 0.74);
+      }
+
       .analytics-intro {
         font-size: 12px;
         color: rgba(221, 230, 240, 0.82);
@@ -1975,7 +2139,10 @@
       <aside class="note-rail">
         <div class="note-rail-header">
           <strong>Sticky Notes</strong>
-          <span class="note-count" id="note-count">0</span>
+          <div class="note-rail-header-actions">
+            <button class="take-quiz-button" id="take-quiz-button" type="button" title="Hide notes and start a timestamp quiz.">Take Quiz</button>
+            <span class="note-count" id="note-count">0</span>
+          </div>
         </div>
         <div class="note-rail-body">
           <div class="character-panel">
@@ -1993,6 +2160,7 @@
       <div class="scrub-panel">
         <div class="scrub-main-row">
           <button class="btn icon-btn" id="play-toggle" type="button" aria-label="Play" title="Play">▶</button>
+          <button class="btn next-question-button" id="next-question-button" type="button" aria-label="Next Question" title="Jump to 10 seconds before the next question and play">Next Question</button>
           <span class="timecode" id="current-time">00:00:00.00</span>
           <input class="scrubber" id="scrubber" type="range" min="0" max="0" step="0.01" value="0">
           <span class="timecode" id="duration-time">00:00:00.00</span>
@@ -2145,7 +2313,7 @@
           </div>
         </div>
         <div class="gemini-body">
-          <div class="gemini-meta" id="gemini-meta">Use note-level Quiz Gemini to answer comprehension, reasoning, and prediction together, or use each task's Ask Gemini button to fill empty answer fields from the clip ending at the note timestamp.</div>
+          <div class="gemini-meta" id="gemini-meta">Use note-level Quiz Gemini to answer comprehension, reasoning, and prediction with separate Gemini calls per task, or use each task's Ask Gemini button to fill empty answer fields from the clip ending at the note timestamp.</div>
           <div class="gemini-question" id="gemini-question" hidden>
             <strong>Question</strong>
             <span id="gemini-question-text"></span>
@@ -2155,6 +2323,26 @@
             <strong>Response</strong>
             <span id="gemini-response-text"></span>
           </div>
+        </div>
+      </section>
+
+      <div class="take-quiz-backdrop" id="take-quiz-backdrop"></div>
+
+      <section class="take-quiz-panel" id="take-quiz-panel" aria-live="polite">
+        <div class="shared-header">
+          <strong>Take Quiz</strong>
+          <div class="shared-header-actions">
+            <button type="button" id="take-quiz-close">Close</button>
+          </div>
+        </div>
+        <div class="take-quiz-body">
+          <div class="take-quiz-meta" id="take-quiz-meta">The quiz will start from 00:00:00.00 and pause at note timestamps.</div>
+          <div class="take-quiz-question">
+            <strong>Question</strong>
+            <span id="take-quiz-question-text"></span>
+          </div>
+          <div class="take-quiz-options" id="take-quiz-options"></div>
+          <div class="take-quiz-feedback pending" id="take-quiz-feedback">Choose one option, then close this popup to continue playback.</div>
         </div>
       </section>
     </div>
@@ -2260,9 +2448,9 @@
         },
       ];
 
-      // Mirror extraction_chain/prompt_template.py QUESTION_MAPPINGS in the browser so
-      // note questions can be auto-seeded when annotators create or retarget a note.
-      const QUESTION_TEMPLATE_MAPPINGS = {
+      // Fallback copy of extraction_chain/prompt_template.py QUESTION_MAPPINGS.
+      // The browser fetches the authoritative version from the server when available.
+      const DEFAULT_QUESTION_TEMPLATE_MAPPINGS = {
         Emotion: {
           Reasoning: "Which of the following best describes what causes {character} to feel how they feel in this scene?",
           Comprehension: "Which of the following correctly describes what {character} is feeling at this point in the video?",
@@ -2290,7 +2478,7 @@
         },
         Communicative_Intent: {
           Reasoning: "Which of the following best explains why {character} is communicating what they are in this scene?",
-          Comprehension: "Which of the following correctly describes what {character}'s communicative intent is at this point in the video?",
+          Comprehension: "Which of the following correctly describes how {character}'s achieves his communicative intent with his language/behaviour in the video?",
           Prediction: "Given {character}'s communicative intent, what type of reaction is {character} most likely to elicit from others?",
         },
         Relationship: {
@@ -2419,6 +2607,8 @@
       const SHARED_AUTH_STORAGE_KEY = "fullscreen-video-annotator-shared-auth-v1";
       const GEMINI_THINKING_STORAGE_KEY = "fullscreen-video-annotator-gemini-thinking-v1";
       const DEFAULT_SHARED_SERVER_URL = "http://127.0.0.1:8765";
+      const PROMPT_TEMPLATE_QUESTION_MAPPINGS_PATH = "/api/prompt-template/question-mappings";
+      const QUESTION_TEMPLATE_SYNC_INTERVAL_MS = 5000;
       const YT_IMPORT_ENDPOINT_PATH = "/api/yt-mp4";
       const YT_TRIM_ENDPOINT_PATH = "/api/yt-mp4/trim";
       const GEMINI_CLIP_QUESTION_PATH = "/api/gemini/clip-question";
@@ -2433,6 +2623,9 @@
       const SHARED_LIBRARY_LOCAL_VIDEO_REGISTER_PATH = "/api/shared-library/register-local-video";
       const DISTRACTOR_COUNT_PER_TASK = 7;
       const PERCEPTION_CHOICE_COUNT = 8;
+      const TAKE_QUIZ_OPTION_LABELS = ["A", "B", "C", "D", "E", "F", "G", "H"];
+      const TAKE_QUIZ_TRIGGER_TOLERANCE_SEC = 0.06;
+      const NEXT_QUESTION_PREROLL_SEC = 10;
 
       const app = document.getElementById("app");
       const topBar = document.querySelector(".top-bar");
@@ -2440,12 +2633,14 @@
       const video = document.getElementById("video");
       const scrubPanel = document.querySelector(".scrub-panel");
       const playToggle = document.getElementById("play-toggle");
+      const nextQuestionButton = document.getElementById("next-question-button");
       const videoTitle = document.getElementById("video-title");
       const scrubber = document.getElementById("scrubber");
       const currentTimeLabel = document.getElementById("current-time");
       const durationTimeLabel = document.getElementById("duration-time");
       const noteList = document.getElementById("note-list");
       const noteCount = document.getElementById("note-count");
+      const takeQuizButton = document.getElementById("take-quiz-button");
       const characterInput = document.getElementById("character-input");
       const characterAddButton = document.getElementById("character-add");
       const characterList = document.getElementById("character-list");
@@ -2487,6 +2682,13 @@
       const geminiStatus = document.getElementById("gemini-status");
       const geminiResponse = document.getElementById("gemini-response");
       const geminiResponseText = document.getElementById("gemini-response-text");
+      const takeQuizBackdrop = document.getElementById("take-quiz-backdrop");
+      const takeQuizPanel = document.getElementById("take-quiz-panel");
+      const takeQuizCloseButton = document.getElementById("take-quiz-close");
+      const takeQuizMeta = document.getElementById("take-quiz-meta");
+      const takeQuizQuestionText = document.getElementById("take-quiz-question-text");
+      const takeQuizOptions = document.getElementById("take-quiz-options");
+      const takeQuizFeedback = document.getElementById("take-quiz-feedback");
       const youtubeLinkInput = document.getElementById("youtube-link");
       const youtubeImportButton = document.getElementById("youtube-import");
       const localUploadTriggerButton = document.getElementById("local-upload-trigger");
@@ -2568,6 +2770,11 @@
       let libraryAnalyticsRequestId = 0;
       let geminiAssistRequestId = 0;
       let geminiThinkingLevel = "low";
+      let questionTemplateMappings = DEFAULT_QUESTION_TEMPLATE_MAPPINGS;
+      let questionMappingsSyncInFlight = null;
+      let questionMappingsSyncTimer = null;
+      let takeQuizSession = null;
+      let notesHiddenBeforeTakeQuiz = false;
 
       function buildAnalyticsCategoryMap(definitions) {
         const map = new Map();
@@ -2734,6 +2941,536 @@
         geminiResponse.hidden = true;
         geminiResponseText.textContent = "";
         openGeminiPanel();
+      }
+
+      function normalizeTakeQuizChoiceKey(value) {
+        return String(value || "").trim().toLowerCase();
+      }
+
+      function normalizeTakeQuizOptionLabel(value) {
+        const normalized = String(value || "").trim().toUpperCase();
+        return TAKE_QUIZ_OPTION_LABELS.includes(normalized) ? normalized : "";
+      }
+
+      function normalizeNoteQuizSelections(rawValue) {
+        const fallback = {
+          annotator: "",
+          takenAt: "",
+          tasks: {},
+        };
+        if (!rawValue || typeof rawValue !== "object" || Array.isArray(rawValue)) {
+          return fallback;
+        }
+
+        const annotator = String(
+          rawValue.annotator
+          || rawValue.lastAnnotator
+          || rawValue.username
+          || ""
+        ).trim();
+        const takenAt = String(
+          rawValue.takenAt
+          || rawValue.lastTakenAt
+          || rawValue.completedAt
+          || ""
+        ).trim();
+        const rawTasks = rawValue.tasks && typeof rawValue.tasks === "object" && !Array.isArray(rawValue.tasks)
+          ? rawValue.tasks
+          : rawValue;
+        const tasks = {};
+
+        NOTE_ANALYSIS_ITEMS.forEach((item) => {
+          const rawTask = rawTasks && rawTasks[item.field];
+          if (!rawTask || typeof rawTask !== "object" || Array.isArray(rawTask)) {
+            return;
+          }
+          const selectedChoice = String(rawTask.selectedChoice || rawTask.choice || rawTask.selectedText || "").trim();
+          const selectedLabel = normalizeTakeQuizOptionLabel(rawTask.selectedLabel || rawTask.label || "");
+          if (!selectedChoice && !selectedLabel) {
+            return;
+          }
+          tasks[item.field] = {
+            selectedLabel: selectedLabel,
+            selectedChoice: selectedChoice,
+            correct: Boolean(rawTask.correct),
+            answeredAt: String(rawTask.answeredAt || rawTask.at || "").trim(),
+          };
+        });
+
+        return {
+          annotator: annotator,
+          takenAt: takenAt,
+          tasks: tasks,
+        };
+      }
+
+      function recordTakeQuizSelection(entry, option, isCorrect) {
+        const note = getNoteById(Number(entry && entry.noteId));
+        if (!note || !entry || !entry.taskField) {
+          return;
+        }
+        const currentSelections = normalizeNoteQuizSelections(note.quizSelections);
+        const annotator = String(
+          getCurrentAnnotatorName()
+          || getEditableWorkspaceAnnotatorName()
+          || note.ownerAnnotator
+          || ""
+        ).trim();
+        const nowIso = new Date().toISOString();
+        const nextTasks = {
+          ...currentSelections.tasks,
+          [entry.taskField]: {
+            selectedLabel: normalizeTakeQuizOptionLabel(option && option.label),
+            selectedChoice: String(option && option.text || "").trim(),
+            correct: Boolean(isCorrect),
+            answeredAt: nowIso,
+          },
+        };
+        note.quizSelections = {
+          annotator: annotator,
+          takenAt: nowIso,
+          tasks: nextTasks,
+        };
+        renderJsonPreview();
+      }
+
+      function updateTakeQuizButtonUi() {
+        const active = Boolean(takeQuizSession && takeQuizSession.active);
+        if (active) {
+          takeQuizButton.textContent = "Stop Quiz";
+          takeQuizButton.classList.add("active");
+          takeQuizButton.setAttribute("title", "Stop the current timestamp quiz.");
+        } else {
+          takeQuizButton.textContent = "Take Quiz";
+          takeQuizButton.classList.remove("active");
+          takeQuizButton.setAttribute("title", "Hide notes and start a timestamp quiz.");
+        }
+      }
+
+      function closeTakeQuizPopup() {
+        takeQuizBackdrop.classList.remove("visible");
+        takeQuizPanel.classList.remove("visible");
+      }
+
+      function openTakeQuizPopup() {
+        takeQuizBackdrop.classList.add("visible");
+        takeQuizPanel.classList.add("visible");
+      }
+
+      function setTakeQuizFeedback(message, tone = "pending") {
+        takeQuizFeedback.classList.remove("pending", "correct", "wrong");
+        if (tone === "correct") {
+          takeQuizFeedback.classList.add("correct");
+        } else if (tone === "wrong") {
+          takeQuizFeedback.classList.add("wrong");
+        } else {
+          takeQuizFeedback.classList.add("pending");
+        }
+        takeQuizFeedback.textContent = String(message || "");
+      }
+
+      function getCurrentTakeQuizEntry() {
+        if (!takeQuizSession || !takeQuizSession.active || takeQuizSession.index < 0) {
+          return null;
+        }
+        if (takeQuizSession.index >= takeQuizSession.entries.length) {
+          return null;
+        }
+        return takeQuizSession.entries[takeQuizSession.index];
+      }
+
+      function buildTakeQuizEntries() {
+        const duration = getVideoDurationSec();
+        const sortedNotes = state.notes
+          .filter((note) => isEditableNote(note))
+          .sort((a, b) => {
+          return Number(a.timeSec || 0) - Number(b.timeSec || 0) || Number(a.id || 0) - Number(b.id || 0);
+        });
+        const entries = [];
+
+        sortedNotes.forEach((note) => {
+          const noteTime = clamp(Number(note && note.timeSec || 0), 0, duration || Number.MAX_SAFE_INTEGER);
+          NOTE_ANALYSIS_ITEMS.forEach((item, taskIndex) => {
+            const question = String(note && note[item.questionField] || "").trim();
+            const correctAnswer = String(note && note[item.field] || "").trim();
+            if (!question || !correctAnswer) {
+              return;
+            }
+            const candidateChoices = [
+              correctAnswer,
+              ...toEditableDistractorSlots(note && note[item.distractorField]).map((value) => String(value || "").trim()),
+            ];
+            const seen = new Set();
+            const dedupedChoices = candidateChoices.filter((value) => {
+              const key = normalizeTakeQuizChoiceKey(value);
+              if (!key || seen.has(key)) {
+                return false;
+              }
+              seen.add(key);
+              return true;
+            });
+            if (dedupedChoices.length < 2) {
+              return;
+            }
+
+            const limitedChoices = dedupedChoices.slice(0, TAKE_QUIZ_OPTION_LABELS.length);
+            const shuffledChoices = limitedChoices
+              .map((choice) => ({ choice: choice, sortKey: Math.random() }))
+              .sort((left, right) => left.sortKey - right.sortKey)
+              .map((entry) => entry.choice);
+            const correctChoiceKey = normalizeTakeQuizChoiceKey(correctAnswer);
+            const correctIndex = shuffledChoices.findIndex((value) => normalizeTakeQuizChoiceKey(value) === correctChoiceKey);
+            if (correctIndex < 0) {
+              return;
+            }
+
+            const options = shuffledChoices.map((choice, index) => {
+              return {
+                label: TAKE_QUIZ_OPTION_LABELS[index],
+                text: choice,
+              };
+            });
+
+            entries.push({
+              id: "note-" + String(note.id) + "-" + String(item.field) + "-" + String(taskIndex),
+              noteId: note.id,
+              taskField: String(item.field),
+              taskLabel: String(item.label || "Question"),
+              timeSec: noteTime,
+              question: question,
+              options: options,
+              correctChoice: correctAnswer,
+              answered: false,
+              skipped: false,
+              correct: false,
+              selectedLabel: "",
+            });
+          });
+        });
+
+        return entries;
+      }
+
+      function noteHasRunnableTakeQuizQuestion(note) {
+        if (!note || !isEditableNote(note)) {
+          return false;
+        }
+        return NOTE_ANALYSIS_ITEMS.some((item) => {
+          const question = String(note[item.questionField] || "").trim();
+          const correctAnswer = String(note[item.field] || "").trim();
+          if (!question || !correctAnswer) {
+            return false;
+          }
+          const choiceCandidates = [
+            correctAnswer,
+            ...toEditableDistractorSlots(note[item.distractorField]).map((value) => String(value || "").trim()),
+          ];
+          const seen = new Set();
+          const dedupedCount = choiceCandidates.reduce((count, value) => {
+            const key = normalizeTakeQuizChoiceKey(value);
+            if (!key || seen.has(key)) {
+              return count;
+            }
+            seen.add(key);
+            return count + 1;
+          }, 0);
+          return dedupedCount >= 2;
+        });
+      }
+
+      function collectTakeQuizQuestionTimestamps() {
+        const duration = getVideoDurationSec();
+        const timestampMap = new Map();
+        state.notes.forEach((note) => {
+          if (!noteHasRunnableTakeQuizQuestion(note)) {
+            return;
+          }
+          const timestamp = clamp(Number(note.timeSec || 0), 0, duration || Number.MAX_SAFE_INTEGER);
+          if (!Number.isFinite(timestamp)) {
+            return;
+          }
+          const key = String(Math.round(timestamp * 1000));
+          if (!timestampMap.has(key)) {
+            timestampMap.set(key, timestamp);
+          }
+        });
+        return Array.from(timestampMap.values()).sort((left, right) => left - right);
+      }
+
+      function jumpToNextQuestionAndPlay() {
+        if (!hasLoadedVideoSource()) {
+          updateStatus("Load a video before jumping to the next question.");
+          return;
+        }
+        if (takeQuizSession && takeQuizSession.active) {
+          if (takeQuizSession.waitingForAnswer) {
+            const currentEntry = getCurrentTakeQuizEntry();
+            if (currentEntry && !currentEntry.answered) {
+              currentEntry.skipped = true;
+            }
+            takeQuizSession.waitingForAnswer = false;
+            closeTakeQuizPopup();
+            takeQuizSession.index += 1;
+          }
+
+          const nextQuizEntry = getCurrentTakeQuizEntry();
+          if (!nextQuizEntry) {
+            finishTakeQuizSession({
+              message: "No next quiz question.",
+            });
+            return;
+          }
+
+          const nextQuizTime = Number(nextQuizEntry.timeSec || 0);
+          const jumpToSec = Math.max(0, nextQuizTime - NEXT_QUESTION_PREROLL_SEC);
+          video.pause();
+          video.currentTime = jumpToSec;
+          updatePlaybackUi();
+          updateStatus(
+            "Jumped to "
+            + formatTimecode(jumpToSec)
+            + " (10s before next quiz question at "
+            + formatTimecode(nextQuizTime)
+            + ")."
+          );
+          video.play().catch(() => {
+            updateStatus("Playback blocked by browser. Click video first, then press Next Question again.");
+          });
+          return;
+        }
+        const currentTime = Number(video.currentTime || 0);
+        const timestamps = collectTakeQuizQuestionTimestamps();
+        if (!timestamps.length) {
+          updateStatus("No runnable quiz questions found in editable notes.");
+          return;
+        }
+        const nextTimestamp = timestamps.find((timeSec) => {
+          return timeSec > currentTime + TAKE_QUIZ_TRIGGER_TOLERANCE_SEC;
+        });
+        if (!Number.isFinite(nextTimestamp)) {
+          updateStatus("No next question after " + formatTimecode(currentTime) + ".");
+          return;
+        }
+        const jumpToSec = Math.max(0, Number(nextTimestamp) - NEXT_QUESTION_PREROLL_SEC);
+        video.pause();
+        video.currentTime = jumpToSec;
+        updatePlaybackUi();
+        updateStatus(
+          "Jumped to "
+          + formatTimecode(jumpToSec)
+          + " (10s before next question at "
+          + formatTimecode(nextTimestamp)
+          + ")."
+        );
+        video.play().catch(() => {
+          updateStatus("Playback blocked by browser. Click video first, then press Next Question again.");
+        });
+      }
+
+      function renderTakeQuizEntry(entry) {
+        if (!entry) {
+          return;
+        }
+        const total = takeQuizSession && Array.isArray(takeQuizSession.entries) ? takeQuizSession.entries.length : 0;
+        const index = takeQuizSession ? takeQuizSession.index : 0;
+        const orderText = String(index + 1) + " / " + String(total || 1);
+        takeQuizMeta.textContent = (
+          "Question "
+          + orderText
+          + " | "
+          + String(entry.taskLabel || "Question")
+          + " | Timestamp "
+          + formatTimecode(Number(entry.timeSec) || 0)
+        );
+        takeQuizQuestionText.textContent = String(entry.question || "");
+        takeQuizOptions.innerHTML = "";
+        setTakeQuizFeedback("Choose one option, then close this popup to continue playback.", "pending");
+
+        const optionButtons = [];
+        entry.options.forEach((option) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "take-quiz-option";
+          button.textContent = String(option.label || "") + ". " + String(option.text || "");
+          button.addEventListener("click", () => {
+            if (!takeQuizSession || !takeQuizSession.active || !takeQuizSession.waitingForAnswer || entry.answered) {
+              return;
+            }
+            const selectedKey = normalizeTakeQuizChoiceKey(option.text);
+            const correctKey = normalizeTakeQuizChoiceKey(entry.correctChoice);
+            entry.answered = true;
+            entry.selectedLabel = String(option.label || "");
+            entry.correct = selectedKey && selectedKey === correctKey;
+            recordTakeQuizSelection(entry, option, entry.correct);
+            optionButtons.forEach((candidateButton) => {
+              candidateButton.disabled = true;
+              candidateButton.classList.remove("selected");
+            });
+            button.classList.add("selected");
+            if (entry.correct) {
+              button.classList.add("correct");
+              setTakeQuizFeedback("Correct.", "correct");
+              updateStatus(
+                "Correct at "
+                + formatTimecode(Number(entry.timeSec) || 0)
+                + " (" + String(entry.taskLabel || "question").toLowerCase() + ")."
+              );
+            } else {
+              button.classList.add("wrong");
+              setTakeQuizFeedback("Wrong.", "wrong");
+              updateStatus(
+                "Wrong at "
+                + formatTimecode(Number(entry.timeSec) || 0)
+                + " (" + String(entry.taskLabel || "question").toLowerCase() + ")."
+              );
+            }
+          });
+          optionButtons.push(button);
+          takeQuizOptions.appendChild(button);
+        });
+
+        openTakeQuizPopup();
+      }
+
+      function finishTakeQuizSession(options = {}) {
+        if (!takeQuizSession || !takeQuizSession.active) {
+          updateTakeQuizButtonUi();
+          closeTakeQuizPopup();
+          return;
+        }
+        const messageOverride = String(options.message || "").trim();
+        const entries = Array.isArray(takeQuizSession.entries) ? takeQuizSession.entries : [];
+        const answeredCount = entries.filter((entry) => entry && entry.answered).length;
+        const correctCount = entries.filter((entry) => entry && entry.answered && entry.correct).length;
+        const skippedCount = entries.filter((entry) => entry && !entry.answered).length;
+
+        takeQuizSession = null;
+        closeTakeQuizPopup();
+        updateTakeQuizButtonUi();
+
+        notesHidden = notesHiddenBeforeTakeQuiz;
+        applyNotesVisibility();
+
+        if (messageOverride) {
+          updateStatus(messageOverride);
+          return;
+        }
+        updateStatus(
+          "Quiz finished. Correct "
+          + String(correctCount)
+          + " / "
+          + String(answeredCount)
+          + " answered"
+          + (skippedCount ? (", skipped " + String(skippedCount) + ".") : ".")
+        );
+      }
+
+      function closeTakeQuizQuestion() {
+        if (!takeQuizSession || !takeQuizSession.active || !takeQuizSession.waitingForAnswer) {
+          closeTakeQuizPopup();
+          return;
+        }
+        const currentEntry = getCurrentTakeQuizEntry();
+        if (currentEntry && !currentEntry.answered) {
+          currentEntry.skipped = true;
+        }
+        takeQuizSession.waitingForAnswer = false;
+        closeTakeQuizPopup();
+        takeQuizSession.index += 1;
+        if (takeQuizSession.index >= takeQuizSession.entries.length) {
+          finishTakeQuizSession();
+          return;
+        }
+        const nextEntry = getCurrentTakeQuizEntry();
+        if (!nextEntry) {
+          finishTakeQuizSession();
+          return;
+        }
+        const currentTime = Number(video.currentTime || 0);
+        if (currentTime + TAKE_QUIZ_TRIGGER_TOLERANCE_SEC >= Number(nextEntry.timeSec || 0)) {
+          video.pause();
+          takeQuizSession.waitingForAnswer = true;
+          renderTakeQuizEntry(nextEntry);
+          return;
+        }
+        video.play().catch(() => {
+          updateStatus("Playback blocked by browser. Click the video and resume to continue the quiz.");
+        });
+      }
+
+      function triggerTakeQuizQuestionIfNeeded(currentTime) {
+        if (!takeQuizSession || !takeQuizSession.active || takeQuizSession.waitingForAnswer) {
+          return;
+        }
+        const entry = getCurrentTakeQuizEntry();
+        if (!entry) {
+          finishTakeQuizSession();
+          return;
+        }
+        if (Number(currentTime || 0) + TAKE_QUIZ_TRIGGER_TOLERANCE_SEC < Number(entry.timeSec || 0)) {
+          return;
+        }
+        video.pause();
+        takeQuizSession.waitingForAnswer = true;
+        renderTakeQuizEntry(entry);
+      }
+
+      function startTakeQuiz() {
+        if (!hasLoadedVideoSource()) {
+          showErrorPopup("Load a video before taking a quiz.");
+          return;
+        }
+        const entries = buildTakeQuizEntries();
+        if (!entries.length) {
+          showErrorPopup("Add at least one complete MCQ (question, correct answer, and distractors) before taking a quiz.");
+          return;
+        }
+
+        if (takeQuizSession && takeQuizSession.active) {
+          takeQuizSession = null;
+          closeTakeQuizPopup();
+        }
+        closeTakeQuizPopup();
+
+        notesHiddenBeforeTakeQuiz = notesHidden;
+        if (!notesHidden) {
+          notesHidden = true;
+          applyNotesVisibility();
+        }
+
+        takeQuizSession = {
+          active: true,
+          entries: entries,
+          index: 0,
+          waitingForAnswer: false,
+        };
+        updateTakeQuizButtonUi();
+
+        const totalQuestions = entries.length;
+        video.pause();
+        video.currentTime = 0;
+        updateStatus(
+          "Take Quiz started: "
+          + String(totalQuestions)
+          + " question"
+          + (totalQuestions === 1 ? "" : "s")
+          + "."
+        );
+
+        video.play().catch(() => {
+          updateStatus("Playback blocked by browser. Click the video to start the quiz playback.");
+        });
+      }
+
+      function stopTakeQuiz() {
+        if (!takeQuizSession || !takeQuizSession.active) {
+          closeTakeQuizPopup();
+          updateTakeQuizButtonUi();
+          return;
+        }
+        finishTakeQuizSession({
+          message: "Quiz stopped.",
+        });
       }
 
       function hasNonEmptyTextValue(value) {
@@ -3622,6 +4359,7 @@
         if (!requireSharedLogin("asking Gemini about all note questions")) {
           return;
         }
+        await syncQuestionTemplateMappings({ quiet: true, reapply: true });
         if (!hasLoadedVideoSource()) {
           showErrorPopup("Load a video before asking Gemini about a clip.");
           return;
@@ -3680,10 +4418,11 @@
         const questionSummary = runnableItems
           .map((entry) => String(entry.item.label || "Question") + ": " + entry.question)
           .join("\n\n");
+        const taskLabel = "All Questions";
 
         setGeminiPanelLoading({
           question: questionSummary,
-          taskLabel: "All Questions",
+          taskLabel: taskLabel,
           endSec: clipEnd,
         });
 
@@ -3711,7 +4450,7 @@
 
           setGeminiPanelResult({
             question: questionSummary,
-            taskLabel: "All Questions",
+            taskLabel: taskLabel,
             endSec: clipEnd,
             response: responseSections.join("\n\n"),
           });
@@ -3720,14 +4459,14 @@
             + String(runnableItems.length)
             + " question"
             + (runnableItems.length === 1 ? "" : "s")
-            + " for this note."
+            + " for this note with separate prompts."
           );
         } catch (error) {
           const message = error && error.message ? String(error.message) : "Unknown error";
           if (requestId === geminiAssistRequestId) {
             setGeminiPanelError({
               question: questionSummary,
-              taskLabel: "All Questions",
+              taskLabel: taskLabel,
               endSec: clipEnd,
               message: message,
             });
@@ -4222,6 +4961,104 @@
         return baseUrl + suffix;
       }
 
+      function normalizeQuestionTemplateMappings(rawMappings) {
+        const normalized = {};
+        if (!rawMappings || typeof rawMappings !== "object") {
+          return normalized;
+        }
+        Object.keys(rawMappings).forEach((rawKey) => {
+          const key = String(rawKey || "").trim();
+          if (!key) {
+            return;
+          }
+          const rawTaskMappings = rawMappings[rawKey];
+          if (!rawTaskMappings || typeof rawTaskMappings !== "object") {
+            return;
+          }
+          const comprehension = String(rawTaskMappings.Comprehension || "").trim();
+          const reasoning = String(rawTaskMappings.Reasoning || "").trim();
+          const prediction = String(rawTaskMappings.Prediction || "").trim();
+          if (!comprehension || !reasoning || !prediction) {
+            return;
+          }
+          normalized[key] = {
+            Comprehension: comprehension,
+            Reasoning: reasoning,
+            Prediction: prediction,
+          };
+        });
+        return normalized;
+      }
+
+      function reapplyAutoQuestionTemplatesForAllNotes() {
+        let changed = false;
+        state.notes.forEach((note) => {
+          if (applyAutoQuestionTemplates(note)) {
+            changed = true;
+          }
+          syncAutoQuestionInputs(note);
+        });
+        if (changed) {
+          renderNotes();
+          renderJsonPreview();
+        }
+        return changed;
+      }
+
+      async function syncQuestionTemplateMappings(options = {}) {
+        const quiet = Boolean(options.quiet);
+        const reapply = options.reapply !== false;
+        if (questionMappingsSyncInFlight) {
+          return questionMappingsSyncInFlight;
+        }
+        questionMappingsSyncInFlight = (async () => {
+          try {
+            const response = await fetch(resolveSharedApiUrl(PROMPT_TEMPLATE_QUESTION_MAPPINGS_PATH), {
+              headers: buildSharedAuthHeaders(),
+            });
+            const payload = await response.json().catch(() => ({}));
+            if (!response.ok) {
+              const message = payload && payload.error ? String(payload.error) : ("HTTP " + response.status);
+              throw new Error(message);
+            }
+            const remoteMappings = normalizeQuestionTemplateMappings(
+              payload && (payload.questionMappings || payload.QUESTION_MAPPINGS || payload.mappings)
+            );
+            if (!Object.keys(remoteMappings).length) {
+              throw new Error("Server returned empty question mappings.");
+            }
+            questionTemplateMappings = remoteMappings;
+            if (reapply) {
+              reapplyAutoQuestionTemplatesForAllNotes();
+            }
+            if (!quiet) {
+              updateStatus("Question templates synced from prompt_template.QUESTION_MAPPINGS.");
+            }
+            return true;
+          } catch (error) {
+            if (!quiet) {
+              const message = error && error.message ? String(error.message) : "Unknown error";
+              updateStatus(
+                "Could not sync question templates from prompt_template.QUESTION_MAPPINGS (" + message + "). Using local fallback templates."
+              );
+            }
+            return false;
+          } finally {
+            questionMappingsSyncInFlight = null;
+          }
+        })();
+        return questionMappingsSyncInFlight;
+      }
+
+      function startQuestionTemplateAutoSync() {
+        if (questionMappingsSyncTimer) {
+          return;
+        }
+        questionMappingsSyncTimer = window.setInterval(() => {
+          syncQuestionTemplateMappings({ quiet: true, reapply: true });
+        }, QUESTION_TEMPLATE_SYNC_INTERVAL_MS);
+      }
+
       function getSharedServerHostname() {
         return new URL(getSharedServerBaseUrl()).hostname.toLowerCase();
       }
@@ -4436,6 +5273,7 @@
           playToggle.setAttribute("aria-label", "Pause");
           playToggle.setAttribute("title", "Pause");
         }
+        triggerTakeQuizQuestionIfNeeded(current);
         highlightActiveNotes(current);
         updateScrubberTrimOverlay();
       }
@@ -4554,7 +5392,7 @@
           return false;
         }
         const templateKey = getQuestionTemplateKeyForCategory(note.category);
-        const mappings = QUESTION_TEMPLATE_MAPPINGS[templateKey];
+        const mappings = questionTemplateMappings[templateKey];
         if (!mappings) {
           return false;
         }
@@ -5084,6 +5922,14 @@
         if (Array.isArray(note.predictionDistractors) && note.predictionDistractors.length) {
           exported.predictionDistractors = normalizeDistractorExportList(note.predictionDistractors);
         }
+        const quizSelections = normalizeNoteQuizSelections(note.quizSelections);
+        if (Object.keys(quizSelections.tasks).length) {
+          exported.quizSelections = {
+            annotator: String(quizSelections.annotator || "").trim(),
+            takenAt: String(quizSelections.takenAt || "").trim(),
+            tasks: quizSelections.tasks,
+          };
+        }
         return exported;
       }
 
@@ -5181,6 +6027,9 @@
       }
 
       function clearEditableWorkspace() {
+        if (takeQuizSession && takeQuizSession.active) {
+          stopTakeQuiz();
+        }
         state.notes = [];
         state.nextId = 1;
         state.characters = [];
@@ -5286,10 +6135,22 @@
         }
         if (field === "comprehensionQuestion") {
           note.comprehensionQuestion = String(value || "");
+          if (getQuestionTemplateKeyForCategory(note.category)) {
+            applyAutoQuestionTemplates(note);
+            syncAutoQuestionInputs(note);
+          }
         } else if (field === "reasoningQuestion") {
           note.reasoningQuestion = String(value || "");
+          if (getQuestionTemplateKeyForCategory(note.category)) {
+            applyAutoQuestionTemplates(note);
+            syncAutoQuestionInputs(note);
+          }
         } else if (field === "predictionQuestion") {
           note.predictionQuestion = String(value || "");
+          if (getQuestionTemplateKeyForCategory(note.category)) {
+            applyAutoQuestionTemplates(note);
+            syncAutoQuestionInputs(note);
+          }
         } else if (field === "comprehension") {
           note.comprehension = String(value || "");
         } else if (field === "reasoning") {
@@ -6370,7 +7231,7 @@
           const quizAllButton = document.createElement("button");
           quizAllButton.type = "button";
           quizAllButton.textContent = "Quiz Gemini";
-          quizAllButton.title = "Clip the video from the start to this note's timestamp and have Gemini answer the comprehension, reasoning, and prediction questions together.";
+          quizAllButton.title = "Clip the video from the start to this note's timestamp and ask Gemini each note question separately.";
           quizAllButton.addEventListener("click", () => requestGeminiNoteQuiz(note.id, quizAllButton));
 
           const jumpButton = document.createElement("button");
@@ -6518,6 +7379,11 @@
           editable: true,
           copiedFromEntryId: null,
           copiedFromAnnotator: "",
+          quizSelections: {
+            annotator: "",
+            takenAt: "",
+            tasks: {},
+          },
         };
         applyAutoQuestionTemplates(note);
         state.nextId += 1;
@@ -6617,6 +7483,10 @@
         const title = String(options.title || "").trim();
         const filePath = String(options.filePath || "").trim();
         const remoteUrl = String(options.remoteUrl || "").trim();
+
+        if (takeQuizSession && takeQuizSession.active) {
+          stopTakeQuiz();
+        }
 
         resetTrimSelection({
           duration: 0,
@@ -6979,6 +7849,12 @@
               editable: isEditableWorkspace,
               copiedFromEntryId: Number.isInteger(raw.copiedFromEntryId) ? raw.copiedFromEntryId : null,
               copiedFromAnnotator: String(raw.copiedFromAnnotator || ""),
+              quizSelections: normalizeNoteQuizSelections(
+                raw.quizSelections
+                || raw.lastQuizSelections
+                || raw.quizAnswers
+                || {}
+              ),
             });
           });
 
@@ -7995,6 +8871,10 @@
         video.pause();
       });
 
+      nextQuestionButton.addEventListener("click", () => {
+        jumpToNextQuestionAndPlay();
+      });
+
       video.addEventListener("play", updatePlaybackUi);
       video.addEventListener("pause", updatePlaybackUi);
       video.addEventListener("timeupdate", updatePlaybackUi);
@@ -8015,7 +8895,21 @@
         stopTrimBoundaryMonitor("error");
         trimState.exporting = false;
         updateTrimUi();
+        if (takeQuizSession && takeQuizSession.active) {
+          stopTakeQuiz();
+        }
         updateStatus("Video could not be loaded. Try importing the YouTube video again.");
+      });
+      video.addEventListener("ended", () => {
+        if (!takeQuizSession || !takeQuizSession.active) {
+          return;
+        }
+        triggerTakeQuizQuestionIfNeeded(Number.MAX_SAFE_INTEGER);
+        if (takeQuizSession && takeQuizSession.active && !takeQuizSession.waitingForAnswer) {
+          finishTakeQuizSession({
+            message: "Quiz ended before remaining questions could be shown.",
+          });
+        }
       });
 
       scrubber.addEventListener("input", () => {
@@ -8042,8 +8936,16 @@
         applyNotesVisibility();
       });
 
+      takeQuizButton.addEventListener("click", () => {
+        if (takeQuizSession && takeQuizSession.active) {
+          stopTakeQuiz();
+          return;
+        }
+        startTakeQuiz();
+      });
+
       videoLayer.addEventListener("contextmenu", (event) => {
-        const blocker = event.target.closest(".top-bar, .note-rail, .scrub-panel, .shared-panel, .analytics-panel, .gemini-panel, .gemini-backdrop, .context-menu");
+        const blocker = event.target.closest(".top-bar, .note-rail, .scrub-panel, .shared-panel, .analytics-panel, .gemini-panel, .gemini-backdrop, .take-quiz-panel, .take-quiz-backdrop, .context-menu");
         if (blocker) {
           return;
         }
@@ -8063,6 +8965,10 @@
       });
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
+          if (takeQuizSession && takeQuizSession.active && takeQuizSession.waitingForAnswer) {
+            closeTakeQuizQuestion();
+            return;
+          }
           hideContextMenu();
         }
       });
@@ -8101,6 +9007,14 @@
 
       geminiBackdrop.addEventListener("click", () => {
         closeGeminiPanel();
+      });
+
+      takeQuizCloseButton.addEventListener("click", () => {
+        closeTakeQuizQuestion();
+      });
+
+      takeQuizBackdrop.addEventListener("click", () => {
+        closeTakeQuizQuestion();
       });
 
       sharedRefreshButton.addEventListener("click", async () => {
@@ -8167,6 +9081,7 @@
 
       sharedServerUrlInput.addEventListener("change", () => {
         persistSharedSettings();
+        syncQuestionTemplateMappings({ quiet: false, reapply: true });
       });
 
       annotatorNameInput.addEventListener("change", () => {
@@ -8183,9 +9098,11 @@
       setupContextMenu();
       restoreSharedSettings();
       restoreSharedAuth();
+      startQuestionTemplateAutoSync();
       fetchSharedAuthMe({ quiet: true });
       updateSharedToggleUi();
       updateAnalyticsToggleUi();
+      updateTakeQuizButtonUi();
       renderCharactersPanel();
       const restored = restoreSession();
       if (!restored) {
@@ -8194,6 +9111,7 @@
         updatePlaybackUi();
         updateStatus("Import a video from YouTube to begin annotating.");
       }
+      syncQuestionTemplateMappings({ quiet: false, reapply: true });
       updateTrimUi();
       renderAnalyticsPanel();
       applyNotesVisibility({ persist: false });

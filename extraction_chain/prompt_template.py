@@ -93,8 +93,8 @@ QUESTION_MAPPINGS = {
         "Prediction": "Given what {character} knows or does not know, which of the following beliefs or actions is {character} most likely to have or take next?"
     },
     "Communicative_Intent": {
-        "Reasoning": "Which of the following best explains why {character} is communicating what they are in this scene?",
-        "Comprehension": "Which of the following correctly describes what {character}'s communicative intent is at this point in the video?",
+        "Reasoning": "Which of the following correctly describes how {character}'s achieves his communicative intent with his language/behaviour in the video?",
+        "Comprehension": "Which of the following best explains what {character} is trying to communicate in this scene?",
         "Prediction": "Given {character}'s communicative intent, what type of reaction is {character} most likely to elicit from others?"
     },
     "Relationship":{
