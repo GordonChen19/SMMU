@@ -488,6 +488,36 @@
         background: rgba(255, 255, 255, 0.3);
       }
 
+      .character-pill-name {
+        border: none;
+        background: transparent;
+        color: inherit;
+        padding: 0;
+        margin: 0;
+        font: inherit;
+        cursor: text;
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .character-pill-name:hover {
+        text-decoration: underline dotted rgba(255, 255, 255, 0.6);
+      }
+
+      .character-pill-name-input {
+        min-width: 86px;
+        max-width: 170px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        background: rgba(16, 22, 32, 0.55);
+        color: #f8fbff;
+        padding: 2px 8px;
+        font: inherit;
+        font-size: 11px;
+      }
+
       .character-list-empty {
         font-size: 11px;
         color: rgba(224, 234, 244, 0.78);
@@ -5795,8 +5825,15 @@
         state.characters.forEach((name) => {
           const pill = document.createElement("span");
           pill.className = "character-pill";
-          const label = document.createElement("span");
-          label.textContent = name;
+          const nameButton = document.createElement("button");
+          nameButton.type = "button";
+          nameButton.className = "character-pill-name";
+          nameButton.textContent = name;
+          nameButton.setAttribute("aria-label", "Character name: " + name + ". Click to rename.");
+          nameButton.setAttribute("title", "Click to rename " + name);
+          nameButton.addEventListener("click", () => {
+            beginInlineCharacterRename(nameButton, name);
+          });
 
           const removeButton = document.createElement("button");
           removeButton.type = "button";
@@ -5811,7 +5848,7 @@
             }
           });
 
-          pill.append(label, removeButton);
+          pill.append(nameButton, removeButton);
           characterList.appendChild(pill);
         });
       }
@@ -5850,6 +5887,216 @@
           renderJsonPreview();
         }
         return true;
+      }
+
+      function renameCharacterValue(value, oldName, newName) {
+        const current = normalizeCharacterName(value);
+        const oldNormalized = normalizeCharacterName(oldName);
+        const nextNormalized = normalizeCharacterName(newName);
+        if (!current || !oldNormalized || !nextNormalized) {
+          return current;
+        }
+        const oldKey = oldNormalized.toLowerCase();
+        if (current.toLowerCase() === oldKey) {
+          return nextNormalized;
+        }
+        if (current.includes("/")) {
+          const replaced = current.split("/")
+            .map((item) => normalizeCharacterName(item))
+            .filter(Boolean)
+            .map((item) => (item.toLowerCase() === oldKey ? nextNormalized : item));
+          if (!replaced.length) {
+            return current;
+          }
+          const deduped = [];
+          const seen = new Set();
+          replaced.forEach((item) => {
+            const key = item.toLowerCase();
+            if (!seen.has(key)) {
+              seen.add(key);
+              deduped.push(item);
+            }
+          });
+          return deduped.join(" / ");
+        }
+        return current;
+      }
+
+      function renameCharacterName(oldName, newName, options = {}) {
+        const oldNormalized = normalizeCharacterName(oldName);
+        const nextNormalized = normalizeCharacterName(newName);
+        if (!oldNormalized || !nextNormalized) {
+          return { changed: false, updatedNotes: 0 };
+        }
+
+        const oldKey = oldNormalized.toLowerCase();
+        let foundInCharacterList = false;
+        const remappedCharacters = state.characters.map((item) => {
+          if (normalizeCharacterName(item).toLowerCase() === oldKey) {
+            foundInCharacterList = true;
+            return nextNormalized;
+          }
+          return item;
+        });
+        if (!foundInCharacterList) {
+          return { changed: false, updatedNotes: 0 };
+        }
+
+        const dedupedCharacters = [];
+        const seenCharacters = new Set();
+        remappedCharacters.forEach((item) => {
+          const normalizedItem = normalizeCharacterName(item);
+          if (!normalizedItem) {
+            return;
+          }
+          const key = normalizedItem.toLowerCase();
+          if (seenCharacters.has(key)) {
+            return;
+          }
+          seenCharacters.add(key);
+          dedupedCharacters.push(normalizedItem);
+        });
+        state.characters = dedupedCharacters;
+
+        let updatedNotes = 0;
+        state.notes.forEach((note) => {
+          if (!note || typeof note !== "object" || !isEditableNote(note)) {
+            return;
+          }
+          const before = JSON.stringify([
+            note.character,
+            note.relationshipCharacterA,
+            note.relationshipCharacterB,
+            note.emotionCharacter,
+            note.personaCharacter,
+            note.intentCharacter,
+            note.perspectiveCharacter,
+            note.normsCharacter,
+          ]);
+
+          note.character = renameCharacterValue(note.character, oldNormalized, nextNormalized);
+          note.relationshipCharacterA = renameCharacterValue(note.relationshipCharacterA, oldNormalized, nextNormalized);
+          note.relationshipCharacterB = renameCharacterValue(note.relationshipCharacterB, oldNormalized, nextNormalized);
+          note.emotionCharacter = renameCharacterValue(note.emotionCharacter, oldNormalized, nextNormalized);
+          note.personaCharacter = renameCharacterValue(note.personaCharacter, oldNormalized, nextNormalized);
+          note.intentCharacter = renameCharacterValue(note.intentCharacter, oldNormalized, nextNormalized);
+          note.perspectiveCharacter = renameCharacterValue(note.perspectiveCharacter, oldNormalized, nextNormalized);
+          note.normsCharacter = renameCharacterValue(note.normsCharacter, oldNormalized, nextNormalized);
+
+          const after = JSON.stringify([
+            note.character,
+            note.relationshipCharacterA,
+            note.relationshipCharacterB,
+            note.emotionCharacter,
+            note.personaCharacter,
+            note.intentCharacter,
+            note.perspectiveCharacter,
+            note.normsCharacter,
+          ]);
+          if (before !== after) {
+            updatedNotes += 1;
+          }
+          applyAutoQuestionTemplates(note);
+          syncAutoQuestionInputs(note);
+        });
+
+        const shouldRender = options.render !== false;
+        if (shouldRender) {
+          renderCharactersPanel();
+          renderNotes();
+          renderJsonPreview();
+        }
+        return { changed: true, updatedNotes: updatedNotes };
+      }
+
+      function beginInlineCharacterRename(triggerButton, oldName) {
+        const oldNormalized = normalizeCharacterName(oldName);
+        if (!triggerButton || !oldNormalized || triggerButton.dataset.renaming === "true") {
+          return;
+        }
+
+        const pill = triggerButton.closest(".character-pill");
+        if (!pill) {
+          return;
+        }
+
+        triggerButton.dataset.renaming = "true";
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.className = "character-pill-name-input";
+        input.value = oldNormalized;
+        input.setAttribute("aria-label", "Rename character: " + oldNormalized);
+        input.setAttribute("title", "Rename character");
+
+        const restoreButton = (focus) => {
+          if (!pill.isConnected || !pill.contains(input)) {
+            return;
+          }
+          pill.replaceChild(triggerButton, input);
+          triggerButton.dataset.renaming = "false";
+          if (focus) {
+            triggerButton.focus();
+          }
+        };
+
+        let completed = false;
+        const finalize = (mode) => {
+          if (completed) {
+            return;
+          }
+          completed = true;
+          if (mode === "cancel") {
+            restoreButton(true);
+            return;
+          }
+
+          const nextNormalized = normalizeCharacterName(input.value);
+          if (!nextNormalized) {
+            restoreButton(true);
+            updateStatus("Character name cannot be empty.");
+            return;
+          }
+          if (nextNormalized.toLowerCase() === oldNormalized.toLowerCase()) {
+            restoreButton(true);
+            return;
+          }
+
+          const result = renameCharacterName(oldNormalized, nextNormalized, { render: true });
+          if (!result.changed) {
+            restoreButton(true);
+            updateStatus("Could not rename character: " + oldNormalized);
+            return;
+          }
+          updateStatus(
+            "Renamed character: "
+            + oldNormalized
+            + " -> "
+            + nextNormalized
+            + " (updated "
+            + String(result.updatedNotes)
+            + " note"
+            + (result.updatedNotes === 1 ? "" : "s")
+            + ")."
+          );
+        };
+
+        pill.replaceChild(input, triggerButton);
+        input.focus();
+        input.select();
+
+        input.addEventListener("keydown", (event) => {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            finalize("commit");
+          } else if (event.key === "Escape") {
+            event.preventDefault();
+            finalize("cancel");
+          }
+        });
+        input.addEventListener("blur", () => {
+          finalize("commit");
+        });
       }
 
       function addCharacterFromInput() {
