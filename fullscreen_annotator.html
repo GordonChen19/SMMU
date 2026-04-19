@@ -4466,64 +4466,94 @@
           triggerButton.textContent = "Asking...";
         }
 
-        const questionSummary = runnableItems
-          .map((entry) => String(entry.item.label || "Question") + ": " + entry.question)
-          .join("\n\n");
-        const taskLabel = "All Questions";
-
-        setGeminiPanelLoading({
-          question: questionSummary,
-          taskLabel: taskLabel,
-          endSec: clipEnd,
-        });
-
         try {
-          const responseSections = [];
-          for (const entry of runnableItems) {
+          let succeededCount = 0;
+          let failedCount = 0;
+          const quizOutputBlocks = [];
+
+          for (let index = 0; index < runnableItems.length; index += 1) {
+            const entry = runnableItems[index];
+            const taskLabel = String(entry.item.label || "Question")
+              + " ("
+              + String(index + 1)
+              + "/"
+              + String(runnableItems.length)
+              + ")";
+
+            setGeminiPanelLoading({
+              question: entry.question,
+              taskLabel: taskLabel,
+              endSec: clipEnd,
+            });
+
             try {
               const result = await runGeminiClipAnalysis(note, entry.item, clipEnd);
               if (requestId !== geminiAssistRequestId) {
                 return;
               }
-              responseSections.push(String(entry.item.label || "Question") + "\n" + result.response);
-            } catch (error) {
-              responseSections.push(
+              succeededCount += 1;
+              const responseText = String(result && result.response || "").trim() || "Gemini returned an empty response.";
+              quizOutputBlocks.push(
                 String(entry.item.label || "Question")
-                + "\nFailed: "
-                + (error && error.message ? String(error.message) : "Unknown error")
+                + ":\n"
+                + responseText
               );
+              setGeminiPanelResult({
+                question: "",
+                taskLabel: "Quiz Gemini " + taskLabel,
+                endSec: clipEnd,
+                response: quizOutputBlocks.join("\n\n"),
+              });
+            } catch (error) {
+              failedCount += 1;
+              if (requestId !== geminiAssistRequestId) {
+                return;
+              }
+              const errorMessage = error && error.message ? String(error.message) : "Unknown error";
+              quizOutputBlocks.push(
+                String(entry.item.label || "Question")
+                + ":\nError: "
+                + errorMessage
+              );
+              setGeminiPanelResult({
+                question: "",
+                taskLabel: "Quiz Gemini " + taskLabel,
+                endSec: clipEnd,
+                response: quizOutputBlocks.join("\n\n"),
+              });
             }
           }
 
-          if (skippedItems.length) {
-            responseSections.push("Skipped\n" + skippedItems.join("\n"));
+          const skippedCount = skippedItems.length;
+          if (skippedCount > 0) {
+            skippedItems.forEach((reason) => {
+              quizOutputBlocks.push("Skipped: " + String(reason || "Unknown reason."));
+            });
           }
-
-          setGeminiPanelResult({
-            question: questionSummary,
-            taskLabel: taskLabel,
-            endSec: clipEnd,
-            response: responseSections.join("\n\n"),
-          });
+          if (quizOutputBlocks.length > 0) {
+            setGeminiPanelResult({
+              question: "",
+              taskLabel: "Quiz Gemini Summary",
+              endSec: clipEnd,
+              response: quizOutputBlocks.join("\n\n"),
+            });
+          }
+          const summaryBits = [
+            "success: " + String(succeededCount),
+            "failed: " + String(failedCount),
+          ];
+          if (skippedCount > 0) {
+            summaryBits.push("skipped: " + String(skippedCount));
+          }
           updateStatus(
             "Gemini quizzed "
             + String(runnableItems.length)
             + " question"
             + (runnableItems.length === 1 ? "" : "s")
-            + " for this note with separate prompts."
+            + " for this note with separate prompts ("
+            + summaryBits.join(", ")
+            + ")."
           );
-        } catch (error) {
-          const message = error && error.message ? String(error.message) : "Unknown error";
-          if (requestId === geminiAssistRequestId) {
-            setGeminiPanelError({
-              question: questionSummary,
-              taskLabel: taskLabel,
-              endSec: clipEnd,
-              message: message,
-            });
-          }
-          updateStatus("Gemini clip analysis failed (" + message + ").");
-          showErrorPopup("Gemini clip analysis failed: " + message);
         } finally {
           if (triggerButton) {
             triggerButton.disabled = false;

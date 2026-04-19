@@ -108,14 +108,14 @@ QUESTION_MAPPINGS = {
         "Prediction": "Given {character}'s understanding of the current social situation, which of the following actions is {character} most likely to take next?"
     },
     "Social_Norms":{
-        "Reasoning": "Explain how {character} is adhering to or violating social norms in this scene.",
-        "Comprehension": "Is {character} adhering or violating a social norm? If so, which social norm?",
-        "Prediction": "Given the norm violation or conformity observed from {character}, which of the following social consequences is most likely to follow?"
+        "Reasoning": "Explain how {character} is adhering to or violating an unspoken rule in this scene.",
+        "Comprehension": "Is {character} adhering or violating an unspoken rule? If so, which unspoken rule?",
+        "Prediction": "Given the norm violation or conformity observed from {character}, which of the following consequences is most likely to follow?"
     },
     "Cultural_Conventions":{
-        "Reasoning": "Explain how {character} is adhering to or violating cultural conventions in this scene.",
-        "Comprehension": "Is {character} adhering or violating a cultural convention? If so, which cultural convention?",
-        "Prediction": "Given the convention violation or conformity observed from {character}, which of the following cultural consequences is most likely to follow?"
+        "Reasoning": "Explain how {character} is adhering to or violating an unspoken rule in this scene.",
+        "Comprehension": "Is {character} adhering or violating an unspoken rule? If so, which unspoken rule?",
+        "Prediction": "Given the norm violation or conformity observed from {character}, which of the following consequences is most likely to follow?"
     },
     "Moral_Judgement":{
         "Reasoning": "Explain how {character}'s action is morally good or bad in this scene.",
@@ -123,9 +123,9 @@ QUESTION_MAPPINGS = {
         "Prediction": "Given the moral judgement that {character} makes, which of the following consequences is most likely to follow?"
     },
     "Role/Institutional_Knowledge":{
-        "Reasoning": "Explain how {character} is adhering to or violating their role and institutional knowledge in this scene.",
-        "Comprehension": "Is {character} adhering or violating their role and institutional knowledge? If so, which aspects?",
-        "Prediction": "Given {character}'s role and institutional knowledge, which of the following consequences is most likely to follow?"
+        "Reasoning": "Explain how {character} is adhering to or violating an unspoken rule in this scene.",
+        "Comprehension": "Is {character} adhering or violating an unspoken rule? If so, which unspoken rule?",
+        "Prediction": "Given the norm violation or conformity observed from {character}, which of the following consequences is most likely to follow?"
     },
 
 }
