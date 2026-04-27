@@ -7,6 +7,10 @@ from pydantic import ValidationError
 
 from extraction_chain.completion.utils import _VERTEX_SAFETY_SETTINGS, _model_to_dict, upload_to_gcs, delete_from_gcs, create_bucket
 
+
+bucket_name = "gordon-benchmark-bucket"
+location = "global"
+
 def delete_cached_content(client, cache):
     client.caches.delete(cache.name)
     print(f'Cache {cache.name} deleted.')
@@ -36,24 +40,21 @@ def _parse_structured_response(response, DataModel):
     return DataModel.model_validate_json(response.text)
 
 
-def gemini_api_multimodal(
-    prompt,
-    video_file,
-    DataModel,
-    model="gemini-3.1-pro-preview",
-    thinking_level="high",
-    client_file_path = "extraction_chain/gemini_key.json",
-    video_display_name = "input_video",
-    ttl="300s"
-):
-    
+def _upload_and_cache(
+                    video_file,
+                    model="gemini-3.1-pro-preview",
+                    client_file_path = "extraction_chain/gemini_key.json",
+                    video_display_name = "input_video",
+                    ttl="300s"
+                    ):
+     
     #Setting up the client
     with open(client_file_path, "r", encoding="utf-8") as handle:
         payload = json.load(handle)
 
     project_id = payload.get("project_id")
 
-    location = "global"
+    #Create a bucket if it doesn't exist already
 
     credentials = service_account.Credentials.from_service_account_file(
         client_file_path,
@@ -67,9 +68,6 @@ def gemini_api_multimodal(
         credentials=credentials,
     )
 
-    #Create a bucket if it doesn't exist already
-
-    bucket_name = "gordon-benchmark-bucket"
     create_bucket(
             bucket_name=bucket_name,
             project_id="a-data-processing-chengordon",
@@ -102,6 +100,30 @@ def gemini_api_multimodal(
         )
     )
 
+    return client, cache
+
+def gemini_api_multimodal(
+    prompt,
+    video_file,
+    DataModel,
+    model="gemini-3.1-pro-preview",
+    thinking_level="high",
+    client_file_path = "extraction_chain/gemini_key.json",
+    video_display_name = "input_video",
+    ttl="300s",
+    client = None,
+    cache = None
+):
+    
+    if client is None or cache is None:
+        client, cache = _upload_and_cache(
+            video_file=video_file,
+            model=model,
+            client_file_path=client_file_path,
+            video_display_name=video_display_name,
+            ttl=ttl
+        )
+    
     retry_suffix = (
         "\nReturn only a complete JSON object matching the response schema. "
         "Do not include markdown, prose, or partial output."

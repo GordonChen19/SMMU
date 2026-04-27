@@ -844,6 +844,33 @@
         filter: none;
       }
 
+      .gemini-answer-chip {
+        max-width: min(280px, 100%);
+        border: 1px solid rgba(255, 227, 148, 0.56);
+        border-radius: 999px;
+        background: rgba(255, 209, 102, 0.14);
+        color: rgba(255, 244, 206, 0.94);
+        padding: 4px 9px;
+        font-size: 11px;
+        line-height: 1.25;
+        font-weight: 700;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .gemini-answer-chip.correct {
+        border-color: rgba(132, 220, 158, 0.64);
+        background: rgba(34, 114, 67, 0.26);
+        color: #c6f7d1;
+      }
+
+      .gemini-answer-chip.wrong {
+        border-color: rgba(255, 164, 164, 0.66);
+        background: rgba(121, 34, 34, 0.28);
+        color: #ffd6d6;
+      }
+
       .perception-choice-list {
         display: grid;
         gap: 8px;
@@ -1775,6 +1802,51 @@
         color: rgba(221, 230, 240, 0.76);
       }
 
+      .analytics-performance-wrap {
+        overflow-x: auto;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .analytics-performance-table {
+        width: 100%;
+        min-width: 680px;
+        border-collapse: collapse;
+        font-size: 12px;
+        color: rgba(236, 244, 252, 0.92);
+      }
+
+      .analytics-performance-table th,
+      .analytics-performance-table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: left;
+        vertical-align: middle;
+      }
+
+      .analytics-performance-table th {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: rgba(221, 230, 240, 0.72);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .analytics-performance-table tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .analytics-performance-table td:not(:first-child) {
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+
+      .analytics-performance-na {
+        color: rgba(221, 230, 240, 0.64);
+      }
+
       .shared-controls {
         display: grid;
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -2130,7 +2202,7 @@
       </div>
 
       <div class="top-bar">
-        <strong>S-Bench Annotations suite</strong>
+        <strong>MMSU Annotations suite</strong>
         <div class="youtube-import-strip">
           <input
             class="youtube-import-input"
@@ -2319,6 +2391,92 @@
               <span>Unique reviewers in library</span>
             </div>
           </div>
+          <article class="analytics-chart-card">
+            <div class="analytics-chart-header">
+              <strong>Model Performance</strong>
+              <span>Benchmark accuracy by cognitive task and joint task criteria</span>
+            </div>
+            <div class="analytics-performance-wrap">
+              <table class="analytics-performance-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Model</th>
+                    <th scope="col">Comprehension</th>
+                    <th scope="col">Reasoning</th>
+                    <th scope="col">Prediction</th>
+                    <th scope="col">Average Accuracy</th>
+                    <th scope="col">Joint C+R</th>
+                    <th scope="col">Joint C+R+P</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Gemini-3.1-Pro</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                  </tr>
+                  <tr>
+                    <td>Gemini-3.1-Flash</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                  </tr>
+                  <tr>
+                    <td>MiMo-V2-Omni</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                  </tr>
+                  <tr>
+                    <td>Qwen3.5-Omni-Plus</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                  </tr>
+                  <tr>
+                    <td>Qwen3-Omni-30B-A3B-Think</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                  </tr>
+                  <tr>
+                    <td>Qwen3-Omni-30B-A3B-Instruct</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                  </tr>
+                  <tr>
+                    <td>VITA-1.5-7B</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na">N.A.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
           <div class="analytics-chart-grid">
             <article class="analytics-chart-card">
               <div class="analytics-chart-header">
@@ -2453,13 +2611,18 @@
       ];
 
       const ANALYTICS_SOCIAL_DIMENSIONS = [
+        { key: "perspective", label: "Perspective", color: "#6ec86a", categories: ["perspective"] },
+        { key: "knowledge_state", label: "Knowledge State", color: "#7dcb77", categories: ["understanding_knowledge_state"] },
         { key: "emotions", label: "Emotions", color: "#f57d8a", categories: ["understanding_emotions", "emotion"] },
         { key: "persona", label: "Persona", color: "#51b9a5", categories: ["understanding_persona"] },
-        { key: "relationship", label: "Relationship", color: "#7f9ef7", categories: ["understanding_relationship"] },
-        { key: "intent", label: "Intent", color: "#e0ae4a", categories: ["understanding_intent", "understanding_communicative_intent"] },
-        { key: "norms", label: "Social Norms", color: "#aeb4c1", categories: ["understanding_norms", "understanding_cultural_conventions", "understanding_moral_judgment", "understanding_role_institutional_knowledge"] },
         { key: "situation_awareness", label: "Situation Awareness", color: "#5eb8d6", categories: ["understanding_situation_awareness"] },
-        { key: "perspective", label: "Perspective", color: "#6ec86a", categories: ["perspective", "understanding_knowledge_state"] },
+        { key: "relationship", label: "Relationship", color: "#7f9ef7", categories: ["understanding_relationship"] },
+        { key: "intent", label: "Intent", color: "#e0ae4a", categories: ["understanding_intent"] },
+        { key: "communicative_intent", label: "Communicative Intent", color: "#d8953d", categories: ["understanding_communicative_intent"] },
+        { key: "norms", label: "Social Norms", color: "#aeb4c1", categories: ["understanding_norms"] },
+        { key: "cultural_conventions", label: "Cultural Conventions", color: "#9aa8b8", categories: ["understanding_cultural_conventions"] },
+        { key: "moral_judgment", label: "Moral Judgment", color: "#c48d98", categories: ["understanding_moral_judgment"] },
+        { key: "role_institutional_knowledge", label: "Role / Institutional Knowledge", color: "#6c9fc6", categories: ["understanding_role_institutional_knowledge"] },
         { key: "general", label: "General / Other", color: "#94a3b8", categories: ["perception", "understanding", "prediction", "causal", "social", "custom"] },
       ];
 
@@ -2503,37 +2666,37 @@
       // The browser fetches the authoritative version from the server when available.
       const DEFAULT_QUESTION_TEMPLATE_MAPPINGS = {
         Emotion: {
-          Reasoning: "Which of the following best describes what causes {character} to feel how they feel in this scene?",
+          Reasoning: "Which of the following best describes what causes {character} to  the following emotion: {truth}?",
           Comprehension: "Which of the following correctly describes what {character} is feeling at this point in the video?",
           Prediction: "Given how {character} is feeling at this point in the video, which of the following actions is {character} most likely to take next?",
         },
         Persona: {
-          Reasoning: "Which of the following best explains why {character}'s persona in this scene is what it is?",
+          Reasoning: "Which of the following best explains why {character}'s persona in this scene is {truth}?",
           Comprehension: "Which of the following correctly describes {character}'s persona at this point in the video?",
           Prediction: "Given {character}'s persona in this scene, which of the following actions is {character} most likely to take next?",
         },
         Intent: {
-          Reasoning: "Which of the following best explains why {character}'s intent in this scene is what it is?",
+          Reasoning: "Which of the following best explains why {character}'s intent in this scene is the following: {truth}?",
           Comprehension: "Which of the following correctly describes what {character}'s intent is at this point in the video?",
           Prediction: "Given {character}'s intent, which of the following outcomes is {character} most likely to pursue next?",
         },
         "Perspective/Belief": {
-          Reasoning: "Which of the following best describes why {character} has the perspective/belief that he does?",
+          Reasoning: "Which of the following best describes why {character} has the following perspective/belief: {truth}?",
           Comprehension: "Which of the following correctly describes {character}'s perspective/belief at this point in the video?",
           Prediction: "Given {character}'s perspective/belief, which of the following beliefs or actions is {character} most likely to have or take next?",
         },
         Knowledge_State: {
-          Reasoning: "Which of the following best explains why {character} knows or does not know what they do in this scene?",
+          Reasoning: "Which of the following best explains why {character} has the following knowledge state: {truth}?",
           Comprehension: "Which of the following correctly describes what {character} knows or does not know at this point in the video?",
           Prediction: "Given what {character} knows or does not know, which of the following beliefs or actions is {character} most likely to have or take next?",
         },
         Communicative_Intent: {
-          Reasoning: "Which of the following best explains why {character} is communicating what they are in this scene?",
-          Comprehension: "Which of the following correctly describes how {character}'s achieves his communicative intent with his language/behaviour in the video?",
+          Reasoning: "Which of the following correctly describes why {character} he communicates in the following way: {truth}?",
+          Comprehension: "Which of the following best explains what {character} is trying to communicate in this scene?",
           Prediction: "Given {character}'s communicative intent, what type of reaction is {character} most likely to elicit from others?",
         },
         Relationship: {
-          Reasoning: "Which of the following best explains why {character1} has the relationship with {character2} that they do in this scene?",
+          Reasoning: "Which of the following best explains why {character1} has the following relationship with {character2}: {truth}?",
           Comprehension: "Which of the following correctly describes the relationship between {character1} and {character2} at this point in the video?",
           Prediction: "Given the relationship between {character1} and {character2}, which of the following interactions is most likely to occur next between them?",
         },
@@ -2583,6 +2746,7 @@
       const QUESTION_TEMPLATE_CHARACTER_PLACEHOLDER = "[character]";
       const QUESTION_TEMPLATE_RELATIONSHIP_CHARACTER1_PLACEHOLDER = "[character 1]";
       const QUESTION_TEMPLATE_RELATIONSHIP_CHARACTER2_PLACEHOLDER = "[character 2]";
+      const QUESTION_TEMPLATE_TRUTH_PLACEHOLDER = "[correct comprehension answer]";
 
       const PERSONA_CATEGORY_OPTIONS = [
         "The Dominator",
@@ -2664,6 +2828,7 @@
       const YT_TRIM_ENDPOINT_PATH = "/api/yt-mp4/trim";
       const GEMINI_CLIP_QUESTION_PATH = "/api/gemini/clip-question";
       const GEMINI_FILL_CHOICES_PATH = "/api/gemini/fill-choices";
+      const GEMINI_CLIP_MODEL = "gemini-3.1-pro-preview";
       const SHARED_AUTH_REGISTER_PATH = "/api/shared-library/auth/register";
       const SHARED_AUTH_LOGIN_PATH = "/api/shared-library/auth/login";
       const SHARED_AUTH_ME_PATH = "/api/shared-library/auth/me";
@@ -3053,6 +3218,244 @@
           takenAt: takenAt,
           tasks: tasks,
         };
+      }
+
+      function normalizeGeminiQuizAnswers(rawValue) {
+        const fallback = {
+          model: "",
+          thinkingLevel: "",
+          takenAt: "",
+          tasks: {},
+        };
+        if (!rawValue || typeof rawValue !== "object" || Array.isArray(rawValue)) {
+          return fallback;
+        }
+
+        const rawTasks = rawValue.tasks && typeof rawValue.tasks === "object" && !Array.isArray(rawValue.tasks)
+          ? rawValue.tasks
+          : rawValue;
+        const tasks = {};
+
+        NOTE_ANALYSIS_ITEMS.forEach((item) => {
+          const rawTask = rawTasks && rawTasks[item.field];
+          if (!rawTask) {
+            return;
+          }
+          const taskObject = typeof rawTask === "object" && !Array.isArray(rawTask)
+            ? rawTask
+            : { selectedChoice: rawTask };
+          const selectedChoice = String(
+            taskObject.selectedChoice
+            || taskObject.choice
+            || taskObject.selectedText
+            || taskObject.answer
+            || ""
+          ).trim();
+          const selectedLabel = normalizeTakeQuizOptionLabel(taskObject.selectedLabel || taskObject.label || "");
+          const response = String(taskObject.response || taskObject.rawResponse || "").trim();
+          if (!selectedChoice && !selectedLabel && !response) {
+            return;
+          }
+          tasks[item.field] = {
+            selectedLabel: selectedLabel,
+            selectedChoice: selectedChoice,
+            correct: Boolean(taskObject.correct === true || taskObject.isCorrect === true),
+            response: response,
+            question: String(taskObject.question || "").trim(),
+            answeredAt: String(taskObject.answeredAt || taskObject.at || "").trim(),
+            clipEndSec: Number.isFinite(Number(taskObject.clipEndSec)) ? Number(taskObject.clipEndSec) : null,
+          };
+        });
+
+        return {
+          model: String(rawValue.model || rawValue.candidateModel || GEMINI_CLIP_MODEL || "").trim(),
+          thinkingLevel: normalizeGeminiThinkingLevel(rawValue.thinkingLevel || rawValue.thinking || ""),
+          takenAt: String(rawValue.takenAt || rawValue.completedAt || "").trim(),
+          tasks: tasks,
+        };
+      }
+
+      function getChoiceTextForLabel(choices, label) {
+        const normalizedLabel = normalizeTakeQuizOptionLabel(label);
+        const index = TAKE_QUIZ_OPTION_LABELS.indexOf(normalizedLabel);
+        if (index < 0 || !Array.isArray(choices) || index >= choices.length) {
+          return "";
+        }
+        return String(choices[index] || "").trim();
+      }
+
+      function findChoiceLabelForText(choices, selectedChoice) {
+        const selectedKey = normalizeTakeQuizChoiceKey(selectedChoice);
+        if (!selectedKey || !Array.isArray(choices)) {
+          return "";
+        }
+        const index = choices.findIndex((choice) => normalizeTakeQuizChoiceKey(choice) === selectedKey);
+        return index >= 0 ? TAKE_QUIZ_OPTION_LABELS[index] || "" : "";
+      }
+
+      function inferGeminiSelectedLabel(responseText) {
+        const match = String(responseText || "").trim().match(/^(?:answer\s*)?(?:choice\s*)?([A-H])(?:[\).:\s]|$)/i);
+        return match ? normalizeTakeQuizOptionLabel(match[1]) : "";
+      }
+
+      function getStoredGeminiTaskAnswer(note, item) {
+        const answers = normalizeGeminiQuizAnswers(note && note.geminiQuizAnswers);
+        return answers.tasks[String(item && item.field || "")] || null;
+      }
+
+      function getGeminiAnswerChipId(noteId, taskField) {
+        return "gemini-answer-" + String(taskField || "") + "-" + String(noteId || "");
+      }
+
+      function removeGeminiAnswerChipElement(note, taskField) {
+        if (!note || !taskField) {
+          return;
+        }
+        const chip = document.getElementById(getGeminiAnswerChipId(note.id, taskField));
+        if (chip) {
+          chip.remove();
+        }
+      }
+
+      function clearStoredGeminiTaskAnswer(note, taskField) {
+        if (!note || !taskField) {
+          return false;
+        }
+        const currentAnswers = normalizeGeminiQuizAnswers(note.geminiQuizAnswers);
+        if (!currentAnswers.tasks[taskField]) {
+          return false;
+        }
+        const nextTasks = { ...currentAnswers.tasks };
+        delete nextTasks[taskField];
+        note.geminiQuizAnswers = {
+          model: currentAnswers.model,
+          thinkingLevel: currentAnswers.thinkingLevel,
+          takenAt: currentAnswers.takenAt,
+          tasks: nextTasks,
+        };
+        removeGeminiAnswerChipElement(note, taskField);
+        return true;
+      }
+
+      function isGeminiTaskAnswerCurrent(note, item, taskAnswer) {
+        if (!note || !item || !taskAnswer) {
+          return false;
+        }
+        const storedQuestion = String(taskAnswer.question || "").trim();
+        if (!storedQuestion) {
+          return true;
+        }
+        return storedQuestion === String(note[item.questionField] || "").trim();
+      }
+
+      function getCurrentGeminiQuizAnswers(note) {
+        const answers = normalizeGeminiQuizAnswers(note && note.geminiQuizAnswers);
+        const tasks = {};
+        NOTE_ANALYSIS_ITEMS.forEach((item) => {
+          const taskAnswer = answers.tasks[item.field];
+          if (taskAnswer && isGeminiTaskAnswerCurrent(note, item, taskAnswer)) {
+            tasks[item.field] = taskAnswer;
+          }
+        });
+        return {
+          model: answers.model,
+          thinkingLevel: answers.thinkingLevel,
+          takenAt: answers.takenAt,
+          tasks: tasks,
+        };
+      }
+
+      function clearStaleGeminiTaskAnswers(note) {
+        if (!note) {
+          return false;
+        }
+        let changed = false;
+        NOTE_ANALYSIS_ITEMS.forEach((item) => {
+          const taskAnswer = getStoredGeminiTaskAnswer(note, item);
+          if (taskAnswer && !isGeminiTaskAnswerCurrent(note, item, taskAnswer)) {
+            changed = clearStoredGeminiTaskAnswer(note, item.field) || changed;
+          }
+        });
+        return changed;
+      }
+
+      function clearStaleGeminiTaskAnswersForAllNotes() {
+        let changed = false;
+        state.notes.forEach((note) => {
+          if (clearStaleGeminiTaskAnswers(note)) {
+            changed = true;
+          }
+        });
+        if (changed) {
+          renderNotes();
+          renderJsonPreview();
+        }
+        return changed;
+      }
+
+      function formatGeminiTaskAnswerForDisplay(taskAnswer) {
+        if (!taskAnswer) {
+          return "";
+        }
+        const selectedLabel = normalizeTakeQuizOptionLabel(taskAnswer.selectedLabel);
+        const selectedChoice = String(taskAnswer.selectedChoice || "").trim();
+        const response = String(taskAnswer.response || "").trim();
+        if (selectedLabel && selectedChoice) {
+          return selectedLabel + ". " + selectedChoice;
+        }
+        if (selectedChoice) {
+          return selectedChoice;
+        }
+        if (selectedLabel) {
+          return "Choice " + selectedLabel;
+        }
+        return response;
+      }
+
+      function recordGeminiQuizAnswer(note, item, result, clipEnd) {
+        if (!note || !item) {
+          return false;
+        }
+        const choices = Array.isArray(result && result.choices) ? result.choices : [];
+        const rawResponse = String(result && result.response || "").trim();
+        let selectedLabel = normalizeTakeQuizOptionLabel(result && result.selectedLabel)
+          || inferGeminiSelectedLabel(rawResponse);
+        let selectedChoice = String(result && result.selectedChoice || "").trim();
+        const selectedChoiceAsLabel = normalizeTakeQuizOptionLabel(selectedChoice);
+        if (!selectedLabel && selectedChoiceAsLabel) {
+          selectedLabel = selectedChoiceAsLabel;
+          selectedChoice = getChoiceTextForLabel(choices, selectedLabel) || selectedChoice;
+        }
+        if (!selectedChoice && selectedLabel) {
+          selectedChoice = getChoiceTextForLabel(choices, selectedLabel);
+        }
+        if (!selectedLabel && selectedChoice) {
+          selectedLabel = findChoiceLabelForText(choices, selectedChoice);
+        }
+
+        const correctAnswer = String(note[item.field] || "").trim();
+        const selectedKey = normalizeTakeQuizChoiceKey(selectedChoice);
+        const correctKey = normalizeTakeQuizChoiceKey(correctAnswer);
+        const currentAnswers = normalizeGeminiQuizAnswers(note.geminiQuizAnswers);
+        const nowIso = new Date().toISOString();
+        note.geminiQuizAnswers = {
+          model: GEMINI_CLIP_MODEL,
+          thinkingLevel: normalizeGeminiThinkingLevel(geminiThinkingLevel),
+          takenAt: nowIso,
+          tasks: {
+            ...currentAnswers.tasks,
+            [item.field]: {
+              selectedLabel: selectedLabel,
+              selectedChoice: selectedChoice,
+              correct: Boolean(selectedKey && correctKey && selectedKey === correctKey),
+              response: rawResponse,
+              question: String(result && result.question || note[item.questionField] || "").trim(),
+              answeredAt: nowIso,
+              clipEndSec: Number.isFinite(Number(clipEnd)) ? Number(Number(clipEnd).toFixed(3)) : null,
+            },
+          },
+        };
+        return true;
       }
 
       function recordTakeQuizSelection(entry, option, isCorrect) {
@@ -4304,7 +4707,7 @@
             videoUrl: String(currentRemoteVideoUrl || video.currentSrc || video.src || "").trim() || null,
             filePath: String(videoFilePath || "").trim() || null,
             sourceUrl: sourceInfo.sourceUrl,
-            model: "gemini-3.1-pro-preview",
+            model: GEMINI_CLIP_MODEL,
             thinkingLevel: geminiThinkingLevel,
           }),
         });
@@ -4323,6 +4726,7 @@
 
         return {
           question: setup.question,
+          choices: setup.choices,
           response: String(payload.response || "").trim(),
           selectedChoice: String(payload.selectedChoice || "").trim(),
           selectedLabel: String(payload.selectedLabel || "").trim(),
@@ -4379,6 +4783,9 @@
             return;
           }
 
+          recordGeminiQuizAnswer(note, item, payload, clipEnd);
+          renderNotes();
+          renderJsonPreview();
           setGeminiPanelResult({
             question: question,
             taskLabel: item.label,
@@ -4469,6 +4876,7 @@
         try {
           let succeededCount = 0;
           let failedCount = 0;
+          let recordedAnswer = false;
           const quizOutputBlocks = [];
 
           for (let index = 0; index < runnableItems.length; index += 1) {
@@ -4492,6 +4900,9 @@
                 return;
               }
               succeededCount += 1;
+              if (recordGeminiQuizAnswer(note, entry.item, result, clipEnd)) {
+                recordedAnswer = true;
+              }
               const responseText = String(result && result.response || "").trim() || "Gemini returned an empty response.";
               quizOutputBlocks.push(
                 String(entry.item.label || "Question")
@@ -4537,6 +4948,10 @@
               endSec: clipEnd,
               response: quizOutputBlocks.join("\n\n"),
             });
+          }
+          if (recordedAnswer) {
+            renderNotes();
+            renderJsonPreview();
           }
           const summaryBits = [
             "success: " + String(succeededCount),
@@ -4661,7 +5076,7 @@
               videoUrl: String(currentRemoteVideoUrl || video.currentSrc || video.src || "").trim() || null,
               filePath: String(videoFilePath || "").trim() || null,
               sourceUrl: sourceInfo.sourceUrl,
-              model: "gemini-3.1-pro-preview",
+              model: GEMINI_CLIP_MODEL,
               thinkingLevel: geminiThinkingLevel,
             }),
           });
@@ -4697,6 +5112,9 @@
           let generatedSomething = false;
           if (shouldFillCorrectAnswer && generatedCorrectAnswer) {
             note[item.field] = generatedCorrectAnswer;
+            if (item.field === "comprehension") {
+              applyAutoQuestionTemplates(note);
+            }
             generatedSomething = true;
           }
 
@@ -5443,10 +5861,13 @@
           || QUESTION_TEMPLATE_RELATIONSHIP_CHARACTER1_PLACEHOLDER;
         const relationshipCharacter2 = normalizeCharacterName(note && note.relationshipCharacterB)
           || QUESTION_TEMPLATE_RELATIONSHIP_CHARACTER2_PLACEHOLDER;
+        const truth = String(note && (note.comprehension || note.noteComprehension) || "").trim()
+          || QUESTION_TEMPLATE_TRUTH_PLACEHOLDER;
         return {
           character: genericCharacter,
           character1: relationshipCharacter1,
           character2: relationshipCharacter2,
+          truth: truth,
         };
       }
 
@@ -6228,6 +6649,15 @@
             tasks: quizSelections.tasks,
           };
         }
+        const geminiQuizAnswers = getCurrentGeminiQuizAnswers(note);
+        if (Object.keys(geminiQuizAnswers.tasks).length) {
+          exported.geminiQuizAnswers = {
+            model: String(geminiQuizAnswers.model || GEMINI_CLIP_MODEL || "").trim(),
+            thinkingLevel: normalizeGeminiThinkingLevel(geminiQuizAnswers.thinkingLevel || ""),
+            takenAt: String(geminiQuizAnswers.takenAt || "").trim(),
+            tasks: geminiQuizAnswers.tasks,
+          };
+        }
         return exported;
       }
 
@@ -6432,25 +6862,32 @@
           return;
         }
         if (field === "comprehensionQuestion") {
-          note.comprehensionQuestion = String(value || "");
+          const nextQuestion = String(value || "");
+          note.comprehensionQuestion = nextQuestion;
           if (getQuestionTemplateKeyForCategory(note.category)) {
             applyAutoQuestionTemplates(note);
             syncAutoQuestionInputs(note);
           }
         } else if (field === "reasoningQuestion") {
-          note.reasoningQuestion = String(value || "");
+          const nextQuestion = String(value || "");
+          note.reasoningQuestion = nextQuestion;
           if (getQuestionTemplateKeyForCategory(note.category)) {
             applyAutoQuestionTemplates(note);
             syncAutoQuestionInputs(note);
           }
         } else if (field === "predictionQuestion") {
-          note.predictionQuestion = String(value || "");
+          const nextQuestion = String(value || "");
+          note.predictionQuestion = nextQuestion;
           if (getQuestionTemplateKeyForCategory(note.category)) {
             applyAutoQuestionTemplates(note);
             syncAutoQuestionInputs(note);
           }
         } else if (field === "comprehension") {
           note.comprehension = String(value || "");
+          if (getQuestionTemplateKeyForCategory(note.category)) {
+            applyAutoQuestionTemplates(note);
+            syncAutoQuestionInputs(note);
+          }
         } else if (field === "reasoning") {
           note.reasoning = String(value || "");
         } else if (field === "prediction") {
@@ -6533,6 +6970,29 @@
 
         const questionActions = document.createElement("div");
         questionActions.className = "note-inline-actions";
+
+        const geminiAnswer = getStoredGeminiTaskAnswer(note, item);
+        const geminiAnswerText = formatGeminiTaskAnswerForDisplay(geminiAnswer);
+        if (geminiAnswerText) {
+          const geminiAnswerChip = document.createElement("span");
+          geminiAnswerChip.id = getGeminiAnswerChipId(note.id, item.field);
+          geminiAnswerChip.className = "gemini-answer-chip";
+          if (geminiAnswer.correct) {
+            geminiAnswerChip.classList.add("correct");
+          } else if (String(geminiAnswer.selectedChoice || "").trim()) {
+            geminiAnswerChip.classList.add("wrong");
+          }
+          geminiAnswerChip.textContent = "Gemini: " + geminiAnswerText;
+          const answeredAt = String(geminiAnswer.answeredAt || "").trim();
+          const response = String(geminiAnswer.response || "").trim();
+          geminiAnswerChip.title = [
+            "Gemini answer: " + geminiAnswerText,
+            "Result: " + (geminiAnswer.correct ? "Correct" : "Wrong or unverified"),
+            answeredAt ? "Answered at: " + formatSharedTimestamp(answeredAt) : "",
+            response ? "Raw response: " + response : "",
+          ].filter(Boolean).join("\n");
+          questionActions.append(geminiAnswerChip);
+        }
 
         if (isEditableNote(note)) {
           const fillChoicesButton = document.createElement("button");
@@ -7683,6 +8143,12 @@
             takenAt: "",
             tasks: {},
           },
+          geminiQuizAnswers: {
+            model: "",
+            thinkingLevel: "",
+            takenAt: "",
+            tasks: {},
+          },
         };
         applyAutoQuestionTemplates(note);
         state.nextId += 1;
@@ -8152,6 +8618,12 @@
                 raw.quizSelections
                 || raw.lastQuizSelections
                 || raw.quizAnswers
+                || {}
+              ),
+              geminiQuizAnswers: normalizeGeminiQuizAnswers(
+                raw.geminiQuizAnswers
+                || raw.geminiAnswers
+                || raw.geminiQuiz
                 || {}
               ),
             });
@@ -9018,6 +9490,7 @@
           if (String(payload.entry.videoUrl || "").trim()) {
             currentRemoteVideoUrl = String(payload.entry.videoUrl || "").trim();
           }
+          clearStaleGeminiTaskAnswersForAllNotes();
           renderJsonPreview();
           updateSharedStatus("Published shared entry #" + payload.entry.id + " for " + publishAnnotator + ".");
           updateStatus("Published shared entry #" + payload.entry.id + " for " + publishAnnotator + ".");
