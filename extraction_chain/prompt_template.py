@@ -77,8 +77,8 @@ Example Answer Choices:
 
 QUESTION_MAPPINGS = {
     "Emotion": {
-        "Reasoning": "Which of the following best describes what causes {character} to  the following emotion: {truth}?",
-        "Comprehension": "Which of the following correctly describes what {character} is feeling at this point in the video?",
+        "Reasoning": "Which of the following best describes what causes {character} to feel the following emotion: {truth}?",
+        "Comprehension": "Which of the following correctly describes what {character} is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
         "Prediction": "Given how {character} is feeling at this point in the video, which of the following actions is {character} most likely to take next?"
     },
     "Persona": {

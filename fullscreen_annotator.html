@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>S-Bench Annotations suite</title>
+    <title>MMSU Annotations suite</title>
     <style>
       :root {
         --paper: #f5efe5;
@@ -1377,7 +1377,8 @@
         display: flex;
       }
 
-      .gemini-backdrop {
+      .gemini-backdrop,
+      .analytics-distribution-backdrop {
         position: absolute;
         inset: 0;
         z-index: 39;
@@ -1386,11 +1387,17 @@
         backdrop-filter: blur(4px);
       }
 
-      .gemini-backdrop.visible {
+      .analytics-distribution-backdrop {
+        z-index: 43;
+      }
+
+      .gemini-backdrop.visible,
+      .analytics-distribution-backdrop.visible {
         display: block;
       }
 
-      .gemini-panel {
+      .gemini-panel,
+      .analytics-distribution-panel {
         position: absolute;
         left: 50%;
         top: 50%;
@@ -1408,7 +1415,14 @@
         overflow: hidden;
       }
 
-      .gemini-panel.visible {
+      .analytics-distribution-panel {
+        z-index: 44;
+        width: min(620px, calc(100vw - 32px));
+        max-height: min(72vh, 680px);
+      }
+
+      .gemini-panel.visible,
+      .analytics-distribution-panel.visible {
         display: flex;
       }
 
@@ -1811,7 +1825,7 @@
 
       .analytics-performance-table {
         width: 100%;
-        min-width: 680px;
+        min-width: 1040px;
         border-collapse: collapse;
         font-size: 12px;
         color: rgba(236, 244, 252, 0.92);
@@ -1843,8 +1857,39 @@
         white-space: nowrap;
       }
 
+      .analytics-performance-table td[data-performance-distribution] {
+        min-width: 110px;
+        font-variant-numeric: normal;
+      }
+
       .analytics-performance-na {
         color: rgba(221, 230, 240, 0.64);
+      }
+
+      .analytics-distribution-trigger {
+        border: 1px solid rgba(214, 229, 243, 0.35);
+        background: rgba(255, 255, 255, 0.08);
+        color: #f6fbff;
+        border-radius: 999px;
+        padding: 4px 10px;
+        font: inherit;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .analytics-distribution-trigger:hover {
+        filter: brightness(1.1);
+      }
+
+      .analytics-distribution-body {
+        padding: 16px;
+        display: grid;
+        gap: 14px;
+        overflow: auto;
+      }
+
+      .analytics-distribution-chart-layout {
+        align-items: center;
       }
 
       .shared-controls {
@@ -2407,71 +2452,87 @@
                     <th scope="col">Average Accuracy</th>
                     <th scope="col">Joint C+R</th>
                     <th scope="col">Joint C+R+P</th>
+                    <th scope="col">Tested Social Mix</th>
+                    <th scope="col">Tested Task Mix</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr data-performance-model="gemini-3.1-pro-preview">
                     <td>Gemini-3.1-Pro</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="comprehension">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="reasoning">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="prediction">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="average">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="jointCR">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="jointCRP">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-distribution="social">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-distribution="task">N.A.</td>
                   </tr>
-                  <tr>
+                  <tr data-performance-model="gemini-3.1-flash">
                     <td>Gemini-3.1-Flash</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="comprehension">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="reasoning">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="prediction">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="average">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="jointCR">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="jointCRP">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-distribution="social">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-distribution="task">N.A.</td>
                   </tr>
-                  <tr>
+                  <tr data-performance-model="mimo-v2-omni">
                     <td>MiMo-V2-Omni</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="comprehension">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="reasoning">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="prediction">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="average">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="jointCR">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="jointCRP">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-distribution="social">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-distribution="task">N.A.</td>
                   </tr>
-                  <tr>
+                  <tr data-performance-model="qwen3.5-omni-plus">
                     <td>Qwen3.5-Omni-Plus</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="comprehension">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="reasoning">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="prediction">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="average">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="jointCR">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="jointCRP">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-distribution="social">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-distribution="task">N.A.</td>
                   </tr>
-                  <tr>
+                  <tr data-performance-model="qwen3-omni-30b-a3b-think">
                     <td>Qwen3-Omni-30B-A3B-Think</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="comprehension">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="reasoning">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="prediction">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="average">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="jointCR">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="jointCRP">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-distribution="social">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-distribution="task">N.A.</td>
                   </tr>
-                  <tr>
+                  <tr data-performance-model="qwen3-omni-30b-a3b-instruct">
                     <td>Qwen3-Omni-30B-A3B-Instruct</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="comprehension">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="reasoning">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="prediction">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="average">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="jointCR">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="jointCRP">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-distribution="social">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-distribution="task">N.A.</td>
                   </tr>
-                  <tr>
+                  <tr data-performance-model="vita-1.5-7b">
                     <td>VITA-1.5-7B</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
-                    <td class="analytics-performance-na">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="comprehension">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="reasoning">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="prediction">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="average">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="jointCR">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-metric="jointCRP">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-distribution="social">N.A.</td>
+                    <td class="analytics-performance-na" data-performance-distribution="task">N.A.</td>
                   </tr>
                 </tbody>
               </table>
@@ -2508,6 +2569,29 @@
                 <div class="analytics-legend" id="analytics-task-legend"></div>
               </div>
             </article>
+          </div>
+        </div>
+	      </section>
+
+      <div class="analytics-distribution-backdrop" id="analytics-distribution-backdrop"></div>
+
+      <section class="analytics-distribution-panel" id="analytics-distribution-panel" aria-live="polite">
+        <div class="shared-header">
+          <strong id="analytics-distribution-title">Model Distribution</strong>
+          <div class="shared-header-actions">
+            <button type="button" id="analytics-distribution-close">Close</button>
+          </div>
+        </div>
+        <div class="analytics-distribution-body">
+          <div class="analytics-status" id="analytics-distribution-meta">No model distribution selected.</div>
+          <div class="analytics-chart-layout analytics-distribution-chart-layout">
+            <div class="analytics-chart" id="analytics-distribution-chart">
+              <div class="analytics-chart-hole">
+                <strong id="analytics-distribution-total">0</strong>
+                <span>questions</span>
+              </div>
+            </div>
+            <div class="analytics-legend" id="analytics-distribution-legend"></div>
           </div>
         </div>
       </section>
@@ -2889,6 +2973,14 @@
       const analyticsTaskChart = document.getElementById("analytics-task-chart");
       const analyticsTaskTotal = document.getElementById("analytics-task-total");
       const analyticsTaskLegend = document.getElementById("analytics-task-legend");
+      const analyticsDistributionBackdrop = document.getElementById("analytics-distribution-backdrop");
+      const analyticsDistributionPanel = document.getElementById("analytics-distribution-panel");
+      const analyticsDistributionCloseButton = document.getElementById("analytics-distribution-close");
+      const analyticsDistributionTitle = document.getElementById("analytics-distribution-title");
+      const analyticsDistributionMeta = document.getElementById("analytics-distribution-meta");
+      const analyticsDistributionChart = document.getElementById("analytics-distribution-chart");
+      const analyticsDistributionTotal = document.getElementById("analytics-distribution-total");
+      const analyticsDistributionLegend = document.getElementById("analytics-distribution-legend");
       const geminiBackdrop = document.getElementById("gemini-backdrop");
       const geminiPanel = document.getElementById("gemini-panel");
       const geminiCloseButton = document.getElementById("gemini-close");
@@ -2973,6 +3065,7 @@
         totalLayers: 0,
         totalNotes: 0,
         totalAnnotators: 0,
+        rawNotes: [],
         socialDistribution: [],
         taskDistribution: [],
       };
@@ -3078,8 +3171,14 @@
       }
 
       function closeAnalyticsPanel() {
+        closeAnalyticsDistributionPopup();
         analyticsPanel.classList.remove("visible");
         updateAnalyticsToggleUi();
+      }
+
+      function closeAnalyticsDistributionPopup() {
+        analyticsDistributionBackdrop.classList.remove("visible");
+        analyticsDistributionPanel.classList.remove("visible");
       }
 
       async function openAnalyticsPanel() {
@@ -3124,6 +3223,7 @@
         const question = String(payload.question || "").trim();
         const response = String(payload.response || "").trim();
         const taskLabel = String(payload.taskLabel || "Question").trim();
+        const status = String(payload.status || "").trim();
         const endSec = Number(payload.endSec) || 0;
         geminiMeta.textContent = taskLabel
           + " | Thinking "
@@ -3134,7 +3234,7 @@
         geminiQuestion.hidden = !question;
         geminiQuestionText.textContent = question;
         geminiStatus.classList.remove("error");
-        geminiStatus.textContent = "Gemini answered using the clip ending at the note timestamp.";
+        geminiStatus.textContent = status || "Gemini answered using the clip ending at the note timestamp.";
         geminiResponse.hidden = false;
         geminiResponseText.textContent = response || "Gemini returned an empty response.";
         openGeminiPanel();
@@ -3262,6 +3362,7 @@
             correct: Boolean(taskObject.correct === true || taskObject.isCorrect === true),
             response: response,
             question: String(taskObject.question || "").trim(),
+            choiceSignature: String(taskObject.choiceSignature || taskObject.choicesSignature || "").trim(),
             answeredAt: String(taskObject.answeredAt || taskObject.at || "").trim(),
             clipEndSec: Number.isFinite(Number(taskObject.clipEndSec)) ? Number(taskObject.clipEndSec) : null,
           };
@@ -3291,6 +3392,45 @@
         }
         const index = choices.findIndex((choice) => normalizeTakeQuizChoiceKey(choice) === selectedKey);
         return index >= 0 ? TAKE_QUIZ_OPTION_LABELS[index] || "" : "";
+      }
+
+      function buildGeminiTaskChoices(note, item) {
+        if (!note || !item) {
+          return [];
+        }
+        const choiceCandidates = [
+          String(note[item.field] || "").trim(),
+          ...toEditableDistractorSlots(note[item.distractorField]).map((value) => String(value || "").trim()),
+        ];
+        const seenChoiceKeys = new Set();
+        return choiceCandidates.filter((value) => {
+          const key = normalizeTakeQuizChoiceKey(value);
+          if (!key || seenChoiceKeys.has(key)) {
+            return false;
+          }
+          seenChoiceKeys.add(key);
+          return true;
+        });
+      }
+
+      function getGeminiChoiceSignature(choices) {
+        const normalizedChoices = Array.isArray(choices)
+          ? choices.map((value) => normalizeTakeQuizChoiceKey(value)).filter(Boolean)
+          : [];
+        return JSON.stringify(normalizedChoices);
+      }
+
+      function getGeminiTaskChoiceSignature(note, item) {
+        return getGeminiChoiceSignature(buildGeminiTaskChoices(note, item));
+      }
+
+      function findNoteAnalysisItemByField(field) {
+        const targetField = String(field || "");
+        return NOTE_ANALYSIS_ITEMS.find((item) => {
+          return item.field === targetField
+            || item.questionField === targetField
+            || item.distractorField === targetField;
+        }) || null;
       }
 
       function inferGeminiSelectedLabel(responseText) {
@@ -3342,10 +3482,17 @@
           return false;
         }
         const storedQuestion = String(taskAnswer.question || "").trim();
-        if (!storedQuestion) {
-          return true;
+        if (storedQuestion && storedQuestion !== String(note[item.questionField] || "").trim()) {
+          return false;
         }
-        return storedQuestion === String(note[item.questionField] || "").trim();
+        const storedChoiceSignature = String(taskAnswer.choiceSignature || "").trim();
+        if (!storedChoiceSignature) {
+          return false;
+        }
+        if (storedChoiceSignature !== getGeminiTaskChoiceSignature(note, item)) {
+          return false;
+        }
+        return true;
       }
 
       function getCurrentGeminiQuizAnswers(note) {
@@ -3438,6 +3585,7 @@
         const correctKey = normalizeTakeQuizChoiceKey(correctAnswer);
         const currentAnswers = normalizeGeminiQuizAnswers(note.geminiQuizAnswers);
         const nowIso = new Date().toISOString();
+        const choiceSignature = getGeminiChoiceSignature(choices.length ? choices : buildGeminiTaskChoices(note, item));
         note.geminiQuizAnswers = {
           model: GEMINI_CLIP_MODEL,
           thinkingLevel: normalizeGeminiThinkingLevel(geminiThinkingLevel),
@@ -3450,6 +3598,7 @@
               correct: Boolean(selectedKey && correctKey && selectedKey === correctKey),
               response: rawResponse,
               question: String(result && result.question || note[item.questionField] || "").trim(),
+              choiceSignature: choiceSignature,
               answeredAt: nowIso,
               clipEndSec: Number.isFinite(Number(clipEnd)) ? Number(Number(clipEnd).toFixed(3)) : null,
             },
@@ -3975,6 +4124,290 @@
           .filter((item) => item.count > 0);
       }
 
+      function normalizeAnalyticsModelKey(value) {
+        const normalized = String(value || "").trim().toLowerCase();
+        if (!normalized) {
+          return "";
+        }
+        if (normalized === "gemini-3.1-pro-preview" || normalized.includes("gemini-3.1-pro")) {
+          return "gemini-3.1-pro-preview";
+        }
+        if (normalized.includes("gemini-3.1-flash")) {
+          return "gemini-3.1-flash";
+        }
+        if (normalized.includes("mimo-v2-omni")) {
+          return "mimo-v2-omni";
+        }
+        if (normalized.includes("qwen3.5-omni-plus")) {
+          return "qwen3.5-omni-plus";
+        }
+        if (normalized.includes("qwen3-omni-30b-a3b-think")) {
+          return "qwen3-omni-30b-a3b-think";
+        }
+        if (normalized.includes("qwen3-omni-30b-a3b-instruct")) {
+          return "qwen3-omni-30b-a3b-instruct";
+        }
+        if (normalized.includes("vita-1.5-7b")) {
+          return "vita-1.5-7b";
+        }
+        return normalized;
+      }
+
+      function createAnalyticsScoreCounter() {
+        return {
+          correct: 0,
+          total: 0,
+        };
+      }
+
+      function createAnalyticsCountMap(definitions) {
+        const counts = new Map();
+        (Array.isArray(definitions) ? definitions : []).forEach((definition) => {
+          const key = String(definition && definition.key || "").trim();
+          if (key) {
+            counts.set(key, 0);
+          }
+        });
+        return counts;
+      }
+
+      function createAnalyticsModelPerformanceRecord() {
+        return {
+          comprehension: createAnalyticsScoreCounter(),
+          reasoning: createAnalyticsScoreCounter(),
+          prediction: createAnalyticsScoreCounter(),
+          average: createAnalyticsScoreCounter(),
+          jointCR: createAnalyticsScoreCounter(),
+          jointCRP: createAnalyticsScoreCounter(),
+          socialDistribution: createAnalyticsCountMap(ANALYTICS_SOCIAL_DIMENSIONS),
+          taskDistribution: createAnalyticsCountMap(ANALYTICS_COGNITIVE_TASKS),
+        };
+      }
+
+      function addAnalyticsScore(counter, isCorrect) {
+        if (!counter) {
+          return;
+        }
+        counter.total += 1;
+        if (isCorrect) {
+          counter.correct += 1;
+        }
+      }
+
+      function incrementAnalyticsCount(counts, key) {
+        if (!counts || !key || !counts.has(key)) {
+          return;
+        }
+        counts.set(key, (counts.get(key) || 0) + 1);
+      }
+
+      function hasScoredGeminiTaskAnswer(taskAnswer) {
+        if (!taskAnswer) {
+          return false;
+        }
+        return Boolean(
+          String(taskAnswer.selectedChoice || "").trim()
+          || normalizeTakeQuizOptionLabel(taskAnswer.selectedLabel)
+        );
+      }
+
+      function collectAnalyticsPerformanceNotes() {
+        const rawNotes = Array.isArray(libraryAnalyticsState.rawNotes)
+          ? libraryAnalyticsState.rawNotes
+          : [];
+        const currentNotes = Array.isArray(state.notes) ? state.notes : [];
+        const currentEntryIds = new Set();
+
+        currentNotes.forEach((note) => {
+          const sourceEntryId = Number(note && note.sourceEntryId);
+          if (Number.isInteger(sourceEntryId)) {
+            currentEntryIds.add(sourceEntryId);
+          }
+        });
+
+        const notes = currentEntryIds.size
+          ? rawNotes.filter((note) => !currentEntryIds.has(Number(note && note.__analyticsEntryId)))
+          : rawNotes.slice();
+
+        currentNotes.forEach((note) => {
+          if (note && typeof note === "object") {
+            notes.push(note);
+          }
+        });
+
+        return notes;
+      }
+
+      function getAnalyticsSocialDimensionKeyForNote(note) {
+        const fallbackKey = ANALYTICS_SOCIAL_DIMENSIONS.length
+          ? ANALYTICS_SOCIAL_DIMENSIONS[ANALYTICS_SOCIAL_DIMENSIONS.length - 1].key
+          : "";
+        const categoryKey = normalizeCategory(note && (note.category || note.label) || "");
+        return analyticsSocialCategoryMap.get(categoryKey) || fallbackKey;
+      }
+
+      function buildModelPerformanceFromRawNotes(notes) {
+        const performanceByModel = new Map();
+        (Array.isArray(notes) ? notes : []).forEach((note) => {
+          const answers = normalizeGeminiQuizAnswers(note && note.geminiQuizAnswers);
+          const modelKey = normalizeAnalyticsModelKey(answers.model);
+          if (!modelKey || !Object.keys(answers.tasks).length) {
+            return;
+          }
+
+          let record = performanceByModel.get(modelKey);
+          if (!record) {
+            record = createAnalyticsModelPerformanceRecord();
+            performanceByModel.set(modelKey, record);
+          }
+
+          const scoredTasks = {};
+          const socialDimensionKey = getAnalyticsSocialDimensionKeyForNote(note);
+          NOTE_ANALYSIS_ITEMS.forEach((item) => {
+            const taskAnswer = answers.tasks[item.field];
+            if (
+              !taskAnswer
+              || !hasScoredGeminiTaskAnswer(taskAnswer)
+              || !isGeminiTaskAnswerCurrent(note, item, taskAnswer)
+            ) {
+              return;
+            }
+
+            const isCorrect = Boolean(taskAnswer.correct);
+            scoredTasks[item.field] = isCorrect;
+            addAnalyticsScore(record[item.field], isCorrect);
+            addAnalyticsScore(record.average, isCorrect);
+            incrementAnalyticsCount(record.socialDistribution, socialDimensionKey);
+            incrementAnalyticsCount(record.taskDistribution, item.field);
+          });
+
+          if (
+            Object.prototype.hasOwnProperty.call(scoredTasks, "comprehension")
+            && Object.prototype.hasOwnProperty.call(scoredTasks, "reasoning")
+          ) {
+            addAnalyticsScore(record.jointCR, Boolean(scoredTasks.comprehension && scoredTasks.reasoning));
+          }
+
+          if (
+            Object.prototype.hasOwnProperty.call(scoredTasks, "comprehension")
+            && Object.prototype.hasOwnProperty.call(scoredTasks, "reasoning")
+            && Object.prototype.hasOwnProperty.call(scoredTasks, "prediction")
+          ) {
+            addAnalyticsScore(
+              record.jointCRP,
+              Boolean(scoredTasks.comprehension && scoredTasks.reasoning && scoredTasks.prediction)
+            );
+          }
+        });
+        return performanceByModel;
+      }
+
+      function formatAnalyticsScore(counter) {
+        if (!counter || !counter.total) {
+          return "N.A.";
+        }
+        const percent = Math.round((counter.correct / counter.total) * 1000) / 10;
+        const percentText = Number.isInteger(percent) ? String(percent) : percent.toFixed(1);
+        return percentText + "% (" + String(counter.correct) + "/" + String(counter.total) + ")";
+      }
+
+      function getAnalyticsDistributionItems(counts, definitions) {
+        if (!counts) {
+          return [];
+        }
+        return (Array.isArray(definitions) ? definitions : [])
+          .map((definition) => {
+            const key = String(definition && definition.key || "").trim();
+            return {
+              key: key,
+              label: String(definition && definition.label || key || "Unknown"),
+              color: String(definition && definition.color || "#94a3b8"),
+              count: key ? (counts.get(key) || 0) : 0,
+            };
+          })
+          .filter((item) => item.count > 0);
+      }
+
+      function renderAnalyticsDistributionCell(cell, record, distributionType, modelLabel) {
+        cell.innerHTML = "";
+        const definitions = distributionType === "social"
+          ? ANALYTICS_SOCIAL_DIMENSIONS
+          : ANALYTICS_COGNITIVE_TASKS;
+        const counts = distributionType === "social"
+          ? (record && record.socialDistribution)
+          : (record && record.taskDistribution);
+        const items = getAnalyticsDistributionItems(counts, definitions);
+        const total = items.reduce((sum, item) => sum + item.count, 0);
+        cell.classList.toggle("analytics-performance-na", !total);
+        if (!total) {
+          cell.textContent = "N.A.";
+          return;
+        }
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "analytics-distribution-trigger";
+        button.textContent = "View (" + String(total) + ")";
+        button.title = "Show "
+          + (distributionType === "social" ? "tested social dimension" : "tested cognitive task")
+          + " pie chart for "
+          + modelLabel
+          + ".";
+        button.addEventListener("click", () => {
+          openAnalyticsDistributionPopup({
+            modelLabel: modelLabel,
+            distributionType: distributionType,
+            items: items,
+            total: total,
+          });
+        });
+        cell.appendChild(button);
+      }
+
+      function openAnalyticsDistributionPopup(payload = {}) {
+        const distributionType = String(payload.distributionType || "");
+        const modelLabel = String(payload.modelLabel || "Model").trim();
+        const items = Array.isArray(payload.items) ? payload.items : [];
+        const total = Number(payload.total) || items.reduce((sum, item) => sum + Number(item.count || 0), 0);
+        const distributionLabel = distributionType === "social"
+          ? "Tested Social Mix"
+          : "Tested Task Mix";
+
+        analyticsDistributionTitle.textContent = modelLabel + " | " + distributionLabel;
+        analyticsDistributionMeta.textContent = String(total)
+          + " tested question"
+          + (total === 1 ? "" : "s")
+          + " for this model.";
+        renderAnalyticsChart(
+          analyticsDistributionChart,
+          analyticsDistributionTotal,
+          analyticsDistributionLegend,
+          items
+        );
+        analyticsDistributionBackdrop.classList.add("visible");
+        analyticsDistributionPanel.classList.add("visible");
+      }
+
+      function renderAnalyticsPerformanceTable() {
+        const performanceByModel = buildModelPerformanceFromRawNotes(collectAnalyticsPerformanceNotes());
+        document.querySelectorAll("[data-performance-model]").forEach((row) => {
+          const modelKey = normalizeAnalyticsModelKey(row.getAttribute("data-performance-model"));
+          const record = performanceByModel.get(modelKey) || null;
+          const modelLabel = String(row.cells && row.cells[0] ? row.cells[0].textContent : "Model").trim() || "Model";
+          row.querySelectorAll("[data-performance-metric]").forEach((cell) => {
+            const metric = String(cell.getAttribute("data-performance-metric") || "");
+            const counter = record && record[metric] ? record[metric] : null;
+            const value = formatAnalyticsScore(counter);
+            cell.textContent = value;
+            cell.classList.toggle("analytics-performance-na", value === "N.A.");
+          });
+          row.querySelectorAll("[data-performance-distribution]").forEach((cell) => {
+            const distributionType = String(cell.getAttribute("data-performance-distribution") || "");
+            renderAnalyticsDistributionCell(cell, record, distributionType, modelLabel);
+          });
+        });
+      }
+
       function buildChartGradient(items) {
         if (!items.length) {
           return "conic-gradient(rgba(255, 255, 255, 0.08) 0deg, rgba(255, 255, 255, 0.08) 360deg)";
@@ -4075,6 +4508,7 @@
         libraryAnalyticsState.totalLayers = metadata.totalLayers;
         libraryAnalyticsState.totalNotes = 0;
         libraryAnalyticsState.totalAnnotators = metadata.totalAnnotators;
+        libraryAnalyticsState.rawNotes = [];
         libraryAnalyticsState.socialDistribution = [];
         libraryAnalyticsState.taskDistribution = [];
         renderAnalyticsPanel();
@@ -4107,7 +4541,14 @@
           const rawNotes = Array.isArray(entry && entry.annotation && entry.annotation.notes)
             ? entry.annotation.notes
             : [];
-          allRawNotes.push(...rawNotes);
+          rawNotes.forEach((note) => {
+            if (note && typeof note === "object") {
+              allRawNotes.push({
+                ...note,
+                __analyticsEntryId: Number.isInteger(entry.id) ? entry.id : null,
+              });
+            }
+          });
         });
 
         libraryAnalyticsState.loading = false;
@@ -4118,6 +4559,7 @@
         libraryAnalyticsState.totalLayers = metadata.totalLayers;
         libraryAnalyticsState.totalNotes = allRawNotes.length;
         libraryAnalyticsState.totalAnnotators = metadata.totalAnnotators;
+        libraryAnalyticsState.rawNotes = allRawNotes;
         libraryAnalyticsState.socialDistribution = buildSocialDistributionFromRawNotes(
           allRawNotes,
           ANALYTICS_SOCIAL_DIMENSIONS,
@@ -4184,6 +4626,7 @@
           analyticsTaskLegend,
           libraryAnalyticsState.taskDistribution
         );
+        renderAnalyticsPerformanceTable();
       }
 
       function hasLoadedVideoSource() {
@@ -4786,6 +5229,7 @@
           recordGeminiQuizAnswer(note, item, payload, clipEnd);
           renderNotes();
           renderJsonPreview();
+          renderAnalyticsPanel();
           setGeminiPanelResult({
             question: question,
             taskLabel: item.label,
@@ -4843,9 +5287,19 @@
 
         const runnableItems = [];
         const skippedItems = [];
+        const alreadyAnsweredItems = [];
         NOTE_ANALYSIS_ITEMS.forEach((item) => {
           try {
             const setup = getGeminiClipQuestionSetup(note, item);
+            const storedAnswer = getStoredGeminiTaskAnswer(note, item);
+            if (
+              storedAnswer
+              && hasScoredGeminiTaskAnswer(storedAnswer)
+              && isGeminiTaskAnswerCurrent(note, item, storedAnswer)
+            ) {
+              alreadyAnsweredItems.push(String(item.label || "Question"));
+              return;
+            }
             runnableItems.push({
               item: item,
               question: setup.question,
@@ -4860,6 +5314,31 @@
         });
 
         if (!runnableItems.length) {
+          if (alreadyAnsweredItems.length) {
+            const summaryBlocks = [
+              "Already stored: " + alreadyAnsweredItems.join(", "),
+            ];
+            if (skippedItems.length) {
+              skippedItems.forEach((reason) => {
+                summaryBlocks.push("Skipped: " + String(reason || "Unknown reason."));
+              });
+            }
+            setGeminiPanelResult({
+              question: "",
+              taskLabel: "Quiz Gemini Summary",
+              endSec: clipEnd,
+              status: "No new Gemini calls were needed for this note.",
+              response: summaryBlocks.join("\n\n"),
+            });
+            updateStatus(
+              "Quiz Gemini skipped: "
+              + String(alreadyAnsweredItems.length)
+              + " stored answer"
+              + (alreadyAnsweredItems.length === 1 ? "" : "s")
+              + " already current."
+            );
+            return;
+          }
           showErrorPopup("Add at least one complete question with answer choices before using Quiz Gemini.");
           return;
         }
@@ -4902,6 +5381,7 @@
               succeededCount += 1;
               if (recordGeminiQuizAnswer(note, entry.item, result, clipEnd)) {
                 recordedAnswer = true;
+                renderAnalyticsPanel();
               }
               const responseText = String(result && result.response || "").trim() || "Gemini returned an empty response.";
               quizOutputBlocks.push(
@@ -4936,6 +5416,10 @@
           }
 
           const skippedCount = skippedItems.length;
+          const alreadyAnsweredCount = alreadyAnsweredItems.length;
+          if (alreadyAnsweredCount > 0) {
+            quizOutputBlocks.push("Already stored: " + alreadyAnsweredItems.join(", "));
+          }
           if (skippedCount > 0) {
             skippedItems.forEach((reason) => {
               quizOutputBlocks.push("Skipped: " + String(reason || "Unknown reason."));
@@ -4952,6 +5436,7 @@
           if (recordedAnswer) {
             renderNotes();
             renderJsonPreview();
+            renderAnalyticsPanel();
           }
           const summaryBits = [
             "success: " + String(succeededCount),
@@ -4960,10 +5445,13 @@
           if (skippedCount > 0) {
             summaryBits.push("skipped: " + String(skippedCount));
           }
+          if (alreadyAnsweredCount > 0) {
+            summaryBits.push("stored: " + String(alreadyAnsweredCount));
+          }
           updateStatus(
             "Gemini quizzed "
             + String(runnableItems.length)
-            + " question"
+            + " new question"
             + (runnableItems.length === 1 ? "" : "s")
             + " for this note with separate prompts ("
             + summaryBits.join(", ")
@@ -5067,6 +5555,7 @@
               noteId: note.id,
               taskLabel: item.label,
               question: question,
+              choices: existingAnswers,
               existingAnswers: existingAnswers,
               missingCount: emptyIndexes.length,
               currentCorrectAnswer: currentCorrectAnswer || null,
@@ -5109,6 +5598,8 @@
             return;
           }
 
+          const beforeQuestion = String(note[item.questionField] || "").trim();
+          const beforeChoiceSignature = getGeminiTaskChoiceSignature(note, item);
           let generatedSomething = false;
           if (shouldFillCorrectAnswer && generatedCorrectAnswer) {
             note[item.field] = generatedCorrectAnswer;
@@ -5135,8 +5626,17 @@
           }
 
           note[item.distractorField] = nextSlots;
+          const afterQuestion = String(note[item.questionField] || "").trim();
+          const afterChoiceSignature = getGeminiTaskChoiceSignature(note, item);
+          let clearedGeminiAnswer = false;
+          if (beforeQuestion !== afterQuestion || beforeChoiceSignature !== afterChoiceSignature) {
+            clearedGeminiAnswer = clearStoredGeminiTaskAnswer(note, item.field);
+          }
           renderNotes();
           renderJsonPreview();
+          if (clearedGeminiAnswer) {
+            renderAnalyticsPanel();
+          }
 
           const responseLines = [];
           if (shouldFillCorrectAnswer && generatedCorrectAnswer) {
@@ -6861,6 +7361,10 @@
         if (!note) {
           return;
         }
+        const affectedItem = findNoteAnalysisItemByField(field);
+        const beforeQuestion = affectedItem ? String(note[affectedItem.questionField] || "").trim() : "";
+        const beforeChoiceSignature = affectedItem ? getGeminiTaskChoiceSignature(note, affectedItem) : "";
+        let clearedGeminiAnswer = false;
         if (field === "comprehensionQuestion") {
           const nextQuestion = String(value || "");
           note.comprehensionQuestion = nextQuestion;
@@ -6901,7 +7405,17 @@
         } else {
           return;
         }
+        if (affectedItem) {
+          const afterQuestion = String(note[affectedItem.questionField] || "").trim();
+          const afterChoiceSignature = getGeminiTaskChoiceSignature(note, affectedItem);
+          if (beforeQuestion !== afterQuestion || beforeChoiceSignature !== afterChoiceSignature) {
+            clearedGeminiAnswer = clearStoredGeminiTaskAnswer(note, affectedItem.field);
+          }
+        }
         renderJsonPreview();
+        if (clearedGeminiAnswer) {
+          renderAnalyticsPanel();
+        }
       }
 
       function updateNoteDistractorAtIndex(noteId, field, index, value) {
@@ -6909,9 +7423,17 @@
         if (!note || index < 0 || index >= DISTRACTOR_COUNT_PER_TASK) {
           return;
         }
+        const affectedItem = findNoteAnalysisItemByField(field);
+        const beforeChoiceSignature = affectedItem ? getGeminiTaskChoiceSignature(note, affectedItem) : "";
         const slots = toEditableDistractorSlots(note[field]);
         slots[index] = String(value || "");
         note[field] = slots;
+        const clearedGeminiAnswer = affectedItem && beforeChoiceSignature !== getGeminiTaskChoiceSignature(note, affectedItem)
+          ? clearStoredGeminiTaskAnswer(note, affectedItem.field)
+          : false;
+        if (clearedGeminiAnswer) {
+          renderAnalyticsPanel();
+        }
         renderJsonPreview();
       }
 
@@ -6971,7 +7493,10 @@
         const questionActions = document.createElement("div");
         questionActions.className = "note-inline-actions";
 
-        const geminiAnswer = getStoredGeminiTaskAnswer(note, item);
+        const storedGeminiAnswer = getStoredGeminiTaskAnswer(note, item);
+        const geminiAnswer = storedGeminiAnswer && isGeminiTaskAnswerCurrent(note, item, storedGeminiAnswer)
+          ? storedGeminiAnswer
+          : null;
         const geminiAnswerText = formatGeminiTaskAnswerForDisplay(geminiAnswer);
         if (geminiAnswerText) {
           const geminiAnswerChip = document.createElement("span");
@@ -8822,6 +9347,7 @@
         libraryAnalyticsState.error = "";
         libraryAnalyticsState.partialFailures = 0;
         libraryAnalyticsState.totalNotes = 0;
+        libraryAnalyticsState.rawNotes = [];
         libraryAnalyticsState.socialDistribution = [];
         libraryAnalyticsState.taskDistribution = [];
         if (!Array.isArray(videos)) {
@@ -9252,6 +9778,7 @@
           libraryAnalyticsState.loading = false;
           libraryAnalyticsState.loaded = true;
           libraryAnalyticsState.error = message;
+          libraryAnalyticsState.rawNotes = [];
           renderAnalyticsPanel();
           updateSharedStatus(
             "Could not reach shared library (" + message + "). Start the shared bridge with: python preprocessing/yt_mp4_bridge.py --host 0.0.0.0"
@@ -9717,7 +10244,7 @@
       });
 
       videoLayer.addEventListener("contextmenu", (event) => {
-        const blocker = event.target.closest(".top-bar, .note-rail, .scrub-panel, .shared-panel, .analytics-panel, .gemini-panel, .gemini-backdrop, .take-quiz-panel, .take-quiz-backdrop, .context-menu");
+        const blocker = event.target.closest(".top-bar, .note-rail, .scrub-panel, .shared-panel, .analytics-panel, .analytics-distribution-panel, .analytics-distribution-backdrop, .gemini-panel, .gemini-backdrop, .take-quiz-panel, .take-quiz-backdrop, .context-menu");
         if (blocker) {
           return;
         }
@@ -9771,6 +10298,14 @@
 
       analyticsCloseButton.addEventListener("click", () => {
         closeAnalyticsPanel();
+      });
+
+      analyticsDistributionCloseButton.addEventListener("click", () => {
+        closeAnalyticsDistributionPopup();
+      });
+
+      analyticsDistributionBackdrop.addEventListener("click", () => {
+        closeAnalyticsDistributionPopup();
       });
 
       geminiCloseButton.addEventListener("click", () => {
