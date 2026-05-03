@@ -2912,6 +2912,8 @@
       const YT_TRIM_ENDPOINT_PATH = "/api/yt-mp4/trim";
       const GEMINI_CLIP_QUESTION_PATH = "/api/gemini/clip-question";
       const GEMINI_FILL_CHOICES_PATH = "/api/gemini/fill-choices";
+      const GEMINI_LOCK_PATH = "/api/gemini/lock";
+      const GEMINI_UNLOCK_PATH = "/api/gemini/unlock";
       const GEMINI_CLIP_MODEL = "gemini-3.1-pro-preview";
       const SHARED_AUTH_REGISTER_PATH = "/api/shared-library/auth/register";
       const SHARED_AUTH_LOGIN_PATH = "/api/shared-library/auth/login";
@@ -3203,6 +3205,7 @@
       function setGeminiPanelLoading(payload = {}) {
         const question = String(payload.question || "").trim();
         const taskLabel = String(payload.taskLabel || "Question").trim();
+        const status = String(payload.status || "").trim();
         const endSec = Number(payload.endSec) || 0;
         geminiMeta.textContent = taskLabel
           + " | Thinking "
@@ -3213,7 +3216,7 @@
         geminiQuestion.hidden = !question;
         geminiQuestionText.textContent = question;
         geminiStatus.classList.remove("error");
-        geminiStatus.textContent = "Clipping the video and asking Gemini...";
+        geminiStatus.textContent = status || "Clipping the video and asking Gemini...";
         geminiResponse.hidden = true;
         geminiResponseText.textContent = "";
         openGeminiPanel();
@@ -3424,6 +3427,15 @@
         return getGeminiChoiceSignature(buildGeminiTaskChoices(note, item));
       }
 
+      function normalizeGeminiClipEndSec(value) {
+        const numericValue = Number(value);
+        return Number.isFinite(numericValue) ? Number(numericValue.toFixed(3)) : null;
+      }
+
+      function getGeminiTaskClipEndSec(note) {
+        return normalizeGeminiClipEndSec(note && note.timeSec);
+      }
+
       function findNoteAnalysisItemByField(field) {
         const targetField = String(field || "");
         return NOTE_ANALYSIS_ITEMS.find((item) => {
@@ -3490,6 +3502,11 @@
           return false;
         }
         if (storedChoiceSignature !== getGeminiTaskChoiceSignature(note, item)) {
+          return false;
+        }
+        const storedClipEndSec = normalizeGeminiClipEndSec(taskAnswer.clipEndSec);
+        const currentClipEndSec = getGeminiTaskClipEndSec(note);
+        if (storedClipEndSec === null || currentClipEndSec === null || storedClipEndSec !== currentClipEndSec) {
           return false;
         }
         return true;
@@ -5132,9 +5149,60 @@
         };
       }
 
-      async function runGeminiClipAnalysis(note, item, clipEnd) {
+      async function acquireGeminiOperationLock(operationLabel) {
+        const response = await fetch(resolveSharedApiUrl(GEMINI_LOCK_PATH), {
+          method: "POST",
+          headers: buildSharedAuthHeaders({
+            "Content-Type": "application/json",
+          }),
+          body: JSON.stringify({
+            operation: String(operationLabel || "Gemini").trim() || "Gemini",
+          }),
+        });
+
+        let payload = null;
+        try {
+          payload = await response.json();
+        } catch (error) {
+          payload = null;
+        }
+
+        const lockToken = String(payload && payload.lockToken || "").trim();
+        if (!response.ok || !lockToken) {
+          throw new Error(payload && payload.error ? String(payload.error) : "Could not acquire the Gemini request lock.");
+        }
+
+        const waitedSec = Number(payload && payload.waitedSec);
+        if (Number.isFinite(waitedSec) && waitedSec >= 0.5) {
+          updateStatus("Gemini request lock acquired after waiting " + String(waitedSec.toFixed(1)) + "s.");
+        }
+        return lockToken;
+      }
+
+      async function releaseGeminiOperationLock(lockToken) {
+        const cleanToken = String(lockToken || "").trim();
+        if (!cleanToken) {
+          return;
+        }
+        try {
+          await fetch(resolveSharedApiUrl(GEMINI_UNLOCK_PATH), {
+            method: "POST",
+            headers: buildSharedAuthHeaders({
+              "Content-Type": "application/json",
+            }),
+            body: JSON.stringify({
+              geminiLockToken: cleanToken,
+            }),
+          });
+        } catch (error) {
+          // The server lock has a stale-token timeout; release failures should not hide the Gemini result.
+        }
+      }
+
+      async function runGeminiClipAnalysis(note, item, clipEnd, options = {}) {
         const setup = getGeminiClipQuestionSetup(note, item);
         const sourceInfo = currentSourceInfoPayload();
+        const geminiLockToken = String(options.geminiLockToken || "").trim() || null;
         const response = await fetch(resolveSharedApiUrl(GEMINI_CLIP_QUESTION_PATH), {
           method: "POST",
           headers: buildSharedAuthHeaders({
@@ -5152,6 +5220,7 @@
             sourceUrl: sourceInfo.sourceUrl,
             model: GEMINI_CLIP_MODEL,
             thinkingLevel: geminiThinkingLevel,
+            geminiLockToken: geminiLockToken,
           }),
         });
 
@@ -5217,10 +5286,23 @@
           question: question,
           taskLabel: item.label,
           endSec: clipEnd,
+          status: "Waiting for any active Gemini request to finish...",
         });
 
+        let geminiLockToken = "";
         try {
-          const payload = await runGeminiClipAnalysis(note, item, clipEnd);
+          geminiLockToken = await acquireGeminiOperationLock("Quiz Gemini " + String(item.label || "Question"));
+          if (requestId !== geminiAssistRequestId) {
+            return;
+          }
+          setGeminiPanelLoading({
+            question: question,
+            taskLabel: item.label,
+            endSec: clipEnd,
+          });
+          const payload = await runGeminiClipAnalysis(note, item, clipEnd, {
+            geminiLockToken: geminiLockToken,
+          });
 
           if (requestId !== geminiAssistRequestId) {
             return;
@@ -5250,6 +5332,7 @@
           updateStatus("Gemini clip analysis failed (" + message + ").");
           showErrorPopup("Gemini clip analysis failed: " + message);
         } finally {
+          await releaseGeminiOperationLock(geminiLockToken);
           if (triggerButton) {
             triggerButton.disabled = false;
             triggerButton.textContent = previousButtonLabel || "Quiz Gemini";
@@ -5352,11 +5435,23 @@
           triggerButton.textContent = "Asking...";
         }
 
+        let geminiLockToken = "";
         try {
           let succeededCount = 0;
           let failedCount = 0;
           let recordedAnswer = false;
           const quizOutputBlocks = [];
+
+          setGeminiPanelLoading({
+            question: runnableItems[0] ? runnableItems[0].question : "",
+            taskLabel: "Quiz Gemini",
+            endSec: clipEnd,
+            status: "Waiting for any active Gemini request to finish...",
+          });
+          geminiLockToken = await acquireGeminiOperationLock("Quiz Gemini");
+          if (requestId !== geminiAssistRequestId) {
+            return;
+          }
 
           for (let index = 0; index < runnableItems.length; index += 1) {
             const entry = runnableItems[index];
@@ -5374,7 +5469,9 @@
             });
 
             try {
-              const result = await runGeminiClipAnalysis(note, entry.item, clipEnd);
+              const result = await runGeminiClipAnalysis(note, entry.item, clipEnd, {
+                geminiLockToken: geminiLockToken,
+              });
               if (requestId !== geminiAssistRequestId) {
                 return;
               }
@@ -5457,7 +5554,20 @@
             + summaryBits.join(", ")
             + ")."
           );
+        } catch (error) {
+          const message = error && error.message ? String(error.message) : "Unknown error";
+          if (requestId === geminiAssistRequestId) {
+            setGeminiPanelError({
+              question: "",
+              taskLabel: "Quiz Gemini Summary",
+              endSec: clipEnd,
+              message: message,
+            });
+          }
+          updateStatus("Quiz Gemini failed (" + message + ").");
+          showErrorPopup("Quiz Gemini failed: " + message);
         } finally {
+          await releaseGeminiOperationLock(geminiLockToken);
           if (triggerButton) {
             triggerButton.disabled = false;
             triggerButton.textContent = previousButtonLabel || "Quiz Gemini";
@@ -5542,9 +5652,21 @@
           question: question,
           taskLabel: item.label + " choices",
           endSec: clipEnd,
+          status: "Waiting for any active Gemini request to finish...",
         });
 
+        let geminiLockToken = "";
         try {
+          geminiLockToken = await acquireGeminiOperationLock("Ask Gemini " + String(item.label || "Question"));
+          if (requestId !== geminiAssistRequestId) {
+            return;
+          }
+          setGeminiPanelLoading({
+            question: question,
+            taskLabel: item.label + " choices",
+            endSec: clipEnd,
+          });
+
           const sourceInfo = currentSourceInfoPayload();
           const response = await fetch(resolveSharedApiUrl(GEMINI_FILL_CHOICES_PATH), {
             method: "POST",
@@ -5567,6 +5689,7 @@
               sourceUrl: sourceInfo.sourceUrl,
               model: GEMINI_CLIP_MODEL,
               thinkingLevel: geminiThinkingLevel,
+              geminiLockToken: geminiLockToken,
             }),
           });
 
@@ -5686,6 +5809,7 @@
           updateStatus("Gemini choice generation failed (" + message + ").");
           showErrorPopup("Gemini choice generation failed: " + message);
         } finally {
+          await releaseGeminiOperationLock(geminiLockToken);
           if (triggerButton) {
             triggerButton.disabled = false;
             triggerButton.textContent = previousButtonLabel || "Ask Gemini";
@@ -8304,7 +8428,12 @@
         if (!note) {
           return;
         }
+        const previousTimeSec = getGeminiTaskClipEndSec(note);
         note.timeSec = video.currentTime || 0;
+        const nextTimeSec = getGeminiTaskClipEndSec(note);
+        const clearedGeminiAnswer = previousTimeSec !== nextTimeSec
+          ? clearStaleGeminiTaskAnswers(note)
+          : false;
         note.anchor = {
           x: Number((contextPoint.x || 0).toFixed(4)),
           y: Number((contextPoint.y || 0).toFixed(4)),
@@ -8312,6 +8441,9 @@
         state.notes.sort((a, b) => a.timeSec - b.timeSec || a.id - b.id);
         renderNotes();
         renderJsonPreview();
+        if (clearedGeminiAnswer) {
+          renderAnalyticsPanel();
+        }
       }
 
       function jumpToNote(noteId) {
@@ -9748,6 +9880,17 @@
             });
             actions.appendChild(deleteButton);
           }
+          if (isCurrentAdminAnnotator() && Number.isInteger(videoItem.videoRef)) {
+            const deleteVideoButton = document.createElement("button");
+            deleteVideoButton.type = "button";
+            deleteVideoButton.className = "danger";
+            deleteVideoButton.textContent = "Delete Video";
+            deleteVideoButton.title = "Remove this video and all shared annotations";
+            deleteVideoButton.addEventListener("click", () => {
+              deleteSharedVideo(videoItem);
+            });
+            actions.appendChild(deleteVideoButton);
+          }
 
           main.append(title, meta, reviewers, actions);
           card.appendChild(main);
@@ -9853,6 +9996,77 @@
           const message = error && error.message ? String(error.message) : "Unknown error";
           updateSharedStatus("Delete failed (" + message + ").");
           showErrorPopup("Delete failed: " + message);
+        }
+      }
+
+      async function deleteSharedVideo(videoItem) {
+        if (!requireSharedLogin("deleting shared videos")) {
+          return;
+        }
+        if (!isCurrentAdminAnnotator()) {
+          showErrorPopup("Only admins can delete shared videos.");
+          return;
+        }
+        if (!videoItem || !Number.isInteger(videoItem.videoRef)) {
+          showErrorPopup("Could not delete this video because the video ref is missing.");
+          return;
+        }
+
+        const title = String(videoItem.videoTitle || videoItem.videoOriginalFilename || "Untitled video");
+        const annotationCount = Array.isArray(videoItem.annotations) ? videoItem.annotations.length : 0;
+        const confirmed = window.confirm(
+          "Delete this shared video, all " + String(annotationCount)
+          + " annotator layer(s), and stored video files?\n\n" + title
+        );
+        if (!confirmed) {
+          return;
+        }
+
+        updateSharedStatus("Deleting shared video...");
+        try {
+          const response = await fetch(resolveSharedApiUrl(SHARED_LIBRARY_VIDEOS_PATH + "/" + String(videoItem.videoRef)), {
+            method: "DELETE",
+            headers: buildSharedAuthHeaders(),
+          });
+
+          let payload = null;
+          try {
+            payload = await response.json();
+          } catch (error) {
+            payload = null;
+          }
+
+          if (!response.ok || !payload || !payload.result) {
+            throw new Error(payload && payload.error ? payload.error : "Video delete failed.");
+          }
+
+          const result = payload.result;
+          const deletedAnnotations = Number.isFinite(Number(result.deletedAnnotations))
+            ? Math.max(0, Number(result.deletedAnnotations))
+            : annotationCount;
+          const videoRef = Number(videoItem.videoRef);
+          if (
+            Number.isInteger(videoRef)
+            && (
+              (Number.isInteger(currentServerVideoRef) && currentServerVideoRef === videoRef)
+              || (Number.isInteger(currentWorkspaceVideoRef) && currentWorkspaceVideoRef === videoRef)
+            )
+          ) {
+            currentServerVideoRef = null;
+            currentWorkspaceVideoRef = null;
+            currentSharedEntryId = null;
+          }
+
+          renderJsonPreview();
+          updateSharedStatus(
+            "Deleted shared video and " + String(deletedAnnotations) + " annotator layer(s)."
+          );
+          updateStatus("Deleted shared video from shared storage.");
+          await loadSharedEntries();
+        } catch (error) {
+          const message = error && error.message ? String(error.message) : "Unknown error";
+          updateSharedStatus("Video delete failed (" + message + ").");
+          showErrorPopup("Video delete failed: " + message);
         }
       }
 

@@ -87,7 +87,7 @@ QUESTION_MAPPINGS = {
         "Prediction": "Given {character}'s persona in this scene, which of the following actions is {character} most likely to take next?"
     },
     "Intent": {
-        "Reasoning": "Which of the following best explains why {character}'s intent in this scene is the following: {truth}?",
+        "Reasoning": "Which of the following best explains why {character}'s intent in this scene is the following or how they achieve it: {truth}?",
         "Comprehension": "Which of the following correctly describes what {character}'s intent is at this point in the video?",
         "Prediction": "Given {character}'s intent, which of the following outcomes is {character} most likely to pursue next?"
     }, 
