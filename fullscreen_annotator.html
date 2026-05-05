@@ -1456,6 +1456,12 @@
         border-color: rgba(128, 171, 210, 0.72);
       }
 
+      .shared-header-actions button.active {
+        background: rgba(46, 129, 92, 0.82);
+        border-color: rgba(132, 218, 168, 0.68);
+        color: #effff5;
+      }
+
       .shared-header-actions button:hover {
         filter: brightness(1.08);
       }
@@ -2093,6 +2099,15 @@
         line-height: 1.45;
       }
 
+      .shared-entry-meta .gemini-present {
+        color: #c5f7d2;
+        font-weight: 700;
+      }
+
+      .shared-entry-meta .gemini-empty {
+        color: rgba(221, 230, 240, 0.62);
+      }
+
       .shared-entry-actions {
         display: flex;
         align-items: center;
@@ -2352,6 +2367,7 @@
           <strong>Shared Annotation Library</strong>
           <div class="shared-header-actions">
             <button type="button" id="shared-refresh">Refresh</button>
+            <button type="button" id="shared-gemini-filter" title="Show only videos with stored Gemini quiz responses">Gemini Responses</button>
             <button class="primary" type="button" id="shared-publish">Publish Current</button>
             <button type="button" id="shared-close">Close</button>
           </div>
@@ -3004,6 +3020,7 @@
       const localUploadTriggerButton = document.getElementById("local-upload-trigger");
       const localUploadInput = document.getElementById("local-upload-input");
       const sharedRefreshButton = document.getElementById("shared-refresh");
+      const sharedGeminiFilterButton = document.getElementById("shared-gemini-filter");
       const sharedPublishButton = document.getElementById("shared-publish");
       const sharedCloseButton = document.getElementById("shared-close");
       const sharedServerUrlInput = document.getElementById("shared-server-url");
@@ -3034,6 +3051,8 @@
       let suspendPersistence = false;
       let sharedAuthToken = "";
       let sharedAuthenticatedAnnotator = "";
+      let latestSharedVideos = [];
+      let showGeminiResponseVideosOnly = false;
       let contextPoint = { x: 0, y: 0 };
       const MIN_TRIM_DURATION_SEC = 0.1;
       const FIXED_PERCEPTION_QUESTION = "Which of the following do you observe from the video?";
@@ -9780,17 +9799,90 @@
         }
       }
 
+      function getSharedVideoGeminiSummary(videoItem) {
+        const annotations = Array.isArray(videoItem && videoItem.annotations) ? videoItem.annotations : [];
+        let responseCount = Number(videoItem && videoItem.geminiResponseCount);
+        if (!Number.isFinite(responseCount)) {
+          responseCount = annotations.reduce((total, entry) => {
+            const count = Number(entry && entry.geminiResponseCount);
+            return total + (Number.isFinite(count) ? Math.max(0, count) : 0);
+          }, 0);
+        }
+        responseCount = Math.max(0, Math.trunc(responseCount));
+
+        let annotators = Array.isArray(videoItem && videoItem.geminiAnnotators)
+          ? videoItem.geminiAnnotators.map((value) => String(value || "").trim()).filter(Boolean)
+          : [];
+        if (!annotators.length) {
+          annotators = annotations
+            .filter((entry) => Number(entry && entry.geminiResponseCount) > 0)
+            .map((entry) => String(entry && entry.annotator || "").trim())
+            .filter(Boolean);
+        }
+        annotators = Array.from(new Set(annotators));
+
+        let annotationCount = Number(videoItem && videoItem.geminiAnnotationCount);
+        if (!Number.isFinite(annotationCount)) {
+          annotationCount = annotators.length;
+        }
+        return {
+          responseCount: responseCount,
+          annotationCount: Math.max(0, Math.trunc(annotationCount)),
+          annotators: annotators,
+        };
+      }
+
+      function sharedVideoHasGeminiResponses(videoItem) {
+        return getSharedVideoGeminiSummary(videoItem).responseCount > 0;
+      }
+
+      function updateSharedGeminiFilterButton(totalCount, visibleCount) {
+        if (!sharedGeminiFilterButton) {
+          return;
+        }
+        sharedGeminiFilterButton.classList.toggle("active", showGeminiResponseVideosOnly);
+        sharedGeminiFilterButton.setAttribute("aria-pressed", showGeminiResponseVideosOnly ? "true" : "false");
+        sharedGeminiFilterButton.textContent = showGeminiResponseVideosOnly
+          ? "Gemini Responses (" + String(visibleCount) + "/" + String(totalCount) + ")"
+          : "Gemini Responses";
+      }
+
+      function appendSharedMetaPart(meta, text, className = "") {
+        if (meta.childNodes.length) {
+          meta.appendChild(document.createTextNode(" | "));
+        }
+        const span = document.createElement("span");
+        if (className) {
+          span.className = className;
+        }
+        span.textContent = text;
+        meta.appendChild(span);
+      }
+
       function renderSharedEntries(videos) {
         sharedList.innerHTML = "";
-        if (!Array.isArray(videos) || !videos.length) {
+        const sourceVideos = Array.isArray(videos) ? videos : [];
+        const visibleVideos = showGeminiResponseVideosOnly
+          ? sourceVideos.filter((videoItem) => sharedVideoHasGeminiResponses(videoItem))
+          : sourceVideos;
+        updateSharedGeminiFilterButton(sourceVideos.length, visibleVideos.length);
+
+        if (!sourceVideos.length) {
           const empty = document.createElement("div");
           empty.className = "shared-empty";
           empty.textContent = "No shared entries yet. Publish the current video to create the first record.";
           sharedList.appendChild(empty);
           return;
         }
+        if (!visibleVideos.length) {
+          const empty = document.createElement("div");
+          empty.className = "shared-empty";
+          empty.textContent = "No videos with stored Gemini responses yet.";
+          sharedList.appendChild(empty);
+          return;
+        }
 
-        videos.forEach((videoItem) => {
+        visibleVideos.forEach((videoItem) => {
           const card = document.createElement("div");
           card.className = "shared-entry";
 
@@ -9818,11 +9910,26 @@
 
           const meta = document.createElement("div");
           meta.className = "shared-entry-meta";
-          meta.textContent = [
-            "Checked: " + String((videoItem.annotations && videoItem.annotations.length) || 0) + " people",
-            "Last update: " + formatSharedTimestamp(videoItem.updatedAt || videoItem.createdAt),
-            "Video: " + String(videoItem.videoOriginalFilename || "Unknown file"),
-          ].join(" | ");
+          const geminiSummary = getSharedVideoGeminiSummary(videoItem);
+          appendSharedMetaPart(meta, "Checked: " + String((videoItem.annotations && videoItem.annotations.length) || 0) + " people");
+          appendSharedMetaPart(meta, "Last update: " + formatSharedTimestamp(videoItem.updatedAt || videoItem.createdAt));
+          appendSharedMetaPart(meta, "Video: " + String(videoItem.videoOriginalFilename || "Unknown file"));
+          appendSharedMetaPart(
+            meta,
+            geminiSummary.responseCount > 0
+              ? (
+                  "Gemini: "
+                  + String(geminiSummary.responseCount)
+                  + " response"
+                  + (geminiSummary.responseCount === 1 ? "" : "s")
+                  + " from "
+                  + String(geminiSummary.annotationCount || geminiSummary.annotators.length || 1)
+                  + " layer"
+                  + ((geminiSummary.annotationCount || geminiSummary.annotators.length || 1) === 1 ? "" : "s")
+                )
+              : "Gemini: none",
+            geminiSummary.responseCount > 0 ? "gemini-present" : "gemini-empty"
+          );
 
           const reviewers = document.createElement("div");
           reviewers.className = "shared-entry-reviewers";
@@ -9906,6 +10013,7 @@
           if (!response.ok) {
             throw new Error(payload && payload.error ? payload.error : "Shared library request failed.");
           }
+          latestSharedVideos = Array.isArray(payload.videos) ? payload.videos : [];
           indexSharedVideos(payload.videos);
           renderSharedEntries(payload.videos);
           if (analyticsPanel.classList.contains("visible")) {
@@ -9916,6 +10024,7 @@
           updateSharedStatus("Loaded " + String((payload.videos && payload.videos.length) || 0) + " shared videos.");
         } catch (error) {
           const message = error && error.message ? String(error.message) : "Unknown error";
+          latestSharedVideos = [];
           indexSharedVideos([]);
           renderSharedEntries([]);
           libraryAnalyticsState.loading = false;
@@ -10542,6 +10651,16 @@
         persistSharedSettings();
         await fetchSharedAuthMe({ quiet: true });
         loadSharedEntries();
+      });
+
+      sharedGeminiFilterButton.addEventListener("click", () => {
+        showGeminiResponseVideosOnly = !showGeminiResponseVideosOnly;
+        renderSharedEntries(latestSharedVideos);
+        updateSharedStatus(
+          showGeminiResponseVideosOnly
+            ? "Showing only videos with stored Gemini responses."
+            : "Showing all shared videos."
+        );
       });
 
       sharedPublishButton.addEventListener("click", () => {
