@@ -1,5 +1,6 @@
 import json
 import time
+import uuid
 from google import genai
 from google.genai import types
 from google.oauth2 import service_account
@@ -10,6 +11,7 @@ from extraction_chain.completion.utils import _VERTEX_SAFETY_SETTINGS, _model_to
 
 bucket_name = "gordon-benchmark-bucket"
 location = "global"
+DEFAULT_GEMINI_THINKING_LEVEL = "medium"
 
 def delete_cached_content(client, cache):
     client.caches.delete(cache.name)
@@ -27,7 +29,7 @@ def _thinking_config_from_level(thinking_level):
     }
     normalized = str(thinking_level or "").strip().lower()
     return types.ThinkingConfig(
-        thinking_budget=budget_by_level.get(normalized, -1)
+        thinking_budget=budget_by_level.get(normalized, budget_by_level[DEFAULT_GEMINI_THINKING_LEVEL])
     )
 
 
@@ -75,11 +77,17 @@ def _upload_and_cache(
             credentials=credentials
         )
 
+    safe_display_name = "".join(
+        char if char.isalnum() or char in {"-", "_"} else "_"
+        for char in str(video_display_name or "input_video")
+    ).strip("_") or "input_video"
+    blob_name = "gemini-clips/{}-{}.mp4".format(safe_display_name, uuid.uuid4().hex)
+
     # Reuse the same service-account credentials for Cloud Storage uploads.
     gcs_uri = upload_to_gcs(
         video_file,
         bucket_name,
-        "test.mp4",
+        blob_name,
         credentials=credentials,
         project_id=project_id,
     )
@@ -107,7 +115,7 @@ def gemini_api_multimodal(
     video_file,
     DataModel,
     model="gemini-3.1-pro-preview",
-    thinking_level="high",
+    thinking_level=DEFAULT_GEMINI_THINKING_LEVEL,
     client_file_path = "extraction_chain/gemini_key.json",
     video_display_name = "input_video",
     ttl="300s",

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MMSU Annotations suite</title>
+    <title>SMMU Annotations suite</title>
     <style>
       :root {
         --paper: #f5efe5;
@@ -77,11 +77,11 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: 10px;
-        width: fit-content;
-        max-width: calc(100vw - var(--notes-rail-width) - var(--notes-toggle-size) - 48px);
-        padding: 10px 12px;
-        border-radius: 16px;
+        gap: 8px;
+        width: min(250px, calc(100vw - var(--notes-rail-width) - var(--notes-toggle-size) - 48px));
+        max-width: none;
+        padding: 8px 10px;
+        border-radius: 14px;
         border: 1px solid var(--overlay-line);
         background:
           linear-gradient(180deg, var(--overlay-panel-strong), var(--overlay-panel));
@@ -92,11 +92,13 @@
       }
 
       .app.notes-hidden .top-bar {
-        max-width: calc(100vw - var(--notes-toggle-size) - 42px);
+        width: min(250px, calc(100vw - var(--notes-toggle-size) - 42px));
+        max-width: none;
       }
 
       .top-bar strong {
-        margin-right: 8px;
+        flex: 1 1 100%;
+        margin-right: 0;
         color: var(--overlay-text);
       }
 
@@ -165,13 +167,6 @@
         gap: 8px;
       }
 
-      .gemini-thinking-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        white-space: nowrap;
-      }
-
       .top-bar-break {
         flex-basis: 100%;
         height: 0;
@@ -216,13 +211,14 @@
       }
 
       .youtube-import-strip {
-        flex: 0 1 340px;
-        min-width: 220px;
-        max-width: 380px;
+        flex: 1 1 100%;
+        min-width: 0;
+        max-width: none;
+        width: 100%;
         display: flex;
         align-items: center;
-        gap: 4px;
-        padding: 4px;
+        gap: 3px;
+        padding: 3px;
         border-radius: 999px;
         border: 1px solid rgba(255, 151, 151, 0.24);
         background:
@@ -232,13 +228,13 @@
 
       .youtube-import-input {
         flex: 1 1 auto;
-        min-width: 90px;
+        min-width: 72px;
         width: 100%;
         border: 1px solid rgba(255, 214, 214, 0.18);
         background: rgba(255, 255, 255, 0.92);
         color: #2d1111;
         border-radius: 999px;
-        padding: 6px 12px;
+        padding: 5px 9px;
         font-size: 12px;
       }
 
@@ -256,8 +252,8 @@
         background: rgba(255, 255, 255, 0.16);
         color: #fff1f1;
         border-radius: 999px;
-        width: 32px;
-        height: 32px;
+        width: 30px;
+        height: 30px;
         padding: 0;
         display: grid;
         place-items: center;
@@ -275,20 +271,6 @@
       .youtube-import-button:disabled {
         opacity: 0.58;
         cursor: wait;
-      }
-
-      .local-upload-button {
-        border-color: rgba(165, 227, 255, 0.42);
-        background: linear-gradient(180deg, rgba(41, 124, 168, 0.92), rgba(17, 76, 108, 0.94));
-        color: #eef8ff;
-        border-radius: 999px;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
-        font-size: 15px;
-        font-weight: 800;
-      }
-
-      .local-upload-button:hover {
-        background: linear-gradient(180deg, rgba(56, 145, 192, 0.96), rgba(24, 90, 126, 0.96));
       }
 
       .note-rail {
@@ -2064,6 +2046,13 @@
         gap: 8px;
       }
 
+      .shared-annotator-row {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+
       .shared-annotator-chip {
         display: inline-flex;
         align-items: center;
@@ -2091,6 +2080,32 @@
       .shared-annotator-chip:hover {
         filter: brightness(1.08);
         transform: translateY(-1px);
+      }
+
+      .shared-author-action {
+        border: 1px solid rgba(214, 229, 243, 0.34);
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(246, 251, 255, 0.92);
+        border-radius: 999px;
+        padding: 4px 8px;
+        font-size: 11px;
+        line-height: 1.2;
+        cursor: pointer;
+      }
+
+      .shared-author-action.danger {
+        border-color: rgba(255, 150, 150, 0.44);
+        background: rgba(110, 22, 22, 0.28);
+        color: #ffe1e1;
+      }
+
+      .shared-author-action:hover:not(:disabled) {
+        filter: brightness(1.08);
+      }
+
+      .shared-author-action:disabled {
+        cursor: not-allowed;
+        opacity: 0.42;
       }
 
       .shared-entry-meta {
@@ -2262,7 +2277,7 @@
       </div>
 
       <div class="top-bar">
-        <strong>MMSU Annotations suite</strong>
+        <strong>SMMU Annotations suite</strong>
         <div class="youtube-import-strip">
           <input
             class="youtube-import-input"
@@ -2277,19 +2292,6 @@
             aria-label="Import from YouTube"
             title="Import from YouTube"
           >↑</button>
-          <button
-            class="youtube-import-button local-upload-button"
-            id="local-upload-trigger"
-            type="button"
-            aria-label="Upload local MP4"
-            title="Upload local MP4"
-          >⤴</button>
-          <input
-            class="hidden-input"
-            id="local-upload-input"
-            type="file"
-            accept="video/mp4,.mp4"
-          >
         </div>
         <div class="top-bar-break" aria-hidden="true"></div>
         <button class="btn ghost shared-toggle-button" id="shared-toggle" type="button" aria-expanded="false">
@@ -2299,14 +2301,6 @@
         <button class="btn ghost shared-toggle-button" id="analytics-toggle" type="button" aria-expanded="false">
           <span>Analytics</span>
           <span class="shared-toggle-arrow" id="analytics-toggle-arrow" aria-hidden="true">&#9662;</span>
-        </button>
-        <button
-          class="btn ghost shared-toggle-button"
-          id="gemini-thinking-toggle"
-          type="button"
-          title="Cycle Gemini thinking level"
-        >
-          <span id="gemini-thinking-label">Gemini: Low</span>
         </button>
         <span class="video-title" id="video-title" hidden aria-hidden="true">No video loaded</span>
         <span class="hint"></span>
@@ -2349,12 +2343,6 @@
           <span class="timecode" id="duration-time">00:00:00.00</span>
           <span class="status" id="status">Import a video from YouTube to begin annotating.</span>
         </div>
-        <div class="trim-row">
-          <span class="trim-label">Trim Export</span>
-          <button class="btn ghost trim-time" id="trim-set-end" type="button">Set End: 00:00:00.00</button>
-          <button class="btn alt" id="trim-download" type="button">Download Clip</button>
-          <span class="trim-summary" id="trim-summary">Load a video to export a clip. This never changes the original/shared database video.</span>
-        </div>
       </div>
 
       <div class="context-menu" id="context-menu">
@@ -2364,7 +2352,7 @@
 
       <section class="shared-panel" id="shared-panel">
         <div class="shared-header">
-          <strong>Shared Annotation Library</strong>
+          <strong>Video Library</strong>
           <div class="shared-header-actions">
             <button type="button" id="shared-refresh">Refresh</button>
             <button type="button" id="shared-gemini-filter" title="Show only videos with stored Gemini quiz responses">Gemini Responses</button>
@@ -2920,13 +2908,13 @@
       const SHARED_SERVER_STORAGE_KEY = "fullscreen-video-annotator-shared-server-v1";
       const ANNOTATOR_NAME_STORAGE_KEY = "fullscreen-video-annotator-annotator-v1";
       const SHARED_AUTH_STORAGE_KEY = "fullscreen-video-annotator-shared-auth-v1";
-      const GEMINI_THINKING_STORAGE_KEY = "fullscreen-video-annotator-gemini-thinking-v1";
       const DEFAULT_SHARED_SERVER_URL = "http://127.0.0.1:8765";
       const PROMPT_TEMPLATE_QUESTION_MAPPINGS_PATH = "/api/prompt-template/question-mappings";
       const QUESTION_TEMPLATE_SYNC_INTERVAL_MS = 5000;
       const YT_IMPORT_ENDPOINT_PATH = "/api/yt-mp4";
       const YT_TRIM_ENDPOINT_PATH = "/api/yt-mp4/trim";
       const GEMINI_CLIP_QUESTION_PATH = "/api/gemini/clip-question";
+      const GEMINI_CLIP_QUIZ_PATH = "/api/gemini/clip-quiz";
       const GEMINI_FILL_CHOICES_PATH = "/api/gemini/fill-choices";
       const GEMINI_LOCK_PATH = "/api/gemini/lock";
       const GEMINI_UNLOCK_PATH = "/api/gemini/unlock";
@@ -2977,8 +2965,6 @@
       const analyticsPanel = document.getElementById("analytics-panel");
       const analyticsToggle = document.getElementById("analytics-toggle");
       const analyticsToggleArrow = document.getElementById("analytics-toggle-arrow");
-      const geminiThinkingToggle = document.getElementById("gemini-thinking-toggle");
-      const geminiThinkingLabel = document.getElementById("gemini-thinking-label");
       const analyticsCloseButton = document.getElementById("analytics-close");
       const analyticsStatusLabel = document.getElementById("analytics-status");
       const analyticsVideoCount = document.getElementById("analytics-video-count");
@@ -3056,6 +3042,7 @@
       let contextPoint = { x: 0, y: 0 };
       const MIN_TRIM_DURATION_SEC = 0.1;
       const FIXED_PERCEPTION_QUESTION = "Which of the following do you observe from the video?";
+      const FIXED_GEMINI_THINKING_LEVEL = "medium";
       const TRIM_EXPORT_ONLY_HINT = "This never changes the original/shared database video.";
       const TRIM_RECORDING_MIME_CANDIDATES = [
         'video/mp4;codecs="avc1.42E01E,mp4a.40.2"',
@@ -3072,6 +3059,7 @@
         perceptionQuestion: FIXED_PERCEPTION_QUESTION,
         perceptionChoices: toEditablePerceptionChoices([]),
         perceptionEditable: true,
+        humanQuizScore: null,
       };
       const sharedVideoIndex = new Map();
       const sharedEntryMetaIndex = new Map();
@@ -3096,10 +3084,10 @@
         exporting: false,
       };
       const GEMINI_THINKING_LEVELS = ["low", "medium", "high"];
+      const geminiThinkingLevel = FIXED_GEMINI_THINKING_LEVEL;
       let trimBoundaryMonitor = null;
       let libraryAnalyticsRequestId = 0;
       let geminiAssistRequestId = 0;
-      let geminiThinkingLevel = "low";
       let questionTemplateMappings = DEFAULT_QUESTION_TEMPLATE_MAPPINGS;
       let questionMappingsSyncInFlight = null;
       let questionMappingsSyncTimer = null;
@@ -3155,40 +3143,12 @@
 
       function normalizeGeminiThinkingLevel(value) {
         const normalized = String(value || "").trim().toLowerCase();
-        return GEMINI_THINKING_LEVELS.includes(normalized) ? normalized : "low";
+        return GEMINI_THINKING_LEVELS.includes(normalized) ? normalized : FIXED_GEMINI_THINKING_LEVEL;
       }
 
       function formatGeminiThinkingLevel(value) {
         const normalized = normalizeGeminiThinkingLevel(value);
         return normalized.charAt(0).toUpperCase() + normalized.slice(1);
-      }
-
-      function persistGeminiThinkingLevel() {
-        try {
-          localStorage.setItem(GEMINI_THINKING_STORAGE_KEY, normalizeGeminiThinkingLevel(geminiThinkingLevel));
-        } catch (error) {
-          // Ignore privacy mode/localStorage failures.
-        }
-      }
-
-      function updateGeminiThinkingUi() {
-        const label = "Gemini: " + formatGeminiThinkingLevel(geminiThinkingLevel);
-        geminiThinkingLabel.textContent = label;
-        geminiThinkingToggle.setAttribute(
-          "title",
-          label + ". Click to cycle between low, medium, and high thinking."
-        );
-      }
-
-      function cycleGeminiThinkingLevel() {
-        const currentIndex = GEMINI_THINKING_LEVELS.indexOf(normalizeGeminiThinkingLevel(geminiThinkingLevel));
-        const nextIndex = currentIndex >= 0
-          ? (currentIndex + 1) % GEMINI_THINKING_LEVELS.length
-          : 0;
-        geminiThinkingLevel = GEMINI_THINKING_LEVELS[nextIndex];
-        persistGeminiThinkingLevel();
-        updateGeminiThinkingUi();
-        updateStatus("Gemini thinking level set to " + formatGeminiThinkingLevel(geminiThinkingLevel) + ".");
       }
 
       function closeAnalyticsPanel() {
@@ -3339,6 +3299,59 @@
           annotator: annotator,
           takenAt: takenAt,
           tasks: tasks,
+        };
+      }
+
+      function normalizeHumanQuizScore(rawValue) {
+        if (!rawValue || typeof rawValue !== "object" || Array.isArray(rawValue)) {
+          return null;
+        }
+        const total = Math.max(0, Math.trunc(Number(rawValue.total || rawValue.totalQuestions || 0)));
+        const answered = Math.max(0, Math.trunc(Number(rawValue.answered || rawValue.answeredQuestions || 0)));
+        const correct = Math.max(0, Math.trunc(Number(rawValue.correct || rawValue.correctAnswers || 0)));
+        const skipped = Math.max(0, Math.trunc(Number(rawValue.skipped || rawValue.skippedQuestions || 0)));
+        if (!total && !answered && !correct && !skipped) {
+          return null;
+        }
+        const safeTotal = total || answered + skipped;
+        const boundedAnswered = Math.min(answered, safeTotal);
+        const boundedCorrect = Math.min(correct, boundedAnswered);
+        const boundedSkipped = Math.min(skipped || Math.max(0, safeTotal - boundedAnswered), safeTotal);
+        const score = safeTotal ? boundedCorrect / safeTotal : 0;
+        const answeredScore = boundedAnswered ? boundedCorrect / boundedAnswered : 0;
+        return {
+          annotator: String(rawValue.annotator || rawValue.username || "").trim(),
+          startedAt: String(rawValue.startedAt || "").trim(),
+          completedAt: String(rawValue.completedAt || rawValue.takenAt || "").trim(),
+          total: safeTotal,
+          answered: boundedAnswered,
+          correct: boundedCorrect,
+          skipped: boundedSkipped,
+          score: score,
+          answeredScore: answeredScore,
+        };
+      }
+
+      function buildHumanQuizScoreFromEntries(entries, startedAt = "") {
+        const quizEntries = Array.isArray(entries) ? entries : [];
+        const total = quizEntries.length;
+        const answered = quizEntries.filter((entry) => entry && entry.answered).length;
+        const correct = quizEntries.filter((entry) => entry && entry.answered && entry.correct).length;
+        const skipped = Math.max(0, total - answered);
+        return {
+          annotator: String(
+            getCurrentAnnotatorName()
+            || getEditableWorkspaceAnnotatorName()
+            || ""
+          ).trim(),
+          startedAt: String(startedAt || "").trim(),
+          completedAt: new Date().toISOString(),
+          total: total,
+          answered: answered,
+          correct: correct,
+          skipped: skipped,
+          score: total ? correct / total : 0,
+          answeredScore: answered ? correct / answered : 0,
         };
       }
 
@@ -3670,6 +3683,7 @@
           takenAt: nowIso,
           tasks: nextTasks,
         };
+        state.humanQuizScore = null;
         renderJsonPreview();
       }
 
@@ -3971,6 +3985,79 @@
         openTakeQuizPopup();
       }
 
+      async function saveHumanQuizScoreToSharedLibrary(scoreSummary) {
+        const normalizedScore = normalizeHumanQuizScore(scoreSummary);
+        if (!normalizedScore) {
+          return false;
+        }
+        if (!sharedAuthToken || !sharedAuthenticatedAnnotator) {
+          updateSharedStatus("Quiz score kept locally. Log in to save human scores to the shared database.");
+          return false;
+        }
+        const videoRef = Number.isInteger(currentServerVideoRef)
+          ? currentServerVideoRef
+          : (Number.isInteger(currentWorkspaceVideoRef) ? currentWorkspaceVideoRef : null);
+        if (!Number.isInteger(videoRef)) {
+          updateSharedStatus("Quiz score kept locally. Load or publish a shared-library video to save human scores to the database.");
+          return false;
+        }
+
+        const publishAnnotator = getEditableWorkspaceAnnotatorName() || getCurrentAnnotatorName();
+        if (!publishAnnotator) {
+          updateSharedStatus("Quiz score kept locally. Set an annotator name before saving human scores to the database.");
+          return false;
+        }
+
+        try {
+          const response = await fetch(resolveSharedApiUrl(SHARED_LIBRARY_ENTRIES_PATH), {
+            method: "POST",
+            headers: buildSharedAuthHeaders({
+              "Content-Type": "application/json",
+            }),
+            body: JSON.stringify({
+              entryId: Number.isInteger(currentSharedEntryId) ? currentSharedEntryId : null,
+              annotator: publishAnnotator,
+              videoRef: videoRef,
+              annotation: buildExportPayload(),
+            }),
+          });
+
+          let payload = null;
+          try {
+            payload = await response.json();
+          } catch (error) {
+            payload = null;
+          }
+
+          if (!response.ok || !payload || !payload.entry) {
+            throw new Error(payload && payload.error ? payload.error : "Quiz score save failed.");
+          }
+
+          currentServerVideoRef = Number.isInteger(payload.entry.videoRef) ? payload.entry.videoRef : videoRef;
+          currentSharedEntryId = Number.isInteger(payload.entry.id) ? payload.entry.id : currentSharedEntryId;
+          if (String(payload.entry.videoUrl || "").trim()) {
+            currentRemoteVideoUrl = String(payload.entry.videoUrl || "").trim();
+          }
+          sharedEntryPayloadCache.clear();
+          updateSharedStatus(
+            "Saved human quiz score to shared entry #"
+            + String(payload.entry.id)
+            + " ("
+            + String(normalizedScore.correct)
+            + "/"
+            + String(normalizedScore.total)
+            + ")."
+          );
+          loadSharedEntries();
+          return true;
+        } catch (error) {
+          const message = error && error.message ? String(error.message) : "Unknown error";
+          updateSharedStatus("Human quiz score was not saved (" + message + ").");
+          showErrorPopup("Human quiz score was not saved: " + message);
+          return false;
+        }
+      }
+
       function finishTakeQuizSession(options = {}) {
         if (!takeQuizSession || !takeQuizSession.active) {
           updateTakeQuizButtonUi();
@@ -3982,6 +4069,10 @@
         const answeredCount = entries.filter((entry) => entry && entry.answered).length;
         const correctCount = entries.filter((entry) => entry && entry.answered && entry.correct).length;
         const skippedCount = entries.filter((entry) => entry && !entry.answered).length;
+        const startedAt = String(takeQuizSession.startedAt || "").trim();
+        const completedScore = !messageOverride
+          ? buildHumanQuizScoreFromEntries(entries, startedAt)
+          : null;
 
         takeQuizSession = null;
         closeTakeQuizPopup();
@@ -3994,6 +4085,8 @@
           updateStatus(messageOverride);
           return;
         }
+        state.humanQuizScore = completedScore;
+        renderJsonPreview();
         updateStatus(
           "Quiz finished. Correct "
           + String(correctCount)
@@ -4002,6 +4095,7 @@
           + " answered"
           + (skippedCount ? (", skipped " + String(skippedCount) + ".") : ".")
         );
+        saveHumanQuizScoreToSharedLibrary(completedScore);
       }
 
       function closeTakeQuizQuestion() {
@@ -4082,6 +4176,7 @@
           entries: entries,
           index: 0,
           waitingForAnswer: false,
+          startedAt: new Date().toISOString(),
         };
         updateTakeQuizButtonUi();
 
@@ -4864,34 +4959,40 @@
         const trimDuration = Math.max(0, selection.endSec - selection.startSec);
         const controlsDisabled = !hasDuration || trimState.exporting;
 
-        trimSetEndButton.disabled = controlsDisabled;
-        trimDownloadButton.disabled = controlsDisabled || (!mp4MimeType && !canUseServerFallback);
-
-        trimSetEndButton.textContent = "Set End: " + formatTimecode(selection.endSec);
-        trimSetEndButton.title = "Set trim end to the current playhead";
-        trimDownloadButton.textContent = trimState.exporting ? "Rendering..." : "Download Clip";
-        if (mp4MimeType) {
-          trimDownloadButton.title = "Render the selected range and download it as a new MP4 clip. " + TRIM_EXPORT_ONLY_HINT;
-        } else if (canUseServerFallback) {
-          trimDownloadButton.title = "Browser MP4 export is unavailable. Click to render this clip on the server. " + TRIM_EXPORT_ONLY_HINT;
-        } else {
-          trimDownloadButton.title = "MP4 clip export is not supported in this browser for this source. " + TRIM_EXPORT_ONLY_HINT;
+        if (trimSetEndButton) {
+          trimSetEndButton.disabled = controlsDisabled;
+          trimSetEndButton.textContent = "Set End: " + formatTimecode(selection.endSec);
+          trimSetEndButton.title = "Set trim end to the current playhead";
         }
 
-        if (!hasLoadedVideoSource()) {
-          trimSummary.textContent = "Load a video to export a clip. " + TRIM_EXPORT_ONLY_HINT;
-        } else if (!hasDuration) {
-          trimSummary.textContent = "Waiting for video metadata before clip export. " + TRIM_EXPORT_ONLY_HINT;
-        } else if (trimState.exporting) {
-          trimSummary.textContent = "Rendering " + formatTimecode(trimDuration) + " to a new MP4 clip in real time. Keep this tab active. " + TRIM_EXPORT_ONLY_HINT;
-        } else if (!mp4MimeType) {
-          if (canUseServerFallback) {
-            trimSummary.textContent = "Selection " + formatTimecode(selection.startSec) + " to " + formatTimecode(selection.endSec) + " (" + formatTimecode(trimDuration) + "). Browser MP4 export is unavailable; use Download Clip for server export. " + TRIM_EXPORT_ONLY_HINT;
+        if (trimDownloadButton) {
+          trimDownloadButton.disabled = controlsDisabled || (!mp4MimeType && !canUseServerFallback);
+          trimDownloadButton.textContent = trimState.exporting ? "Rendering..." : "Download Clip";
+          if (mp4MimeType) {
+            trimDownloadButton.title = "Render the selected range and download it as a new MP4 clip. " + TRIM_EXPORT_ONLY_HINT;
+          } else if (canUseServerFallback) {
+            trimDownloadButton.title = "Browser MP4 export is unavailable. Click to render this clip on the server. " + TRIM_EXPORT_ONLY_HINT;
           } else {
-            trimSummary.textContent = "Selection " + formatTimecode(selection.startSec) + " to " + formatTimecode(selection.endSec) + " (" + formatTimecode(trimDuration) + "). MP4 clip export is not supported in this browser for this source. " + TRIM_EXPORT_ONLY_HINT;
+            trimDownloadButton.title = "MP4 clip export is not supported in this browser for this source. " + TRIM_EXPORT_ONLY_HINT;
           }
-        } else {
-          trimSummary.textContent = "Selection " + formatTimecode(selection.startSec) + " to " + formatTimecode(selection.endSec) + " (" + formatTimecode(trimDuration) + "). Export downloads a new clip only. " + TRIM_EXPORT_ONLY_HINT;
+        }
+
+        if (trimSummary) {
+          if (!hasLoadedVideoSource()) {
+            trimSummary.textContent = "Load a video to export a clip. " + TRIM_EXPORT_ONLY_HINT;
+          } else if (!hasDuration) {
+            trimSummary.textContent = "Waiting for video metadata before clip export. " + TRIM_EXPORT_ONLY_HINT;
+          } else if (trimState.exporting) {
+            trimSummary.textContent = "Rendering " + formatTimecode(trimDuration) + " to a new MP4 clip in real time. Keep this tab active. " + TRIM_EXPORT_ONLY_HINT;
+          } else if (!mp4MimeType) {
+            if (canUseServerFallback) {
+              trimSummary.textContent = "Selection " + formatTimecode(selection.startSec) + " to " + formatTimecode(selection.endSec) + " (" + formatTimecode(trimDuration) + "). Browser MP4 export is unavailable; use Download Clip for server export. " + TRIM_EXPORT_ONLY_HINT;
+            } else {
+              trimSummary.textContent = "Selection " + formatTimecode(selection.startSec) + " to " + formatTimecode(selection.endSec) + " (" + formatTimecode(trimDuration) + "). MP4 clip export is not supported in this browser for this source. " + TRIM_EXPORT_ONLY_HINT;
+            }
+          } else {
+            trimSummary.textContent = "Selection " + formatTimecode(selection.startSec) + " to " + formatTimecode(selection.endSec) + " (" + formatTimecode(trimDuration) + "). Export downloads a new clip only. " + TRIM_EXPORT_ONLY_HINT;
+          }
         }
 
         updateScrubberTrimOverlay();
@@ -5264,6 +5365,52 @@
         };
       }
 
+      async function runGeminiClipQuiz(note, runnableItems, clipEnd, options = {}) {
+        const sourceInfo = currentSourceInfoPayload();
+        const geminiLockToken = String(options.geminiLockToken || "").trim() || null;
+        const questions = (Array.isArray(runnableItems) ? runnableItems : []).map((entry) => {
+          return {
+            taskField: String(entry && entry.item && entry.item.field || "").trim(),
+            taskLabel: String(entry && entry.item && entry.item.label || "Question").trim() || "Question",
+            question: String(entry && entry.question || "").trim(),
+            choices: Array.isArray(entry && entry.choices) ? entry.choices : [],
+          };
+        });
+
+        const response = await fetch(resolveSharedApiUrl(GEMINI_CLIP_QUIZ_PATH), {
+          method: "POST",
+          headers: buildSharedAuthHeaders({
+            "Content-Type": "application/json",
+          }),
+          body: JSON.stringify({
+            noteId: note.id,
+            questions: questions,
+            endSec: Number(clipEnd.toFixed(3)),
+            videoRef: Number.isInteger(currentServerVideoRef) ? currentServerVideoRef : null,
+            videoUrl: String(currentRemoteVideoUrl || video.currentSrc || video.src || "").trim() || null,
+            filePath: String(videoFilePath || "").trim() || null,
+            sourceUrl: sourceInfo.sourceUrl,
+            model: GEMINI_CLIP_MODEL,
+            thinkingLevel: geminiThinkingLevel,
+            geminiLockToken: geminiLockToken,
+          }),
+        });
+
+        let payload = null;
+        try {
+          payload = await response.json();
+        } catch (error) {
+          payload = null;
+        }
+
+        if (!response.ok || !payload || !Array.isArray(payload.results)) {
+          const message = payload && payload.error ? String(payload.error) : "Gemini quiz analysis failed.";
+          throw new Error(message);
+        }
+
+        return payload.results;
+      }
+
       async function requestGeminiClipAnswer(noteId, item, triggerButton) {
         if (!requireSharedLogin("asking Gemini about a clip")) {
           return;
@@ -5405,6 +5552,7 @@
             runnableItems.push({
               item: item,
               question: setup.question,
+              choices: setup.choices,
             });
           } catch (error) {
             skippedItems.push(
@@ -5472,6 +5620,30 @@
             return;
           }
 
+          setGeminiPanelLoading({
+            question: "",
+            taskLabel: "Quiz Gemini",
+            endSec: clipEnd,
+            status: "Uploading one clip and asking Gemini "
+              + String(runnableItems.length)
+              + " question"
+              + (runnableItems.length === 1 ? "" : "s")
+              + " from the same cache...",
+          });
+          const quizResults = await runGeminiClipQuiz(note, runnableItems, clipEnd, {
+            geminiLockToken: geminiLockToken,
+          });
+          if (requestId !== geminiAssistRequestId) {
+            return;
+          }
+          const resultsByField = new Map();
+          quizResults.forEach((result) => {
+            const taskField = String(result && result.taskField || "").trim();
+            if (taskField) {
+              resultsByField.set(taskField, result);
+            }
+          });
+
           for (let index = 0; index < runnableItems.length; index += 1) {
             const entry = runnableItems[index];
             const taskLabel = String(entry.item.label || "Question")
@@ -5481,42 +5653,10 @@
               + String(runnableItems.length)
               + ")";
 
-            setGeminiPanelLoading({
-              question: entry.question,
-              taskLabel: taskLabel,
-              endSec: clipEnd,
-            });
-
-            try {
-              const result = await runGeminiClipAnalysis(note, entry.item, clipEnd, {
-                geminiLockToken: geminiLockToken,
-              });
-              if (requestId !== geminiAssistRequestId) {
-                return;
-              }
-              succeededCount += 1;
-              if (recordGeminiQuizAnswer(note, entry.item, result, clipEnd)) {
-                recordedAnswer = true;
-                renderAnalyticsPanel();
-              }
-              const responseText = String(result && result.response || "").trim() || "Gemini returned an empty response.";
-              quizOutputBlocks.push(
-                String(entry.item.label || "Question")
-                + ":\n"
-                + responseText
-              );
-              setGeminiPanelResult({
-                question: "",
-                taskLabel: "Quiz Gemini " + taskLabel,
-                endSec: clipEnd,
-                response: quizOutputBlocks.join("\n\n"),
-              });
-            } catch (error) {
+            const result = resultsByField.get(String(entry.item.field || "")) || quizResults[index] || null;
+            if (!result || result.error) {
               failedCount += 1;
-              if (requestId !== geminiAssistRequestId) {
-                return;
-              }
-              const errorMessage = error && error.message ? String(error.message) : "Unknown error";
+              const errorMessage = result && result.error ? String(result.error) : "Gemini did not return a result.";
               quizOutputBlocks.push(
                 String(entry.item.label || "Question")
                 + ":\nError: "
@@ -5528,7 +5668,33 @@
                 endSec: clipEnd,
                 response: quizOutputBlocks.join("\n\n"),
               });
+              continue;
             }
+
+            const normalizedResult = {
+              question: String(result.question || entry.question || "").trim(),
+              choices: Array.isArray(result.choices) ? result.choices : entry.choices,
+              response: String(result.response || "").trim(),
+              selectedChoice: String(result.selectedChoice || "").trim(),
+              selectedLabel: String(result.selectedLabel || "").trim(),
+            };
+            succeededCount += 1;
+            if (recordGeminiQuizAnswer(note, entry.item, normalizedResult, clipEnd)) {
+              recordedAnswer = true;
+              renderAnalyticsPanel();
+            }
+            const responseText = String(normalizedResult.response || "").trim() || "Gemini returned an empty response.";
+            quizOutputBlocks.push(
+              String(entry.item.label || "Question")
+              + ":\n"
+              + responseText
+            );
+            setGeminiPanelResult({
+              question: "",
+              taskLabel: "Quiz Gemini " + taskLabel,
+              endSec: clipEnd,
+              response: quizOutputBlocks.join("\n\n"),
+            });
           }
 
           const skippedCount = skippedItems.length;
@@ -6058,12 +6224,6 @@
         } catch (error) {
           // Ignore privacy mode/localStorage failures.
         }
-        try {
-          geminiThinkingLevel = normalizeGeminiThinkingLevel(localStorage.getItem(GEMINI_THINKING_STORAGE_KEY) || "low");
-        } catch (error) {
-          geminiThinkingLevel = "low";
-        }
-        updateGeminiThinkingUi();
       }
 
       function restoreSharedAuth() {
@@ -7323,6 +7483,10 @@
           characters: normalizeCharacterList(state.characters),
           notes: getEditableNotes().map((note) => noteToExport(note)),
         };
+        const humanQuizScore = normalizeHumanQuizScore(state.humanQuizScore);
+        if (humanQuizScore) {
+          payload.humanQuizScore = humanQuizScore;
+        }
         if (hasPerceptionContent(state.perceptionQuestion, state.perceptionChoices)) {
           payload.perceptionQuestion = FIXED_PERCEPTION_QUESTION;
           payload.perceptionChoices = toEditablePerceptionChoices(state.perceptionChoices).map((choice) => {
@@ -7407,6 +7571,7 @@
         state.perceptionQuestion = FIXED_PERCEPTION_QUESTION;
         state.perceptionChoices = toEditablePerceptionChoices([]);
         state.perceptionEditable = true;
+        state.humanQuizScore = null;
         currentSharedEntryId = null;
         currentWorkspaceVideoRef = null;
         currentWorkspaceAnnotator = "";
@@ -9325,6 +9490,15 @@
           characters: normalizeCharacterList(hydratedCharacters),
           perceptionQuestion: FIXED_PERCEPTION_QUESTION,
           perceptionChoices: toEditablePerceptionChoices(workspacePerceptionChoices),
+          humanQuizScore: normalizeHumanQuizScore(
+            payload && (
+              payload.humanQuizScore
+              || payload.takeQuizScore
+              || payload.quizScore
+              || payload.quizResult
+              || null
+            )
+          ),
         };
       }
 
@@ -9352,6 +9526,7 @@
         state.perceptionQuestion = FIXED_PERCEPTION_QUESTION;
         state.perceptionChoices = toEditablePerceptionChoices(parsedWorkspace.perceptionChoices);
         state.perceptionEditable = true;
+        state.humanQuizScore = parsedWorkspace.humanQuizScore;
         renderWorkspacePerceptionPanel();
         if (hasNotesSection) {
           renderNotes();
@@ -9702,6 +9877,7 @@
         let workspacePerceptionQuestion = FIXED_PERCEPTION_QUESTION;
         let workspacePerceptionChoices = toEditablePerceptionChoices([]);
         let workspacePerceptionEditable = true;
+        let workspaceHumanQuizScore = null;
         sharedEntries.forEach((entry) => {
           const parsed = parseAnnotationWorkspaceData(entry.annotation || {}, {
             annotator: entry.annotator,
@@ -9716,6 +9892,7 @@
             workspacePerceptionQuestion = FIXED_PERCEPTION_QUESTION;
             workspacePerceptionChoices = toEditablePerceptionChoices(parsed.perceptionChoices);
             workspacePerceptionEditable = true;
+            workspaceHumanQuizScore = parsed.humanQuizScore;
           }
           if (adminEditingEnabled) {
             if (editableEntryId && entry.id === editableEntryId) {
@@ -9733,6 +9910,7 @@
         state.perceptionQuestion = FIXED_PERCEPTION_QUESTION;
         state.perceptionChoices = workspacePerceptionChoices;
         state.perceptionEditable = workspacePerceptionEditable;
+        state.humanQuizScore = workspaceHumanQuizScore;
         renderCharactersPanel();
         renderNotes();
 
@@ -9934,10 +10112,6 @@
           const reviewers = document.createElement("div");
           reviewers.className = "shared-entry-reviewers";
           const annotations = Array.isArray(videoItem.annotations) ? videoItem.annotations : [];
-          const currentAnnotator = annotatorKey(sharedAuthenticatedAnnotator);
-          const ownedEntry = currentAnnotator
-            ? (annotations.find((entry) => annotatorKey(entry && entry.annotator) === currentAnnotator) || null)
-            : null;
           if (!annotations.length) {
             const emptyReviewer = document.createElement("div");
             emptyReviewer.className = "shared-entry-reviewer-empty";
@@ -9945,6 +10119,9 @@
             reviewers.appendChild(emptyReviewer);
           } else {
             annotations.forEach((entry) => {
+              const authorRow = document.createElement("div");
+              authorRow.className = "shared-annotator-row";
+
               const chip = document.createElement("button");
               chip.type = "button";
               chip.className = "shared-annotator-chip";
@@ -9961,7 +10138,32 @@
               chip.addEventListener("click", () => {
                 loadSharedEntry(entry.id);
               });
-              reviewers.appendChild(chip);
+              authorRow.appendChild(chip);
+
+              const renameAuthorButton = document.createElement("button");
+              renameAuthorButton.type = "button";
+              renameAuthorButton.className = "shared-author-action";
+              renameAuthorButton.textContent = "Rename";
+              renameAuthorButton.title = "Change the author name for this annotation layer";
+              renameAuthorButton.addEventListener("click", () => {
+                renameSharedEntryAuthor(entry);
+              });
+              authorRow.appendChild(renameAuthorButton);
+
+              const removeAuthorButton = document.createElement("button");
+              removeAuthorButton.type = "button";
+              removeAuthorButton.className = "shared-author-action danger";
+              removeAuthorButton.textContent = "Remove";
+              removeAuthorButton.title = annotations.length > 1
+                ? "Delete this author's annotations for this video"
+                : "At least one author must remain for each video";
+              removeAuthorButton.disabled = annotations.length <= 1;
+              removeAuthorButton.addEventListener("click", () => {
+                deleteSharedEntry(entry, { videoItem: videoItem });
+              });
+              authorRow.appendChild(removeAuthorButton);
+
+              reviewers.appendChild(authorRow);
             });
           }
 
@@ -9975,17 +10177,6 @@
               loadSharedEntry(annotations[0].id);
             });
             actions.appendChild(loadLatestButton);
-          }
-          if (ownedEntry && Number.isInteger(ownedEntry.id)) {
-            const deleteButton = document.createElement("button");
-            deleteButton.type = "button";
-            deleteButton.className = "danger";
-            deleteButton.textContent = "Delete My Annotations";
-            deleteButton.title = "Remove your annotations for this video";
-            deleteButton.addEventListener("click", () => {
-              deleteSharedEntry(ownedEntry);
-            });
-            actions.appendChild(deleteButton);
           }
           if (isCurrentAdminAnnotator() && Number.isInteger(videoItem.videoRef)) {
             const deleteVideoButton = document.createElement("button");
@@ -10038,7 +10229,94 @@
         }
       }
 
-      async function deleteSharedEntry(entry) {
+      function applyLoadedWorkspaceAuthorRename(oldAuthor, newAuthor) {
+        const cleanNewAuthor = String(newAuthor || "").trim();
+        if (!cleanNewAuthor) {
+          return;
+        }
+        const oldKey = annotatorKey(oldAuthor);
+        if (!oldKey || annotatorKey(currentWorkspaceAnnotator) === oldKey) {
+          currentWorkspaceAnnotator = cleanNewAuthor;
+        }
+        state.notes.forEach((note) => {
+          if (!note || typeof note !== "object") {
+            return;
+          }
+          const noteAuthorKey = annotatorKey(note.ownerAnnotator || note.annotator || "");
+          if (oldKey && noteAuthorKey && noteAuthorKey !== oldKey) {
+            return;
+          }
+          note.ownerAnnotator = cleanNewAuthor;
+          note.ownerAnnotatorKey = annotatorKey(cleanNewAuthor);
+          note.annotator = cleanNewAuthor;
+        });
+        if (state.humanQuizScore && typeof state.humanQuizScore === "object") {
+          const scoreAuthorKey = annotatorKey(state.humanQuizScore.annotator || "");
+          if (!oldKey || !scoreAuthorKey || scoreAuthorKey === oldKey) {
+            state.humanQuizScore.annotator = cleanNewAuthor;
+          }
+        }
+        renderNotes();
+        renderJsonPreview();
+      }
+
+      async function renameSharedEntryAuthor(entry) {
+        if (!requireSharedLogin("renaming annotation authors")) {
+          return;
+        }
+        if (!entry || !Number.isInteger(entry.id)) {
+          showErrorPopup("Could not rename this author because the entry id is missing.");
+          return;
+        }
+
+        const oldAuthor = String(entry.annotator || "").trim();
+        const nextAuthor = String(window.prompt("New author name", oldAuthor) || "").trim();
+        if (!nextAuthor) {
+          return;
+        }
+        if (nextAuthor === oldAuthor) {
+          updateSharedStatus("Author is already set to " + nextAuthor + ".");
+          return;
+        }
+
+        updateSharedStatus("Renaming author...");
+        try {
+          const response = await fetch(resolveSharedApiUrl(SHARED_LIBRARY_ENTRIES_PATH + "/" + String(entry.id) + "/author"), {
+            method: "POST",
+            headers: buildSharedAuthHeaders({
+              "Content-Type": "application/json",
+            }),
+            body: JSON.stringify({
+              annotator: nextAuthor,
+            }),
+          });
+
+          let payload = null;
+          try {
+            payload = await response.json();
+          } catch (error) {
+            payload = null;
+          }
+
+          if (!response.ok || !payload || !payload.entry) {
+            throw new Error(payload && payload.error ? payload.error : "Author rename failed.");
+          }
+
+          sharedEntryPayloadCache.clear();
+          if (Number.isInteger(currentSharedEntryId) && currentSharedEntryId === entry.id) {
+            applyLoadedWorkspaceAuthorRename(oldAuthor, nextAuthor);
+          }
+          updateSharedStatus("Renamed author from " + (oldAuthor || "Unknown") + " to " + nextAuthor + ".");
+          updateStatus("Renamed annotation author to " + nextAuthor + ".");
+          await loadSharedEntries();
+        } catch (error) {
+          const message = error && error.message ? String(error.message) : "Unknown error";
+          updateSharedStatus("Author rename failed (" + message + ").");
+          showErrorPopup("Author rename failed: " + message);
+        }
+      }
+
+      async function deleteSharedEntry(entry, options = {}) {
         if (!requireSharedLogin("deleting shared annotations")) {
           return;
         }
@@ -10046,10 +10324,17 @@
           showErrorPopup("Could not delete this entry because the entry id is missing.");
           return;
         }
+        const videoItem = options && options.videoItem ? options.videoItem : null;
+        const annotations = Array.isArray(videoItem && videoItem.annotations) ? videoItem.annotations : [];
+        if (annotations.length && annotations.length <= 1) {
+          showErrorPopup("At least one author must remain for each video.");
+          return;
+        }
 
         const entryAnnotator = String(entry.annotator || "this annotator");
+        const videoTitle = String(videoItem && (videoItem.videoTitle || videoItem.videoOriginalFilename) || "this video");
         const confirmed = window.confirm(
-          "Delete all your shared annotations for this video as " + entryAnnotator + "?"
+          "Delete all annotations by " + entryAnnotator + " for " + videoTitle + "?"
         );
         if (!confirmed) {
           return;
@@ -10077,30 +10362,23 @@
           const remaining = Number.isFinite(Number(result.remainingAnnotations))
             ? Math.max(0, Number(result.remainingAnnotations))
             : 0;
-          const videoDeleted = Boolean(result.videoDeleted);
+          const currentEntryWasDeleted = Number.isInteger(currentSharedEntryId) && currentSharedEntryId === entry.id;
 
-          if (Number.isInteger(currentSharedEntryId) && currentSharedEntryId === entry.id) {
+          if (currentEntryWasDeleted) {
             currentSharedEntryId = null;
-          }
-          if (
-            videoDeleted
-            && Number.isInteger(currentServerVideoRef)
-            && Number.isInteger(entry.videoRef)
-            && currentServerVideoRef === entry.videoRef
-          ) {
-            currentServerVideoRef = null;
-            currentWorkspaceVideoRef = null;
+            currentWorkspaceAnnotator = "";
           }
 
           renderJsonPreview();
-          if (videoDeleted) {
-            updateSharedStatus("Deleted your annotations and removed the video because no annotations remain.");
-            updateStatus("Deleted your shared annotations. The video was removed from shared storage.");
-          } else {
-            updateSharedStatus("Deleted your annotations. " + String(remaining) + " annotator layer(s) remain.");
-            updateStatus("Deleted your shared annotations for this video.");
-          }
+          updateSharedStatus("Deleted " + entryAnnotator + "'s annotations. " + String(remaining) + " author layer(s) remain.");
+          updateStatus("Deleted " + entryAnnotator + "'s shared annotations for this video.");
           await loadSharedEntries();
+          if (currentEntryWasDeleted && annotations.length > 1) {
+            const fallbackEntry = annotations.find((candidate) => candidate && candidate.id !== entry.id) || null;
+            if (fallbackEntry && Number.isInteger(fallbackEntry.id)) {
+              await loadSharedEntry(fallbackEntry.id);
+            }
+          }
         } catch (error) {
           const message = error && error.message ? String(error.message) : "Unknown error";
           updateSharedStatus("Delete failed (" + message + ").");
@@ -10611,10 +10889,6 @@
         openAnalyticsPanel();
       });
 
-      geminiThinkingToggle.addEventListener("click", () => {
-        cycleGeminiThinkingLevel();
-      });
-
       sharedCloseButton.addEventListener("click", () => {
         closeSharedPanel();
       });
@@ -10683,34 +10957,40 @@
         importFromYoutube();
       });
 
-      localUploadTriggerButton.addEventListener("click", () => {
-        localUploadInput.value = "";
-        localUploadInput.click();
-      });
-
-      localUploadInput.addEventListener("change", () => {
-        const file = localUploadInput.files && localUploadInput.files[0]
-          ? localUploadInput.files[0]
-          : null;
-        if (!file) {
-          return;
-        }
-        if (!isMp4File(file)) {
-          updateStatus("Select an MP4 file to load a local video.");
+      if (localUploadTriggerButton && localUploadInput) {
+        localUploadTriggerButton.addEventListener("click", () => {
           localUploadInput.value = "";
-          return;
-        }
-        setVideoFromFile(file);
-        localUploadInput.value = "";
-      });
+          localUploadInput.click();
+        });
 
-      trimSetEndButton.addEventListener("click", () => {
-        setTrimEndBoundary();
-      });
+        localUploadInput.addEventListener("change", () => {
+          const file = localUploadInput.files && localUploadInput.files[0]
+            ? localUploadInput.files[0]
+            : null;
+          if (!file) {
+            return;
+          }
+          if (!isMp4File(file)) {
+            updateStatus("Select an MP4 file to load a local video.");
+            localUploadInput.value = "";
+            return;
+          }
+          setVideoFromFile(file);
+          localUploadInput.value = "";
+        });
+      }
 
-      trimDownloadButton.addEventListener("click", () => {
-        downloadTrimmedVideo();
-      });
+      if (trimSetEndButton) {
+        trimSetEndButton.addEventListener("click", () => {
+          setTrimEndBoundary();
+        });
+      }
+
+      if (trimDownloadButton) {
+        trimDownloadButton.addEventListener("click", () => {
+          downloadTrimmedVideo();
+        });
+      }
 
       youtubeLinkInput.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {

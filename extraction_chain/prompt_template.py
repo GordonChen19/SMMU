@@ -20,7 +20,7 @@ Output format:
 '''
 
 CANDIDATE_ANSWER_PROMPT = '''
-You are tasked with analyzing a video and answering a multiple-choice question about the end of a video clip. 
+You are tasked with analyzing a video and answering a multiple-choice question about the end of a video clip, exactly at the moment the video is cut.
 
 INPUTS YOU WILL RECEIVE:
 1) A VIDEO for analysis

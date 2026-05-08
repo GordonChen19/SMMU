@@ -1,0 +1,488 @@
+[
+  {
+    "video": "Housekeeping - Drama⧸Thriller Short Film.mp4",
+    "question": "Which of the following correctly describes what Housekeeper is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Housekeeping - Drama⧸Thriller Short Film.mp4",
+    "question": "Which of the following best describes what causes Housekeeper to feel the following emotion: Housekeeper feels shocked?",
+    "choiceCount": 8,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Housekeeping - Drama⧸Thriller Short Film.mp4",
+    "question": "Given how Housekeeper is feeling at this point in the video, which of the following actions is Housekeeper most likely to take next?",
+    "choiceCount": 5,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Housekeeping - Drama⧸Thriller Short Film.mp4",
+    "question": "Which of the following correctly describes what Housekeeper knows or does not know at this point in the video?",
+    "choiceCount": 5,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "Housekeeping - Drama⧸Thriller Short Film.mp4",
+    "question": "Which of the following best explains why Housekeeper has the following knowledge state: Housekeeper knows that the blonde woman is Mr. Stevens' mistress.?",
+    "choiceCount": 8,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "Housekeeping - Drama⧸Thriller Short Film.mp4",
+    "question": "Given what Housekeeper knows or does not know, which of the following beliefs or actions is Housekeeper most likely to have or take next?",
+    "choiceCount": 8,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "Housekeeping - Drama⧸Thriller Short Film.mp4",
+    "question": "Which of the following correctly describes the relationship between Housekeeper and Mr. Stevens at this point in the video?",
+    "choiceCount": 5,
+    "socialDimension": "Relationship"
+  },
+  {
+    "video": "Housekeeping - Drama⧸Thriller Short Film.mp4",
+    "question": "Which of the following best explains why Housekeeper has the following relationship with Mr. Stevens: The Housekeeper resents Mr. Stevens?",
+    "choiceCount": 5,
+    "socialDimension": "Relationship"
+  },
+  {
+    "video": "Housekeeping - Drama⧸Thriller Short Film.mp4",
+    "question": "Given the relationship between Housekeeper and Mr. Stevens, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 5,
+    "socialDimension": "Relationship"
+  },
+  {
+    "video": "Housekeeping - Drama⧸Thriller Short Film.mp4",
+    "question": "Which of the following correctly describes what Housekeeper's intent is at this point in the video?",
+    "choiceCount": 4,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "Housekeeping - Drama⧸Thriller Short Film.mp4",
+    "question": "Which of the following best explains why Housekeeper's intent in this scene is the following or how they achieve it: The Housekeeper wants to expose Mr. Stevens as a cheater.?",
+    "choiceCount": 6,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "Housekeeping - Drama⧸Thriller Short Film.mp4",
+    "question": "Given Housekeeper's intent, which of the following outcomes is Housekeeper most likely to pursue next?",
+    "choiceCount": 8,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "The Purse Robbery.mp4",
+    "question": "Is Frank adhering or violating an unspoken rule?",
+    "choiceCount": 2,
+    "socialDimension": "Social Norms"
+  },
+  {
+    "video": "The Purse Robbery.mp4",
+    "question": "Explain how Frank is adhering to or violating an unspoken rule in this scene.",
+    "choiceCount": 6,
+    "socialDimension": "Social Norms"
+  },
+  {
+    "video": "The Purse Robbery.mp4",
+    "question": "Which of the following correctly describes what Frank knows or does not know at this point in the video?",
+    "choiceCount": 5,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "The Purse Robbery.mp4",
+    "question": "Which of the following best explains why Frank has the following knowledge state: Frank does not know that the woman is in danger.?",
+    "choiceCount": 5,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "The Purse Robbery.mp4",
+    "question": "Given what Frank knows or does not know, which of the following beliefs or actions is Frank most likely to have or take next?",
+    "choiceCount": 7,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "Wedding Tradition - SNL.mp4",
+    "question": "Which of the following correctly describes what Donathan is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Wedding Tradition - SNL.mp4",
+    "question": "Which of the following best describes what causes Donathan to feel the following emotion: He is rather confused?",
+    "choiceCount": 6,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Wedding Tradition - SNL.mp4",
+    "question": "Given how Donathan is feeling at this point in the video, which of the following actions is Donathan most likely to take next?",
+    "choiceCount": 5,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Wedding Tradition - SNL.mp4",
+    "question": "Which of the following correctly describes what Donathan's intent is at this point in the video?",
+    "choiceCount": 7,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "Wedding Tradition - SNL.mp4",
+    "question": "Which of the following best explains why Donathan's intent in this scene is the following or how they achieve it: He wants  the groom to kiss the bride's private part.?",
+    "choiceCount": 5,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "Wedding Tradition - SNL.mp4",
+    "question": "Given Donathan's intent, which of the following outcomes is Donathan most likely to pursue next?",
+    "choiceCount": 8,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "Wedding Tradition - SNL.mp4",
+    "question": "Is Donathan adhering or violating an unspoken rule?",
+    "choiceCount": 2,
+    "socialDimension": "Social Norms"
+  },
+  {
+    "video": "Wedding Tradition - SNL.mp4",
+    "question": "Explain how Donathan is adhering to or violating an unspoken rule in this scene.",
+    "choiceCount": 7,
+    "socialDimension": "Social Norms"
+  },
+  {
+    "video": "Wedding Tradition - SNL.mp4",
+    "question": "Given the norm violation or conformity observed from Donathan, which of the following consequences is most likely to follow?",
+    "choiceCount": 6,
+    "socialDimension": "Social Norms"
+  },
+  {
+    "video": "The World_s Worst Liar __The Usual Suspects_ Parody_ - Key _ Peele.mp4",
+    "question": "Which of the following correctly describes what Officer knows or does not know at this point in the video?",
+    "choiceCount": 7,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "The World_s Worst Liar __The Usual Suspects_ Parody_ - Key _ Peele.mp4",
+    "question": "Which of the following best explains why Officer has the following knowledge state: He suspects that the interviewee is lying.?",
+    "choiceCount": 7,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "The World_s Worst Liar __The Usual Suspects_ Parody_ - Key _ Peele.mp4",
+    "question": "Given what Officer knows or does not know, which of the following beliefs or actions is Officer most likely to have or take next?",
+    "choiceCount": 8,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "Non-Scary Movie - Key _ Peele.mp4",
+    "question": "Which of the following correctly describes what the man wearing the cap's intent is at this point in the video?",
+    "choiceCount": 5,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "Non-Scary Movie - Key _ Peele.mp4",
+    "question": "Which of the following best explains why the man wearing the cap's intent in this scene is the following or how they achieve it: He wants to walk with the man.?",
+    "choiceCount": 5,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "Non-Scary Movie - Key _ Peele.mp4",
+    "question": "Is both characters adhering or violating an unspoken rule?",
+    "choiceCount": 2,
+    "socialDimension": "Social Norms"
+  },
+  {
+    "video": "Non-Scary Movie - Key _ Peele.mp4",
+    "question": "Explain how both characters is adhering to or violating an unspoken rule in this scene.",
+    "choiceCount": 8,
+    "socialDimension": "Social Norms"
+  },
+  {
+    "video": "Non-Scary Movie - Key _ Peele.mp4",
+    "question": "Which of the following correctly describes what the man wearing the camo shirt's intent is at this point in the video?",
+    "choiceCount": 6,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "Non-Scary Movie - Key _ Peele.mp4",
+    "question": "Which of the following best explains why the man wearing the camo shirt's intent in this scene is the following or how they achieve it: He is trying to look out for the other man.?",
+    "choiceCount": 4,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "Non-Scary Movie - Key _ Peele.mp4",
+    "question": "Which of the following correctly describes what both characters is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 5,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Non-Scary Movie - Key _ Peele.mp4",
+    "question": "Which of the following best describes what causes both characters to feel the following emotion: Scared?",
+    "choiceCount": 6,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Rent a girl friend-1.mp4",
+    "question": "Which of the following correctly describes the old brother's perspective/belief at this point in the video?",
+    "choiceCount": 8,
+    "socialDimension": "Perspective"
+  },
+  {
+    "video": "Rent a girl friend-1.mp4",
+    "question": "Which of the following best describes why the old brother has the following perspective/belief: As the younger brother boasts about his \"very beautiful\" and \"hot\" The older brother doubted about the existence of such a girlfriend.?",
+    "choiceCount": 8,
+    "socialDimension": "Perspective"
+  },
+  {
+    "video": "Rent a girl friend-1.mp4",
+    "question": "Given the old brother's perspective/belief, which of the following beliefs or actions is the old brother most likely to have or take next?",
+    "choiceCount": 8,
+    "socialDimension": "Perspective"
+  },
+  {
+    "video": "Rent a girl friend-1.mp4",
+    "question": "Which of the following correctly describes what the younger brother's intent is at this point in the video?",
+    "choiceCount": 8,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "Rent a girl friend-1.mp4",
+    "question": "Which of the following best explains why the younger brother's intent in this scene is the following or how they achieve it: He is trying to force his family to grant him the respect.?",
+    "choiceCount": 8,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "Rent a girl friend-1.mp4",
+    "question": "Given the younger brother's intent, which of the following outcomes is the younger brother most likely to pursue next?",
+    "choiceCount": 8,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "Rent a girl friend-1.mp4",
+    "question": "Which of the following correctly describes the relationship between the younger brother and Jennifer at this point in the video?",
+    "choiceCount": 8,
+    "socialDimension": "Relationship"
+  },
+  {
+    "video": "Rent a girl friend-1.mp4",
+    "question": "Which of the following best explains why the younger brother has the following relationship with Jennifer: It turned out that the girlfriend is rented.?",
+    "choiceCount": 8,
+    "socialDimension": "Relationship"
+  },
+  {
+    "video": "Rent a girl friend-1.mp4",
+    "question": "Given the relationship between the younger brother and Jennifer, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 8,
+    "socialDimension": "Relationship"
+  },
+  {
+    "video": "Horror Short Film _Who_s There__ _ ALTER _ Online Premiere.mp4",
+    "question": "Which of the following correctly describes the Dad's perspective/belief at this point in the video?",
+    "choiceCount": 4,
+    "socialDimension": "Perspective"
+  },
+  {
+    "video": "Horror Short Film _Who_s There__ _ ALTER _ Online Premiere.mp4",
+    "question": "Which of the following best describes why the Dad has the following perspective/belief: He believes the someone he doesn't know is at the door?",
+    "choiceCount": 4,
+    "socialDimension": "Perspective"
+  },
+  {
+    "video": "Horror Short Film _Who_s There__ _ ALTER _ Online Premiere.mp4",
+    "question": "Given the Dad's perspective/belief, which of the following beliefs or actions is the Dad most likely to have or take next?",
+    "choiceCount": 6,
+    "socialDimension": "Perspective"
+  },
+  {
+    "video": "Horror Short Film _Who_s There__ _ ALTER _ Online Premiere.mp4",
+    "question": "Which of the following correctly describes the Dad's perspective/belief at this point in the video?",
+    "choiceCount": 4,
+    "socialDimension": "Perspective"
+  },
+  {
+    "video": "Horror Short Film _Who_s There__ _ ALTER _ Online Premiere.mp4",
+    "question": "Which of the following best describes why the Dad has the following perspective/belief: He believes the person arriving is Brooke?",
+    "choiceCount": 6,
+    "socialDimension": "Perspective"
+  },
+  {
+    "video": "Horror Short Film _Who_s There__ _ ALTER _ Online Premiere.mp4",
+    "question": "Given the Dad's perspective/belief, which of the following beliefs or actions is the Dad most likely to have or take next?",
+    "choiceCount": 4,
+    "socialDimension": "Perspective"
+  },
+  {
+    "video": "Last To Take Hand Off Jet_ Keeps It_.mp4",
+    "question": "Which of the following correctly describes what Mr. Beast knows or does not know at this point in the video?",
+    "choiceCount": 6,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "Last To Take Hand Off Jet_ Keeps It_.mp4",
+    "question": "Which of the following correctly describes what Chunkz is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Last To Take Hand Off Jet_ Keeps It_.mp4",
+    "question": "Which of the following best describes what causes Chunkz to feel the following emotion: Shock?",
+    "choiceCount": 7,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Last To Take Hand Off Jet_ Keeps It_.mp4",
+    "question": "Which of the following correctly describes what Lazar knows or does not know at this point in the video?",
+    "choiceCount": 7,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "Last To Take Hand Off Jet_ Keeps It_.mp4",
+    "question": "Which of the following best explains why Lazar has the following knowledge state: The plane landed in London.?",
+    "choiceCount": 8,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "Last To Take Hand Off Jet_ Keeps It_.mp4",
+    "question": "Which of the following correctly describes what Mr. Beast knows or does not know at this point in the video?",
+    "choiceCount": 6,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "Last To Take Hand Off Jet_ Keeps It_.mp4",
+    "question": "Which of the following best explains why Mr. Beast has the following knowledge state: Callux is eliminated.?",
+    "choiceCount": 8,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "Last To Take Hand Off Jet_ Keeps It_.mp4",
+    "question": "Which of the following correctly describes what Mr. Beast knows or does not know at this point in the video?",
+    "choiceCount": 4,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "Last To Take Hand Off Jet_ Keeps It_.mp4",
+    "question": "Which of the following best explains why Mr. Beast has the following knowledge state: George is eliminated.?",
+    "choiceCount": 2,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "Last To Take Hand Off Jet_ Keeps It_.mp4",
+    "question": "Given what Mr. Beast knows or does not know, which of the following beliefs or actions is Mr. Beast most likely to have or take next?",
+    "choiceCount": 2,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "Undercover Mother.mp4",
+    "question": "Which of the following correctly describes what the daughter's intent is at this point in the video?",
+    "choiceCount": 7,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "Undercover Mother.mp4",
+    "question": "Which of the following best explains why the daughter's intent in this scene is the following or how they achieve it: see if her boyfriend would date her mum?",
+    "choiceCount": 6,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "Undercover Mother.mp4",
+    "question": "Given the daughter's intent, which of the following outcomes is the daughter most likely to pursue next?",
+    "choiceCount": 4,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "How to Ruin a Joke - Key _ Peele.mp4",
+    "question": "Which of the following correctly describes the guy in the flannel shirt's perspective/belief at this point in the video?",
+    "choiceCount": 6,
+    "socialDimension": "Perspective"
+  },
+  {
+    "video": "How to Ruin a Joke - Key _ Peele.mp4",
+    "question": "Which of the following best describes why the guy in the flannel shirt has the following perspective/belief: He believes that the man in the suit  is pretending to not understand the joke.?",
+    "choiceCount": 4,
+    "socialDimension": "Perspective"
+  },
+  {
+    "video": "How to Ruin a Joke - Key _ Peele.mp4",
+    "question": "Given the guy in the flannel shirt's perspective/belief, which of the following beliefs or actions is the guy in the flannel shirt most likely to have or take next?",
+    "choiceCount": 6,
+    "socialDimension": "Perspective"
+  },
+  {
+    "video": "How to Ruin a Joke - Key _ Peele.mp4",
+    "question": "Which of the following correctly describes what the guy in the flannel shirt knows or does not know at this point in the video?",
+    "choiceCount": 4,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "How to Ruin a Joke - Key _ Peele.mp4",
+    "question": "Which of the following best explains why the guy in the flannel shirt has the following knowledge state: He realized the man in the suit  didn't understand the joke?",
+    "choiceCount": 4,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "How to Ruin a Joke - Key _ Peele.mp4",
+    "question": "Given what the guy in the flannel shirt knows or does not know, which of the following beliefs or actions is the guy in the flannel shirt most likely to have or take next?",
+    "choiceCount": 5,
+    "socialDimension": "Knowledge State"
+  },
+  {
+    "video": "Gordon Ramsay eats the perfect sausage roll.mp4",
+    "question": "Which of the following correctly describes what Gordon Ramsay is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 6,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Gordon Ramsay eats the perfect sausage roll.mp4",
+    "question": "Which of the following best describes what causes Gordon Ramsay to feel the following emotion: Gordon Ramsay is impressed.?",
+    "choiceCount": 4,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Gordon Ramsay eats the perfect sausage roll.mp4",
+    "question": "Given how Gordon Ramsay is feeling at this point in the video, which of the following actions is Gordon Ramsay most likely to take next?",
+    "choiceCount": 4,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Is This Guy Jordan_s Real Father_ - Key _ Peele.mp4",
+    "question": "Which of the following correctly describes what Earl Peele's intent is at this point in the video?",
+    "choiceCount": 4,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "Is This Guy Jordan_s Real Father_ - Key _ Peele.mp4",
+    "question": "Which of the following best explains why Earl Peele's intent in this scene is the following or how they achieve it: to make Jordan Peele think that he is his dad?",
+    "choiceCount": 5,
+    "socialDimension": "Intent"
+  },
+  {
+    "video": "Nobody Wants to Help You Move - Key _ Peele.mp4",
+    "question": "Which of the following correctly describes what the man is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Nobody Wants to Help You Move - Key _ Peele.mp4",
+    "question": "Which of the following best describes what causes the man to feel the following emotion: Apprehensive?",
+    "choiceCount": 6,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Who Wants to Be A Millionaire - Studio C.mp4",
+    "question": "Which of the following correctly describes what Matt is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 6,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Who Wants to Be A Millionaire - Studio C.mp4",
+    "question": "Which of the following correctly describes what Matt is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 7,
+    "socialDimension": "Emotions"
+  },
+  {
+    "video": "Who Wants to Be A Millionaire - Studio C.mp4",
+    "question": "Which of the following best describes what causes Matt to feel the following emotion: Frustrated?",
+    "choiceCount": 5,
+    "socialDimension": "Emotions"
+  }
+]

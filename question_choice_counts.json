@@ -1,0 +1,3118 @@
+[
+  {
+    "question": "Which of the following correctly describes what Housekeeper is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Housekeeper to feel the following emotion: Housekeeper feels shocked?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given how Housekeeper is feeling at this point in the video, which of the following actions is Housekeeper most likely to take next?",
+    "choiceCount": 5
+  },
+  {
+    "question": "Which of the following correctly describes what Housekeeper knows or does not know at this point in the video?",
+    "choiceCount": 5
+  },
+  {
+    "question": "Which of the following best explains why Housekeeper has the following knowledge state: Housekeeper knows that the blonde woman is Mr. Stevens' mistress.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given what Housekeeper knows or does not know, which of the following beliefs or actions is Housekeeper most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between Housekeeper and Mr. Stevens at this point in the video?",
+    "choiceCount": 5
+  },
+  {
+    "question": "Which of the following best explains why Housekeeper has the following relationship with Mr. Stevens: The Housekeeper resents Mr. Stevens?",
+    "choiceCount": 5
+  },
+  {
+    "question": "Given the relationship between Housekeeper and Mr. Stevens, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 5
+  },
+  {
+    "question": "Which of the following correctly describes what Housekeeper's intent is at this point in the video?",
+    "choiceCount": 4
+  },
+  {
+    "question": "Which of the following best explains why Housekeeper's intent in this scene is the following or how they achieve it: The Housekeeper wants to expose Mr. Stevens as a cheater.?",
+    "choiceCount": 6
+  },
+  {
+    "question": "Given Housekeeper's intent, which of the following outcomes is Housekeeper most likely to pursue next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Michael is feeling at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Michael to feel how they feel in this scene?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given how Michael is feeling at this point in the video, which of the following actions is Michael most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Michael's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Michael's intent in this scene is what it is?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given Michael's intent, which of the following outcomes is Michael most likely to pursue next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why Michael's intent in this scene is what it is?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given Michael's intent, which of the following outcomes is Michael most likely to pursue next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why Michael's intent in this scene is what it is?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given Michael's intent, which of the following outcomes is Michael most likely to pursue next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Is Frank adhering or violating an unspoken rule?",
+    "choiceCount": 2
+  },
+  {
+    "question": "Explain how Frank is adhering to or violating an unspoken rule in this scene.",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following correctly describes what Frank knows or does not know at this point in the video?",
+    "choiceCount": 5
+  },
+  {
+    "question": "Which of the following best explains why Frank has the following knowledge state: Frank does not know that the woman is in danger.?",
+    "choiceCount": 5
+  },
+  {
+    "question": "Given what Frank knows or does not know, which of the following beliefs or actions is Frank most likely to have or take next?",
+    "choiceCount": 7
+  },
+  {
+    "question": "Which of the following correctly describes what Donathan is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Donathan to feel the following emotion: He is rather confused?",
+    "choiceCount": 6
+  },
+  {
+    "question": "Given how Donathan is feeling at this point in the video, which of the following actions is Donathan most likely to take next?",
+    "choiceCount": 5
+  },
+  {
+    "question": "Which of the following correctly describes what Donathan's intent is at this point in the video?",
+    "choiceCount": 7
+  },
+  {
+    "question": "Which of the following best explains why Donathan's intent in this scene is the following or how they achieve it: He wants  the groom to kiss the bride's private part.?",
+    "choiceCount": 5
+  },
+  {
+    "question": "Given Donathan's intent, which of the following outcomes is Donathan most likely to pursue next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Is Donathan adhering or violating an unspoken rule?",
+    "choiceCount": 2
+  },
+  {
+    "question": "Explain how Donathan is adhering to or violating an unspoken rule in this scene.",
+    "choiceCount": 7
+  },
+  {
+    "question": "Given the norm violation or conformity observed from Donathan, which of the following consequences is most likely to follow?",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following correctly describes what man is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes man to feel the following emotion: Sad, lonely, in agony.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes man's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why man has the following perspective/belief: He felt the very ordinary aspects of his life turned different.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what man's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why man's intent in this scene is the following or how they achieve it: The man is trying to appreciate his life.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Tenzin (worker at coffee shop)'s perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Tenzin (worker at coffee shop) has the following perspective/belief: He is not familiar with the set up to make butter tea.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given Tenzin (worker at coffee shop)'s perspective/belief, which of the following beliefs or actions is Tenzin (worker at coffee shop) most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Tenzin (worker at coffee shop) is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Tenzin (worker at coffee shop) to feel the following emotion: Nervous, unsure and anxious.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Tenzin (worker at coffee shop) is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Tenzin (worker at coffee shop) to feel the following emotion: More confident and more determined.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given how Tenzin (worker at coffee shop) is feeling at this point in the video, which of the following actions is Tenzin (worker at coffee shop) most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between Tenzin (worker at coffee shop) and Dorjee at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Tenzin (worker at coffee shop) has the following relationship with Dorjee: Tenzin and Dorjee became friends because of the tea.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the relationship between Tenzin (worker at coffee shop) and Dorjee, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Tenzin (worker at coffee shop)'s perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Tenzin (worker at coffee shop) has the following perspective/belief: Anxious, and worried.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given Tenzin (worker at coffee shop)'s perspective/belief, which of the following beliefs or actions is Tenzin (worker at coffee shop) most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Tenzin (worker at coffee shop)'s perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Tenzin (worker at coffee shop) has the following perspective/belief: Tenzin felt upset for the passing of his regular, which is a good friend of him.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given Tenzin (worker at coffee shop)'s perspective/belief, which of the following beliefs or actions is Tenzin (worker at coffee shop) most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Boy is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Boy to feel the following emotion: The boy feels nervous, anxious and restles.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given how Boy is feeling at this point in the video, which of the following actions is Boy most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between Tess and Boy at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Tess has the following relationship with Boy: They are unfamiliar classmates, trying to know more about each other.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the relationship between Tess and Boy, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes [character]'s perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why [character] has the following perspective/belief: All the former wonderful moments were just a pure imagination of the boy.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given [character]'s perspective/belief, which of the following beliefs or actions is [character] most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between Airsteward and Man at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Airsteward has the following relationship with Man: A confrontation occurred between a man who wanted to go to the toilet and an air steward who is stopping him to do that.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the relationship between Airsteward and Man, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the woman's persona at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why the woman's persona in this scene is In a big, beautiful garden, the woman is relaxed and elegant, while the man seems bad-tempered and grumpy.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given the woman's persona in this scene, which of the following actions is the woman most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between the man and the woman at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why the man has the following relationship with the woman: The woman approaches the man and tries to figure out why he is so angry. It turns out that he is upset about the vegetable garden being changed into a flower garden. Although the man remains detached and defensive, the conversation continues, eventually revealing that he is the Duke of the land.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given the relationship between the man and the woman, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the man is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes the man to feel the following emotion: The man accepts the woman's kind offer to push his wheelchair. The woman mentions that her husband spent his last days in a wheelchair. The distance between them shortens.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given how the man is feeling at this point in the video, which of the following actions is the man most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between [character 1] and [character 2] at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why [character 1] has the following relationship with [character 2]: The conversation between the two flows naturally, and they learn each other's names: Francis and Bella. Bella then invites Francis to have some tea.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given the relationship between [character 1] and [character 2], which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: Bella makes tea and cakes for Francis, and he enjoys them very much. The atmosphere is light and harmonious.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given how [character] is feeling at this point in the video, which of the following actions is [character] most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what The solitary mother is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes The solitary mother to feel the following emotion: A solitary old lady was surprised by her son's visit. They had a very nice talk, reminiscing about the lives and families of their old friends and neighbors. The memories were pleasant, but the mother was a bit concerned about her son's teeth—perhaps something unpleasant had happened long ago.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given how The solitary mother is feeling at this point in the video, which of the following actions is The solitary mother most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what The solitary mother is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes The solitary mother to feel the following emotion: The son, Robbie, said goodbye to his mother. The sweet moment was always short. Though she was reluctant to let him go, he had errands to run. Her life soon resumed its quietness. She went out to the garden to pick potatoes, hearing only the sounds of nature. The mother felt peaceful, content, and self-soothing, trying to make the most of her own company and rally her spirits.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given how The solitary mother is feeling at this point in the video, which of the following actions is The solitary mother most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes The solitary mother's perspective/belief at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes why The solitary mother has the following perspective/belief: Washing potatoes, picking beans, sitting in the rocking chair with music on — that is the old lady's daily routine. Solitary and quiet, yet she is trying to fill her life.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given The solitary mother's perspective/belief, which of the following beliefs or actions is The solitary mother most likely to have or take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes The granddaughter's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why The granddaughter has the following perspective/belief: The granddaughter came and asked the old lady where she had been, since she hadn't answered t The granddaughter was shocked and told her that her uncle Robert had died. The old lady was confused and devastated. Her peaceful, content expression disappeared. Instead, she looked blank, frightened, confused, and distraught.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given The granddaughter's perspective/belief, which of the following beliefs or actions is The granddaughter most likely to have or take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: Sisters Mary and Alva find their fellow sister Antonia dead. Though shocked, they are not surprised, given her advanced age. With dry understatement, they depart calmly, their thoughts swiftly turning to their own inevitable ends. They each describe how they wish to die;  their tone is utterly matter-of-fact, as if discussing the weather or dinner plans.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given how [character] is feeling at this point in the video, which of the following actions is [character] most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character]'s intent is at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why [character]'s intent in this scene is the following: Following a long talk about death and their years spent living, they decide to act differently. Becoming nuns long before society’s views on women changed, they missed out on so much they once desired. They decided to make some mild adventure, bending their convent’s rules. Alva longed to learn to swim, and Mary yearned to taste beer.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given [character]'s intent, which of the following outcomes is [character] most likely to pursue next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Alva's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Alva has the following perspective/belief: Alva tried to learn to swim and nearly drowned. Frightened, she stood in the pool and wondered why Sister Mary hadn’t saved her. Mary said she trusted Alva to stand on her own, and Alva felt grateful for her support and faith.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given Alva's perspective/belief, which of the following beliefs or actions is Alva most likely to have or take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Mary is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes Mary to feel the following emotion: Mary tried her first taste of beer and commented that it tasted like honey. Excited by the adventure, she felt reminded of her younger years. Alva was deeply responsive to her enthusiasm.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given how Mary is feeling at this point in the video, which of the following actions is Mary most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Alva's perspective/belief at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes why Alva has the following perspective/belief: Mary fell asleep while Alva stayed awake. Worried that Mary might have died in her sleep, Alva checked her breath. Mary reassured her that everything was okay.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given Alva's perspective/belief, which of the following beliefs or actions is Alva most likely to have or take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character]'s intent is at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why [character]'s intent in this scene is the following: The man in black suit is trying to persuade the man in blue shirt (agent) to stay and finish his job.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given [character]'s intent, which of the following outcomes is [character] most likely to pursue next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between The agent and The girl at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why The agent has the following relationship with The girl: A negotiation takes place between the agent and the girl, and the topic is the contract and the  girl's mother. The girl appears to be in control of the situation.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the relationship between The agent and The girl, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between The agent and The girl at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why The agent has the following relationship with The girl: The agent failed to insert the cash into the vending machine and asked for the girl's help. The child was nonchalant. The agent tried to patronize the girl by praising her new purse, and she let down her guard a bit.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given the relationship between The agent and The girl, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what The girl's intent is at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why The girl's intent in this scene is the following: To provoke the man's competitive spirit, the girl deliberately mentions the name Steve. The man is taken aback, as a rival in the relationship appears unexpectedly.?",
+    "choiceCount": 7
+  },
+  {
+    "question": "Given The girl's intent, which of the following outcomes is The girl most likely to pursue next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what The girl's intent is at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why The girl's intent in this scene is the following: The girl brings up the topic of her mom and tries to persuade the agent to stay with her mom.  After the man denies the possibility, she recalls the good memories of their time together, hoping to use those sweet memories to make him stay.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given The girl's intent, which of the following outcomes is The girl most likely to pursue next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Oscar is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Oscar to feel the following emotion: A boy named Oscar was frustrated and angry because his mother refused his request to go back home, and he had to stay with someone he didn't like.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Oscar is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Oscar to feel the following emotion: Oscar resented his father. He rejected his father's offer of kindness, believing that his father had not lived up to his role.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given how Oscar is feeling at this point in the video, which of the following actions is Oscar most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Nia's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Nia has the following perspective/belief: Nia, the deaf daughter, was upset and unsettled when she witnessed the heated quarrel between her father and her older brother.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the young man's persona at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why the young man's persona in this scene is The young man drove the old pickup to the scrap car recycling factory. It seemed the situation was out of his control.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given the young man's persona in this scene, which of the following actions is the young man most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between the young man and the old man at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why the young man has the following relationship with the old man: There is tension between the old man and the young man. After examining the truck, the old man offers a deal; however, the young man is reluctant to let go of the old pickup, as it is his father's legacy.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the young man is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes the young man to feel the following emotion: The young man was devastated as his final hope of keeping the pickup evaporated.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the old man's intent is at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why the old man's intent in this scene is the following: The old man saw the young man's reluctance to let go of the pickup and was empathetic.No matter how much you want to hold onto something, it will eventually slip away.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Wally's persona at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why Wally's persona in this scene is Wally is not only arrogant and haughty but also presumptuous and entitled.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Wally's persona at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Wally's persona in this scene is Completely self-centered and fond of preaching, she dominates the conversation, leaving the rest of the group bored listeners.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Wally's assistant's intent is at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why Wally's assistant's intent in this scene is the following: Knowing that Wally was a difficult person, the assistant sought a favor from Wally's son—though both realized their efforts could well be futile.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between Wally and the son at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why Wally has the following relationship with the son: Wally's son finally made an offer to help his mother out of the lawsuit, even though he knew it might be rejected, knowing his mother's typical behavior.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what girl is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes girl to feel the following emotion: Nervous, anxious, urgent.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given how girl is feeling at this point in the video, which of the following actions is girl most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between girl and old man at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why girl has the following relationship with old man: The old man noticed that the girl was in trouble and was curious about what issue she was facing. After knowing that the girl missed the bus for school and had an exam, he empathized with the girl.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the relationship between girl and old man, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why girl has the following relationship with old man: [correct comprehension answer]?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the relationship between girl and old man, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what girl is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes girl to feel the following emotion: Complex, confused.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between man and woman at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why man has the following relationship with woman: The man just sat down in the park besides a stranger.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the relationship between man and woman, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes man's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why man has the following perspective/belief: The man is trying to approach the woman.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given man's perspective/belief, which of the following beliefs or actions is man most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes woman's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why woman has the following perspective/belief: She felt honored that he made so much efforts to impress her.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between man and woman at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why man has the following relationship with woman: The woman became interested by the man's inner self.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what boy is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes boy to feel the following emotion: He felt surprised and enlightened by the rocket shaped kiddie ride.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given how boy is feeling at this point in the video, which of the following actions is boy most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what boy is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes boy to feel the following emotion: Sad, disappointed and upset.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what boy's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why boy's intent in this scene is the following or how they achieve it: Earn money so that he can go on the rocket kiddie ride and \"launch for the moon\" again.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given boy's intent, which of the following outcomes is boy most likely to pursue next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes boy's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why boy has the following perspective/belief: Although the boy spent his whole life selling lemonade, he still did not forget his childhood dream to the moon when he was very old.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given boy's perspective/belief, which of the following beliefs or actions is boy most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what boy is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes boy to feel the following emotion: Desperate, hopeless, and disappointed.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given how boy is feeling at this point in the video, which of the following actions is boy most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between dad and daughter at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why dad has the following relationship with daughter: The tension from the nightmare turned plain, but was tight again when the dad found out that the letter was already opened.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes daughter's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why daughter has the following perspective/belief: Curious, inocent.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes daughter's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why daughter has the following perspective/belief: Naive?",
+    "choiceCount": 7
+  },
+  {
+    "question": "Which of the following correctly describes dad's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why dad has the following perspective/belief: The dad wants to hide his violent past from his daughter.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given dad's perspective/belief, which of the following beliefs or actions is dad most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what The young lady's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why The young lady's intent in this scene is the following: Seeing an old man at a loss by the roadside, the young woman offered to take him home, but she didn’t want her act of kindness to burden him.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given The young lady's intent, which of the following outcomes is The young lady most likely to pursue next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes The young lady's perspective/belief at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes why The young lady has the following perspective/belief: Seeing the scripts, books, films, and Oscar statuettes scattered casually around the big room, the young woman was amazed that the ordinary-looking, feeble man could be someone important.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given The young lady's perspective/belief, which of the following beliefs or actions is The young lady most likely to have or take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between The young lady and The old man at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given the relationship between The young lady and The old man, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes The old man's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why The old man has the following perspective/belief: The old man perceived the troubles underlying the young woman's seemingly peaceful and joyful surface. He waited for the woman to reveal what troubled her.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what The young lady is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes The young lady to feel the following emotion: She was crushed by her last relationship and had escaped to seek healing. The betrayal had wounded her deeply, especially because the person who betrayed her pretended that nothing had happened.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between man and woman at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why man has the following relationship with woman: The tension between their relationship is tight.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what man is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes man to feel the following emotion: Sad, depressed, disappointed, and reluctant to face the truth that the woman is leaving him.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Translator is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Translator to feel the following emotion: Nervous, scared.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Italian's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Italian has the following perspective/belief: Furious.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between Italian and American at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Italian has the following relationship with American: They completely did not understand what each other was saying.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the relationship between Italian and American, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between Italian and American at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Italian has the following relationship with American: They finally understood that the translator was messing up their transaction.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the relationship between Italian and American, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: Hopeless, disappointed and irritated.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between man and man in car at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why man has the following relationship with man in car: The man in the car was furious and pulled his car backward.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the relationship between man and man in car, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what man is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes man to feel the following emotion: Complex, anxious, unsettled, and puzzled.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between man and man in car at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why man has the following relationship with man in car: They were abandoned by the world.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the man's persona at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why the man's persona in this scene is The man is preparing for a job interview and trying to appear confident, but he completely lacks the very quality he is rehearsing.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes The man's perspective/belief at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes why The man has the following perspective/belief: Glancing around, the man noticed that every other candidate appeared much more competitive than himself, and he grew rather frustrated.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: Despite appearing confident and articulate during the interview, once he left the room, the candidate knew full well he was out of the running. He was seething with anger.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given how [character] is feeling at this point in the video, which of the following actions is [character] most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the man is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes the man to feel the following emotion: Chancing upon a four‑leaf clover lifted the man’s spirits and eased his anxiety. He returned to the interview waiting room feeling reassured and self‑assured.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given how the man is feeling at this point in the video, which of the following actions is the man most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the man is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes the man to feel the following emotion: He did not realize he had picked up the wrong briefcase for the interview until he opened it. And when he caught sight of his messy, disheveled appearance in the mirror, he was utterly shocked.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the man knows or does not know at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why the man has the following knowledge state: Convinced he had ruined the interview, the man dropped all pretense and let his nerves fade away. He explained just how messy things had turned out for him, in spite of his elaborate preparations beforehand. He commented that perhaps that's why people need insurance, as there are always accidents.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given what the man knows or does not know, which of the following beliefs or actions is the man most likely to have or take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between The owner and The wife, Lilian at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why The owner has the following relationship with The wife, Lilian: For all their fake smiles and performative politeness, tension remained palpable, and a clear power imbalance defined the relationship between seller and buyers.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given the relationship between The owner and The wife, Lilian, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what The wife, Lilian is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes The wife, Lilian to feel the following emotion: The homeowner’s comment about her relying on her parents' financial support completely threw the wife off balance. Unable to recover, she quickly shifted her tone in an effort to ingratiate herself with the landlady.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character]'s intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why [character]'s intent in this scene is the following: Caught off guard by the unexpected questioning, the couple could already tell they were up against a stern, unyielding seller. Even so, they kept trying to salvage the conversation and mend their relationship with her.The couple fumbled to mention what they had done for the local community, hoping to calm the homeowner’s doubts.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what The wife, Lilian is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes The wife, Lilian to feel the following emotion: The wife finally took a stand, retaliating against the homeowner for all the indignities she had endured, despite her husband’s urgent pleas and efforts to keep things civil.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes The wife, Lilian's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why The wife, Lilian has the following perspective/belief: Once she had let out all her frustration, the wife could scarcely believe it when the homeowner agreed to sell them the house.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Benjamin, the writer's persona at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Benjamin, the writer's persona in this scene is Benjamin is detached and reluctant to have small talk. The Uber driver is chatty, trying to initiate conversation.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Benjamin, the writer's perspective/belief at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes why Benjamin, the writer has the following perspective/belief: He considered the hotel assistant to be slow and unable to communicate effectively.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given Benjamin, the writer's perspective/belief, which of the following beliefs or actions is Benjamin, the writer most likely to have or take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Benjamin, the writer's perspective/belief at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes why Benjamin, the writer has the following perspective/belief: Benjamin grew impatient while dealing with the hotel assistant and considered the Uber driver to be uneducated. He was arrogant and had sense of superiority.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Benjamin, the writer's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Benjamin, the writer has the following perspective/belief: Benjamin's attitude undergoes a change, from aloofness and exclusiveness to a willingness to engage in conversation.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: He was stressed and frightened.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes [character]'s perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why [character] has the following perspective/belief: The grandmother was fully aware of the boy's plan.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes The man driver's persona at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why The man driver's persona in this scene is Deep sorrow lay buried in the man's heart, and he suffered profoundly.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the young woman's intent is at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why the young woman's intent in this scene is the following: There must be something behind the woman's abnormal behavior and strange requests—some kind of conspiracy in disguise.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: The man is distracted, overwhelmed by his own emotions, and unable to think or assess the situation rationally.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the young woman is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes the young woman to feel the following emotion: Caught off guard and distracted by the woman, the man finally let slip his profound grief over losing his beloved. She comforted him with a hug, and she felt ashamed of her deception.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes girl's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why girl has the following perspective/belief: The girl feels annoyed, and did not want to respond to the boy.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given girl's perspective/belief, which of the following beliefs or actions is girl most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes boy's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why boy has the following perspective/belief: The boy has some superpower to reverse the time. He was trying to use this kind of superpower to make an impression on the girl and pick up on the girl.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between girl and boy at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why girl has the following relationship with boy: The girl is smart and the boy's intent was to straightforward and clear that it seems stupid to the girl.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between boy and girl at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why boy has the following relationship with girl: This is the turning point of the relationship between the boy and the girl.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the relationship between boy and girl, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what girl is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes girl to feel the following emotion: Shocked, oblivious.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what fat man's intent is at this point in the video?",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following best explains why fat man's intent in this scene is the following or how they achieve it: He is trying to find an excuse for ordering this much pizzas for himself.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes pizza store operator's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why pizza store operator has the following perspective/belief: He was interested in the \"Claire\" that the fat man mentioned.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given pizza store operator's perspective/belief, which of the following beliefs or actions is pizza store operator most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes pizza store operator's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why pizza store operator has the following perspective/belief: The operator was intrigued by the fact that \"Claire\" also liked the cheese crust, just like him. He was moved and touched and was eager to develop a relationship with \"Claire\".?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given pizza store operator's perspective/belief, which of the following beliefs or actions is pizza store operator most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what fox is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes fox to feel the following emotion: The fox is pretty annoyed. He is trying to let go of the chicken, although he just wanted to scare them off and discipline them.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what fox is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes fox to feel the following emotion: He is scared that his fox identity will be exposed and the chicken will be mad at him.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what wolf's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why wolf's intent in this scene is the following or how they achieve it: The wolf is trying to be nice so that the chickens would believe him. Then, he will eat them.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Peele is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Peele to feel the following emotion: Satisfied, happy and pleased.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Peele's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Peele has the following perspective/belief: He is enjoying himself, pretending the breakfast was luxurious, consisted of food from all over the world.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Key's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Key's intent in this scene is the following or how they achieve it: Key was the mastermind behind the scenes. He was the one who made his customer stay.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Troy is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Troy to feel the following emotion: Troy is feeling a bit jealous of Mark, who is taking over the spotlight of the room.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given how Troy is feeling at this point in the video, which of the following actions is Troy most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Troy has the following relationship with Mark: [correct comprehension answer]?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the relationship between Troy and Mark, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Troy's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Troy's intent in this scene is the following or how they achieve it: Troy want to show everyone that he is the better one.?",
+    "choiceCount": 7
+  },
+  {
+    "question": "Is Borat adhering or violating an unspoken rule?",
+    "choiceCount": 2
+  },
+  {
+    "question": "Explain how Borat is adhering to or violating an unspoken rule in this scene.",
+    "choiceCount": 5
+  },
+  {
+    "question": "Which of the following correctly describes Borat's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Borat has the following perspective/belief: Borat's laugh represents that he thinks what Mike has said about the women in USA very hilarious and ridiculous.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Mike is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Mike to feel the following emotion: Mike was irritated and very worried.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given how Mike is feeling at this point in the video, which of the following actions is Mike most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes [character]'s perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why [character] has the following perspective/belief: The car salesperson is completely shocked by Borat's culture, and he was speechless to Borat's rudeness and use of words, but the car salesperson is trying his best to accomplish his duty.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what old man is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes old man to feel the following emotion: Speechless and angry.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes old man's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why old man has the following perspective/belief: The old man's attitude towards the delivery man has changed.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what delivery man is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes delivery man to feel the following emotion: Worried, anxious.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Officer knows or does not know at this point in the video?",
+    "choiceCount": 7
+  },
+  {
+    "question": "Which of the following best explains why Officer has the following knowledge state: He suspects that the interviewee is lying.?",
+    "choiceCount": 7
+  },
+  {
+    "question": "Given what Officer knows or does not know, which of the following beliefs or actions is Officer most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what the man wearing the cap's intent is at this point in the video?",
+    "choiceCount": 5
+  },
+  {
+    "question": "Which of the following best explains why the man wearing the cap's intent in this scene is the following or how they achieve it: He wants to walk with the man.?",
+    "choiceCount": 5
+  },
+  {
+    "question": "Is both characters adhering or violating an unspoken rule?",
+    "choiceCount": 2
+  },
+  {
+    "question": "Explain how both characters is adhering to or violating an unspoken rule in this scene.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what the man wearing the camo shirt's intent is at this point in the video?",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following best explains why the man wearing the camo shirt's intent in this scene is the following or how they achieve it: He is trying to look out for the other man.?",
+    "choiceCount": 4
+  },
+  {
+    "question": "Which of the following correctly describes what both characters is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 5
+  },
+  {
+    "question": "Which of the following best describes what causes both characters to feel the following emotion: Scared?",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following correctly describes Ted's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Ted has the following perspective/belief: The man books a secluded seaside holiday home for a weekend getaway, only to find a woman lying on the bed  there upon his arrival. He thought the woman was dead.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Ted's intent is at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why Ted's intent in this scene is the following: He soon learned the homeowner had double-booked the property, so he tried to persuade the woman to share the holiday home with him.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between Ted and Anne at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Ted has the following relationship with Anne: The man tried to strike up a conversation, but the woman was unwilling to build any rapport.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Anne's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Anne has the following perspective/belief: The man wept over his breakup, and as he rambled on, the woman grew increasingly annoyed by his sentimentality and perceived weakness.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Ted is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes Ted to feel the following emotion: A bird crashed into the window, injured. The woman quickly ended its suffering by squeezing it in her palm, leaving the man shocked and terrified by her brutality.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes [character]'s perspective/belief at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes why [character] has the following perspective/belief: While out walking, the man ran into the woman, greeted her—and was stunned to see she was holding a gun. He sensed something terrible has happened.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Amanda is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Amanda to feel the following emotion: A late-night knock startled Amanda. Cautious, she opened the door, only to be surprised by a handsome man standing outside. She began to indulge in quiet fantasies about him.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Amanda's persona at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Amanda's persona in this scene is The Amanda tried to impress the man, acting polite and enthusiastic. She tidied herself up in front of the mirror.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between Amanda and the man at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Amanda has the following relationship with the man: They are strangers who have just met.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Lia is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes Lia to feel the following emotion: The girl tried to calm down and figure a way out after her partner stood her up.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given how Lia is feeling at this point in the video, which of the following actions is Lia most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between Lia and Remy at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Lia has the following relationship with Remy: Lia met her interview subject, Remy, for her midterm video project. The topic centered on Remy’s experiences living with an impulse control disorder, and Remy came across as friendly, confident, and grounded.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given the relationship between Lia and Remy, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Remy is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Remy to feel the following emotion: Lia interviews Remy about when she feels the urge to steal and how she experiences those emotions. Remy began to act a bit unnatural during the interview.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given how Remy is feeling at this point in the video, which of the following actions is Remy most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Remy's perspective/belief at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes why Remy has the following perspective/belief: Lia was looking for her clean card, and Remy handed it back, saying she’d picked it up after the wind blew it over. She might have stolen it.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Remy's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Remy's intent in this scene is the following: The battery ran low, so Lia left to get a backup. Remy was left alone in front of the camera, struggling to control herself. She felt an overwhelming itch to steal.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given Remy's intent, which of the following outcomes is Remy most likely to pursue next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Is Remy's action morally good, bad, or neutral?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Explain why Remy's action is morally good or bad in this scene.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Kate's persona at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Kate's persona in this scene is The young woman revealed that she struggled to make decisions, haunted by conflicting versions of herself: her inner six-year-old, her sarcastic teenage self, and her future older self. She was confused about which one was truly her.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Kate's perspective/belief at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes why Kate has the following perspective/belief: Standing before the ice cream freezer, she fought her inner six-year-old self, worrying about sugar crashes and weight gain. She finally resisted the temptation.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between [character 1] and [character 2] at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why [character 1] has the following relationship with [character 2]: The young woman struggled to go out for running to keep fit, wile her 16 former self made fun of it. Her present self hesitated.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Kate's persona at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why Kate's persona in this scene is Weight-conscious, the young woman sees herself as too fat and unattractive. Her future, wiser older self urges her to cherish her young, healthy body. Then the present self gets overconfident.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Kate's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Kate has the following perspective/belief: Eventually, Kate brings all her inner voices into line. Though not perfectly peaceful, they start to coexist and guide her toward a small but positive victory.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Joseph (Key) is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Joseph (Key) to feel the following emotion: Panic, shocked, scared, and regretful.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given how Joseph (Key) is feeling at this point in the video, which of the following actions is Joseph (Key) most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Don Mofield, Boss (Peele)'s perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Don Mofield, Boss (Peele) has the following perspective/belief: He just ignored Joseph's stories about his family trauma.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Joseph (Key)'s intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Joseph (Key)'s intent in this scene is the following or how they achieve it: Joseph clearly wants the money from his boss.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Teacher (Key)'s intent is at this point in the video?",
+    "choiceCount": 7
+  },
+  {
+    "question": "Which of the following best explains why Teacher (Key)'s intent in this scene is the following or how they achieve it: The class has started. The teacher wants the class to quiet down so he can start teaching.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Teacher (Key) is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Teacher (Key) to feel the following emotion: He is furious and irritated by Jimmy's disrespectful actions.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between the daughter and the son at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why the daughter has the following relationship with the son: The relationship between the brother and the sister was distant. The woman struggled to lift her heavy suitcase out of the taxi, while her police officer brother watched without making any move to help.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes [character]'s perspective/belief at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes why [character] has the following perspective/belief: The brother and sister clashed over their late parent’s final wish to have their ashes scattered into the town's river.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: Upon hearing her family’s remarks at the funeral, she delivered an emotional memorial speech for her father—filled with deep sentiment. Just then, her brother finally walked in.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes [character]'s perspective/belief at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes why [character] has the following perspective/belief: She was horrified by her dysfunctional family’s behavior: her stepmother and aunt fought over their father’s ashes, and her brother was knocked aside as he tried to break them up.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between [character 1] and [character 2] at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why [character 1] has the following relationship with [character 2]: Amid the family chaos, the brother and sister reconciled with each other. They resolved to honor their father’s wish, no matter what — to scatter his ashes into the river.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Is [character] adhering or violating an unspoken rule?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Explain how [character] is adhering to or violating an unspoken rule in this scene.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between Maureen and Maureen's mother at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Maureen has the following relationship with Maureen's mother: Her domineering mother insisted Maureen meet her ex, even though Maureen had ended the relationship at her behest. Maureen was reluctant to reconnect; meek and submissive, she was no match for her shrewd, calculating and controlling mother.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given the relationship between Maureen and Maureen's mother, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Maureen's mother's persona at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why Maureen's mother's persona in this scene is The mother is controlling, calculating and ruthless.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Maureen is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Maureen to feel the following emotion: When her mother opened the box and revealed a gun, urging her to take control of the situation, Maureen was so shocked she could barely breathe.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given how Maureen is feeling at this point in the video, which of the following actions is Maureen most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Maureen's intent is at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why Maureen's intent in this scene is the following: Maureen went to meet her ex to finish the task her mother had given her, even though it seemed nearly impossible. Holding the gun her mother had given her, she tried to calm down and told herself she must take control of the situation as ordered.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Maureen is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes Maureen to feel the following emotion: Maureen met her ex at a restaurant, and they reminisced about the past. It was clear they still harbored feelings for each other. Face-to-face with her former lover, Maureen felt her resolve fading, even as her mother’s orders echoed in her mind.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what [character]'s intent is at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why [character]'s intent in this scene is the following: Maureen went to the restroom and left a message for her mother, saying she would no longer obey her orders. She wished to pick up the relationship.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: Just as Maureen was lost in the moment with Marvin, ready to rekindle their romance, he pulled out a gun and aimed it at her. Maureen was stunned.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Danny's persona at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given Danny's persona in this scene, which of the following actions is Danny most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Danny's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Danny's intent in this scene is the following: When Danny delivered room service to the elderly couple, he was asked to clean the disgusting upper deck of the toilet. He was greatly annoyed. Then he had to ignore the man’s request for two bottles of water for his wife’s medication.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Danny is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes Danny to feel the following emotion: The phone rings nonstop, with requests pouring in one after another, while Danny is stuck cleaning something disgusting. He snaps in frustration but keeps trying to finish the present work.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Danny's intent is at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why Danny's intent in this scene is the following: Despite his unpleasant exchange with the hotel manager, Danny gently and with a smile guided the flustered lady out of the elevator, reassuring her that everything was all right.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Danny is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes Danny to feel the following emotion: Danny is scrambling to keep up with all his duties, which leaves him increasingly stressed and even scolded by his co-workers. his hard work is recognized by the elderly gentleman. He gave him a handsome tip and share with Danny his own life story.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes an elderly woman's persona at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why an elderly woman's persona in this scene is It’s 3:30 in the morning, and a woman sits at the table, distraught and exhausted. Suddenly a girl appears, pulling her free from her despair.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes an elderly woman's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why an elderly woman has the following perspective/belief: The young woman wept as she revealed how she’d sacrificed herself to build safe walls, and the older woman listened with quiet understanding.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes an elderly woman's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why an elderly woman has the following perspective/belief: Another young woman poured out her regrets and frustrations, convinced she could have done better. The elderly woman gently replied that we cannot exceed our own limitations. Still, we tried, we loved, we failed — that is life. And we can always rebuild.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes an elderly woman's perspective/belief at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes why an elderly woman has the following perspective/belief: A disheveled middle-aged woman appeared, questioning how to keep going and how to escape her pain. The elderly lady was deeply moved, and replied that we hurt because we refuse to give up, because we keep moving forward. She comforted the distressed, wretched woman, telling her that she saw her — and she saw her suffering.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes an elderly woman's perspective/belief at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes why an elderly woman has the following perspective/belief: The elderly woman sits with versions of herself across the ages: the little girl, the tender teenager, the angry young adult, the wretched middle-aged woman, and her present self. Her older, wiser self reassures her that she is enough, and urges her to let go, to accept herself, and to stop fighting against her own life.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Blonde woman is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Blonde woman to feel the following emotion: She felt disrespected and neglected.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Man in white shirt's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Man in white shirt has the following perspective/belief: Anxious, want to leave, and did not care about what the woman is talking about.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what white couple is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes white couple to feel the following emotion: Upset, disrespected and sad.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Blonde woman is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Blonde woman to feel the following emotion: She felt the coldness both physically and psychologically.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Peele's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Peele has the following perspective/belief: He is not at all impressed.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Peele's intent is at this point in the video?",
+    "choiceCount": 7
+  },
+  {
+    "question": "Which of the following best explains why Peele's intent in this scene is the following or how they achieve it: He is trying to show off his skills.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what the man's intent is at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why the man's intent in this scene is the following: A man hesitates over whether to answer the phone, which rings persistently while he is at his desk in a busy, crowded office.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given the man's intent, which of the following outcomes is the man most likely to pursue next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the man is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 7
+  },
+  {
+    "question": "Which of the following best describes what causes the man to feel the following emotion: He was much annoyed by the persistent follow-up call of his purchase by the selling company.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given how the man is feeling at this point in the video, which of the following actions is the man most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: The assistant on the phone pressures the man to give a star rating to show his satisfaction with the item he bought, and goes ahead and transfers him to the seller even as he protests. The talk on the phone annoyed his office colleague. He ended the call and put the pone into his drawer.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: The man firmly refuses to click a star rating or leave a review. Yet the seller desperately pleads with him, leaving the man stunned once again. He has no idea that his review means life or death to the seller — a complete stranger.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the man is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes the man to feel the following emotion: All his colleagues stared, wondering what was going on as they heard the pleading cries from the phone. Driven nearly mad by the seller’s desperate pleas, the man scrolled through his orders and tapped five stars for the paperweight. Finally, peace was restored.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given how the man is feeling at this point in the video, which of the following actions is the man most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the man is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes the man to feel the following emotion: The glass paperweight crashes to the floor. The tiny figure trapped inside comes to life, as if protesting its unfair fate. The man is utterly stunned, unable to distinguish reality from illusion. Just then, his female colleague stamps on the broken shards and screams in terror.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes man in red's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why man in red has the following perspective/belief: Confused, and did not understand.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given man in red's perspective/belief, which of the following beliefs or actions is man in red most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: Surprised and happy.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes wife's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why wife has the following perspective/belief: Angry and disappointed.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given wife's perspective/belief, which of the following beliefs or actions is wife most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Explain how Cici is adhering to or violating an unspoken rule in this scene.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the norm violation or conformity observed from Cici, which of the following consequences is most likely to follow?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Cici is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Cici to feel the following emotion: She is a bit unsure, nervous and uncertain.?",
+    "choiceCount": 7
+  },
+  {
+    "question": "Given how Cici is feeling at this point in the video, which of the following actions is Cici most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Cici is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Cici to feel the following emotion: She felt marginalized, and upsetting.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between Cici and other family members at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Cici has the following relationship with other family members: On both sides, they thought they are being normal.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains what [character] is trying to communicate in this scene?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes why [character] he communicates in the following way: Kat and Jay wait anxiously at a café for a crucial meeting. They brace themselves for a tense talk with their tough‑negotiating nine‑year‑old daughter Deb, who lays out her terms for accepting a new sibling over breakfast.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the young daughter's persona at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why the young daughter's persona in this scene is The daughter is determined and  refused to concede on any of her terms, even as her parents negotiated. She insisted on accounting for all the material and emotional costs a new sibling would bring, despite their reassurances about the benefits.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the young daughter is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes the young daughter to feel the following emotion: The negotiation stalls, so the young girl proposed another day.  Though she threatens to leaving home if her demands aren’t met, her tough demeanor falters the moment she admits she’s afraid of receiving less love from her parents.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given how the young daughter is feeling at this point in the video, which of the following actions is the young daughter most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between the mother and the young daughter at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why the mother has the following relationship with the young daughter: The tension between the daughter and her parents softened as they recalled sweet memories.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given the relationship between the mother and the young daughter, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the woman's intent is at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why the woman's intent in this scene is the following: The woman drove the man away, betrayed and hurt by his lies and infidelity.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the cleaner's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why the cleaner's intent in this scene is the following: The cleaner witnessed the lovers’ fight. As the woman pressed the man to admit he’d betrayed her, the cleaner winked at him, silently urging him not to comply.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the woman's intent is at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why the woman's intent in this scene is the following: The woman finally managed to get her lover to confess his infidelity.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the father's intent is at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why the father's intent in this scene is the following: The father lied to force his son to visit them at Christmas.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what the daughter knows or does not know at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why the daughter has the following knowledge state: The daughter called her father and was told about the divorce. She panicked and begged him not to do anything until she returned home. The father wore a crafty, knowing expression.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given what the daughter knows or does not know, which of the following beliefs or actions is the daughter most likely to have or take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the father is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes the father to feel the following emotion: The father shared the good news of their children coming home with his wife, feeling quite conceited about how well his trick had worked.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given how the father is feeling at this point in the video, which of the following actions is the father most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Gabe's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Gabe has the following perspective/belief: Gabe is reluctant to interactive with Terry as usual.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Terry's intent in this scene is the following or how they achieve it: [correct comprehension answer]?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given Terry's intent, which of the following outcomes is Terry most likely to pursue next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Terry's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Terry's intent in this scene is the following or how they achieve it: This time he is trying to be serious.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes boy's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why boy has the following perspective/belief: He is very curious.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given boy's perspective/belief, which of the following beliefs or actions is boy most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between boy and dog at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why boy has the following relationship with dog: Their relationship became better, and start becoming friends.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what boy's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why boy's intent in this scene is the following or how they achieve it: The boy is stealing medicine for his seriously ill father.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what MacCarthy's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why MacCarthy's intent in this scene is the following or how they achieve it: The man has no family.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes MacCarthy's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why MacCarthy has the following perspective/belief: He doesn't believe in the fancy party the other man described.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what MacCarthy is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes MacCarthy to feel the following emotion: He was sad and angry.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains what Mama is trying to communicate in this scene?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes why Mama he communicates in the following way: Two guys are selling off-brand laundry detergent on local social media,  while hatching new harebrained money-making schemes. But one morning, one of their customers, a mother, returns to demand a refund.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Mama's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Mama's intent in this scene is the following: They got into a heated quarrel. The mother accused the detergent of staining her son’s favorite shirt and insisted on compensation for emotional distress, while the two men mocked her for being naive and snapped back at her.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given Mama's intent, which of the following outcomes is Mama most likely to pursue next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Mama's intent is at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why Mama's intent in this scene is the following: The mother launched into a long speech about all the effort she’d put into choosing that special shirt for her son, leaving the two guys bewildered by her eloquence.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes [character]'s persona at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why [character]'s persona in this scene is The mother’s torrent of anger and eloquence won them over. The two guys called her back and gave her two bottles of juice as a gesture, claiming it was for marketing research.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what a man is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes a man to feel the following emotion: A man and his girlfriend Anna are on their way to a funeral. But as he gets ready to leave, Anna casually mentions the word “bald,” which immediately upsets him. Even though she tries to reassure him, saying she thinks baldness is “cute,” he is obsessed with his hair.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes Anna's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Anna has the following perspective/belief: The girlfriend was left speechless by his over-the-top anxiety about his hair, so she went ahead and gave him a straightforward definition of baldness. She even used dogs as an example to illustrate her point — which only enraged him all over again, prompting him to argue with her defensively.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between [character 1] and [character 2] at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why [character 1] has the following relationship with [character 2]: To ease the tension, the woman reassured him that she loved him, and that everyone loved him just the same whether he was bald or not. The man appeared to be pacified.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: The argument spirals the man into insecurity, derailing their plans as the man frantically canvasses people on the street about his hair status, intent to prove once and for all that he's not bald.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between [character 1] and [character 2] at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why [character 1] has the following relationship with [character 2]: His frantic obsession with baldness exasperated and finally terrified his girlfriend, so she broke up with him — leaving him stunned and bewildered, with a dog standing before him.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character] knows or does not know at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why [character] has the following knowledge state: Two smitten best friends hatch a bold, romantic plan: they whisk their girlfriends away to a stylish beachfront villa, intending to stage a joint double proposal — complete with skywriting. Meanwhile, their girlfriends on the beach are arguing over when to dump them.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given what [character] knows or does not know, which of the following beliefs or actions is [character] most likely to have or take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character] knows or does not know at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why [character] has the following knowledge state: The two young men pick out wine and daydream about their perfect proposal, while the girls discuss wearing casual clothes to make dumping them less awkward. One of the guys overhears part of their conversation, then tells his friend Mike that the girls are going to propose instead — leaving Mike utterly confused.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character] knows or does not know at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why [character] has the following knowledge state: Mike could barely believe his girlfriend might propose—he’d always been labeled “boring.” The guys buzzed with excitement, but one girl misheard their conversation, thinking they planned to dump her and her friend. The girls were initially upset, but soon felt relieved—they’d be off the hook without guilt.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: Both sides are on edge, anxious about what will unfold next. The wine-fueled conversation feels tedious and grating—especially since things haven’t gone as either side expected.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: The moment arrived, and the girls finally revealed they wanted a breakup—leaving the two guys frozen on the spot.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes [character]'s perspective/belief at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes why [character] has the following perspective/belief: The banner reading “Marry us” soared across the sky. Two men sat on the beach, while the girls stood on the balcony of the beach house.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains what Alex is trying to communicate in this scene?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes why Alex he communicates in the following way: Bruno is making stuffed mushrooms for dinner when his best friend Alex calls. After some amiable chit-chat, Alex said a house has collapsed on him, and he's going to die soon. So he asks Bruno to make his short film idea—since he won't be around much longer.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given Alex's communicative intent, what type of reaction is Alex most likely to elicit from others?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Alex knows or does not know at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why Alex has the following knowledge state: Alex described his film idea with Bruno. The idea centers on a post-breakup man: happy relationship flashbacks, sad montages (shower crying included), then a bat appears in his room. His orderly life is destroyed — he's tidy; the bat is not.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between [character 1] and [character 2] at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why [character 1] has the following relationship with [character 2]: One day, as the heartbroken man wallows in his breakup, the bat's wings comfort him. From then on, the man and the bat develop an intimate, harmonious relationship, and his life brightens again.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: The man's peaceful life with the bat shatters when his girlfriend returns. She bonds with the bat over everything, leaving him alone and lonely again.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: Seeing his girlfriend's deep daily involvement with the bat, the man desperately needs the bat's support. But when they both leave, he's alone. He punches the wall in agony; the house collapses, plunging him into darkness.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between [character 1] and [character 2] at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why [character 1] has the following relationship with [character 2]: Before dying, the man realizes his emotional needs are met by his friends and decides to make a call. After Alex finishes his film idea, he and Bruno recognize the moments they've shared together.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why Man's intent in this scene is the following or how they achieve it: [correct comprehension answer]?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given Man's intent, which of the following outcomes is Man most likely to pursue next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Is Man adhering or violating an unspoken rule?",
+    "choiceCount": 7
+  },
+  {
+    "question": "Explain how Man is adhering to or violating an unspoken rule in this scene.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Man's intent in this scene is the following or how they achieve it: [correct comprehension answer]?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given Man's intent, which of the following outcomes is Man most likely to pursue next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Is [character] adhering or violating an unspoken rule?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Explain how [character] is adhering to or violating an unspoken rule in this scene.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the norm violation or conformity observed from [character], which of the following consequences is most likely to follow?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Olive's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Olive has the following perspective/belief: Affected by the slug-like aliens, Olive’s friends decide to move to India to live the life they truly want. Olivia envies their courage to seize a second chance at life, but her husband bluntly dismisses any thought of change.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: Olivia stood cooking at home, irritable — for unlike everyone else, she had remained untouched by the slug-like aliens. When the radio broadcast declared that the aliens’ influence on humanity had ended, she was disheartened and furious.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Emily's persona at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Emily's persona in this scene is Emily, a real estate assistant, is assigned to photograph a newly listed property for her agency. With the regular photographer unable to make it, she has to inspect the house, tidy it, and stage it for the listing. As she works, she keeps her irreverent brother Lou on speakerphone. She is relaxing and very professional at her job.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given Emily's persona in this scene, which of the following actions is Emily most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Emily's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Emily has the following perspective/belief: Emily tidied and cleaned the cluttered rooms, and when she came across a family photo, she took them for a pleasant, ordinary household. She set to work photographing the interior and exterior of the home. All the while, Lou pestered her for the house address and bombarded her with creepy, paranoid speculations about the family who lived there.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Emily is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Emily to feel the following emotion: While cleaning and tidying the house, Emily keeps chatting with Lou on speakerphone. He sends her a link revealing the family died in a plane crash.  Emily reads the daughter’s journal and finds conflicting dates between the entries and the crash. Growing suspicious, she feels a surge of fear.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given how Emily is feeling at this point in the video, which of the following actions is Emily most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Emily is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes Emily to feel the following emotion: Hearing footsteps on the stairs, Emily panicked and hid inside a wardrobe. She was overcome with terror when a masked man opened the door of the wardrobe.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the woman in black's persona at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why the woman in black's persona in this scene is The woman in black urged her friend to call the supermarket — they’d delivered the wrong hummus — even though her friend was reluctant to do so.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given the woman in black's persona in this scene, which of the following actions is the woman in black most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the woman in black is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes the woman in black to feel the following emotion: The woman in black stood watching her friend as she phoned customer service. She was stunned when what was meant to be a refund request quickly turned into her friend apologizing instead.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given how the woman in black is feeling at this point in the video, which of the following actions is the woman in black most likely to take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between the woman in black and the woman in white at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why the woman in black has the following relationship with the woman in white: The friendship shattered. The woman in white said she could accept the beans and could no longer endure her friend's  relentless insistence.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Is [character] adhering or violating an unspoken rule?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Explain how [character] is adhering to or violating an unspoken rule in this scene.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given the norm violation or conformity observed from [character], which of the following consequences is most likely to follow?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what the woman in black is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes the woman in black to feel the following emotion: At the bus stop, her luggage blocked the path. A passenger apologized to her as he moved her suitcase aside.At the sound of “sorry,” the woman felt utterly helpless, hopeless, and exasperated.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Woman's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Woman's intent in this scene is the following or how they achieve it: She is trying to be nice to strangers and to invite the man to sit down.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Woman's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Woman has the following perspective/belief: She is trying to cheer the man up because his mother just passed away.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Man (kidnaped) is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Man (kidnaped) to feel the following emotion: Helpless, scared.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Man's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Man's intent in this scene is the following or how they achieve it: The kidnapper thought the man he kidnapped is slacking off and uncooperative in digging the ground.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Man (kidnaped)'s perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Man (kidnaped) has the following perspective/belief: He thinks the man kidnapping him is not at all professional and smart.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Man has the following relationship with Man (kidnaped): [correct comprehension answer]?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the relationship between Man and Man (kidnaped), which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Olivia's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Olivia has the following perspective/belief: Olivia woke to find a stranger in her flat. Her flatmates told her the stranger had lived there just as long as she had, leaving her utterly baffled.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given Olivia's perspective/belief, which of the following beliefs or actions is Olivia most likely to have or take next?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Olivia is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best describes what causes Olivia to feel the following emotion: Olivia's roommates sided with Debbie, making her feel isolated. Confused, she left the living room.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Olivia knows or does not know at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why Olivia has the following knowledge state: Olivia went back to her room, only to find it covered in photos of the strange girl. She couldn’t stop wondering what was going on. Her flatmates treated her like a stranger, claiming they had never met her — while the girl Debbie, they said, was their actual roommate.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between Olivia and Debbie at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following best explains why Olivia has the following relationship with Debbie: It turned out the girl was someone Olivia had killed in a drunk-driving accident. Now she’d come back to reclaim the life that was rightfully hers.?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Given the relationship between Olivia and Debbie, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes [character]'s persona at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why [character]'s persona in this scene is Talkative?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: Powerless and lonely.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between [character 1] and [character 2] at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why [character 1] has the following relationship with [character 2]: As it turns out, the talkative woman is learning to drive again, and her patient listener is none other than her driving instructor.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the old brother's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why the old brother has the following perspective/belief: As the younger brother boasts about his \"very beautiful\" and \"hot\" The older brother doubted about the existence of such a girlfriend.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the old brother's perspective/belief, which of the following beliefs or actions is the old brother most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what the younger brother's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why the younger brother's intent in this scene is the following or how they achieve it: He is trying to force his family to grant him the respect.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the younger brother's intent, which of the following outcomes is the younger brother most likely to pursue next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between the younger brother and Jennifer at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why the younger brother has the following relationship with Jennifer: It turned out that the girlfriend is rented.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the relationship between the younger brother and Jennifer, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the mother's persona at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why the mother's persona in this scene is At her son's wedding, the capable but anxious mother wears a calm mask that often breaks—beneath it, she feels fragile, fearing she'll be forgotten or left behind.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the mother's persona in this scene, which of the following actions is the mother most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the mother's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why the mother has the following perspective/belief: Overhearing her son and his bride arguing and then making up, the mother felt relieved, knowing the young couple had found their own way to work things out.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the mother's perspective/belief, which of the following beliefs or actions is the mother most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Moira's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Moira's intent in this scene is the following or how they achieve it: Moira’s intent is to correctly categorize and value a mysterious donated object.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given Moira's intent, which of the following outcomes is Moira most likely to pursue next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: feel reliefed?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given how [character] is feeling at this point in the video, which of the following actions is [character] most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Woman is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Woman to feel the following emotion: Impatient, urgent.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given how Woman is feeling at this point in the video, which of the following actions is Woman most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Man's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Man's intent in this scene is the following or how they achieve it: The man wants to sit.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Nancy is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Nancy to feel the following emotion: Nervous, unsure.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains what Hairdresser is trying to communicate in this scene?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes why Hairdresser he communicates in the following way: The hairdresser is trying to know more of Nancy.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Man's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Man has the following perspective/belief: The man knows exactly what will happen and he is very confident of his knowledge about the future.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Woman is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Woman to feel the following emotion: Shocked and confused.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Man knows or does not know at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Man has the following knowledge state: The man knows that he is trapped in a time loop.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Woman's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Woman's intent in this scene is the following or how they achieve it: The woman is trying to persuade the man that the loop is a test and it is not a right way for the man to end the loop by dying.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes Man's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Man has the following perspective/belief: The man understood the woman's words of \"be brave\" in a very superficial and straightforward way.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what dad's intent is at this point in the video?",
+    "choiceCount": 5
+  },
+  {
+    "question": "Which of the following best explains why dad's intent in this scene is the following or how they achieve it: Dad wants to intimidate and threaten young man?",
+    "choiceCount": 5
+  },
+  {
+    "question": "Given dad's intent, which of the following outcomes is dad most likely to pursue next?",
+    "choiceCount": 5
+  },
+  {
+    "question": "Which of the following correctly describes boyfriend's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why boyfriend has the following perspective/belief: Boyfriend thinks he did what's right for the daughter?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given boyfriend's perspective/belief, which of the following beliefs or actions is boyfriend most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between boyfriend and dad at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why boyfriend has the following relationship with dad: friendly?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the relationship between boyfriend and dad, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the Dad's perspective/belief at this point in the video?",
+    "choiceCount": 4
+  },
+  {
+    "question": "Which of the following best describes why the Dad has the following perspective/belief: He believes the someone he doesn't know is at the door?",
+    "choiceCount": 4
+  },
+  {
+    "question": "Given the Dad's perspective/belief, which of the following beliefs or actions is the Dad most likely to have or take next?",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following correctly describes the Dad's perspective/belief at this point in the video?",
+    "choiceCount": 4
+  },
+  {
+    "question": "Which of the following best describes why the Dad has the following perspective/belief: He believes the person arriving is Brooke?",
+    "choiceCount": 6
+  },
+  {
+    "question": "Given the Dad's perspective/belief, which of the following beliefs or actions is the Dad most likely to have or take next?",
+    "choiceCount": 4
+  },
+  {
+    "question": "Which of the following correctly describes what Christian knows or does not know at this point in the video?",
+    "choiceCount": 1
+  },
+  {
+    "question": "Which of the following correctly describes what Mr. Beast knows or does not know at this point in the video?",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following best explains why Mr. Beast has the following knowledge state: Vik is Eliminated.?",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following correctly describes what Chunkz is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Chunkz to feel the following emotion: Shock?",
+    "choiceCount": 7
+  },
+  {
+    "question": "Which of the following correctly describes what Lazar knows or does not know at this point in the video?",
+    "choiceCount": 7
+  },
+  {
+    "question": "Which of the following best explains why Lazar has the following knowledge state: The plane landed in London.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Mr. Beast knows or does not know at this point in the video?",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following best explains why Mr. Beast has the following knowledge state: Callux is eliminated.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Mr. Beast knows or does not know at this point in the video?",
+    "choiceCount": 4
+  },
+  {
+    "question": "Which of the following best explains why Mr. Beast has the following knowledge state: George is eliminated.?",
+    "choiceCount": 2
+  },
+  {
+    "question": "Given what Mr. Beast knows or does not know, which of the following beliefs or actions is Mr. Beast most likely to have or take next?",
+    "choiceCount": 2
+  },
+  {
+    "question": "Which of the following correctly describes what the man's intent is at this point in the video?",
+    "choiceCount": 7
+  },
+  {
+    "question": "Which of the following best explains why the man's intent in this scene is the following or how they achieve it: He is trying to avoid making the promise?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what the man's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between Man in black t-shirt and Man in Suit at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why Man in black t-shirt has the following relationship with Man in Suit: {truth}?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given the relationship between Man in black t-shirt and Man in Suit, which of the following interactions is most likely to occur next between them?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes [character]'s perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why [character] has the following perspective/belief: Disagree with Jennifer's explanation.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: Resentful?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why Trump has the following perspective/belief: [correct comprehension answer]?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given Trump's perspective/belief, which of the following beliefs or actions is Trump most likely to have or take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Gordon is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Gordon to feel the following emotion: Irritated.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Gordon is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Gordon to feel the following emotion: Mad and furious?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Given how Gordon is feeling at this point in the video, which of the following actions is Gordon most likely to take next?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Gordon is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes Gordon to feel the following emotion: Angry?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Scott Sterling is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following best describes what causes Scott Sterling to feel the following emotion: Helpless.?",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: The team waited anxiously for the ball to drop, nervous about catching it.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: The yellow team felt surprised and elated.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what [character] is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes [character] to feel the following emotion: Sad, disappointed.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the man's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes why the man has the following perspective/belief: He thinks the woman is coming off too strong?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the relationship between the man and the girl at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why the man has the following relationship with the girl: There is tension and disagreement between them.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what the daughter's intent is at this point in the video?",
+    "choiceCount": 7
+  },
+  {
+    "question": "Which of the following best explains why the daughter's intent in this scene is the following or how they achieve it: see if her boyfriend would date her mum?",
+    "choiceCount": 6
+  },
+  {
+    "question": "Given the daughter's intent, which of the following outcomes is the daughter most likely to pursue next?",
+    "choiceCount": 4
+  },
+  {
+    "question": "Which of the following correctly describes what the woman knows or does not know at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the woman's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what [character] knows or does not know at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why [character] has the following knowledge state: Both teams were required to eliminate some members, yet they had no idea how to do it.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains what [character] is trying to communicate in this scene?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes why [character] he communicates in the following way: He is trying to persuade his teammates to leave the team for the team's sake.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what [character]'s intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why [character]'s intent in this scene is the following or how they achieve it: The woman decided to sacrifice herself.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what [character] knows or does not know at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best explains why [character] has the following knowledge state: Both team agreed not to eliminate any member, however, the white team actually eliminate one already.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Is [character] adhering or violating an unspoken rule?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Explain why [character] is adhering to or violating an unspoken rule in this scene.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the guy in the flannel shirt's perspective/belief at this point in the video?",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following best describes why the guy in the flannel shirt has the following perspective/belief: He believes that the man in the suit  is pretending to not understand the joke.?",
+    "choiceCount": 4
+  },
+  {
+    "question": "Given the guy in the flannel shirt's perspective/belief, which of the following beliefs or actions is the guy in the flannel shirt most likely to have or take next?",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following correctly describes what the guy in the flannel shirt knows or does not know at this point in the video?",
+    "choiceCount": 4
+  },
+  {
+    "question": "Which of the following best explains why the guy in the flannel shirt has the following knowledge state: He realized the man in the suit  didn't understand the joke?",
+    "choiceCount": 4
+  },
+  {
+    "question": "Given what the guy in the flannel shirt knows or does not know, which of the following beliefs or actions is the guy in the flannel shirt most likely to have or take next?",
+    "choiceCount": 5
+  },
+  {
+    "question": "Is Carter adhering or violating a cultural convention? If so, which cultural convention?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Is Wilson's action morally good, bad, or neutral? Explain what type of moral judgement it represents.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Is Charlie Sanders's action morally good, bad, or neutral? Explain what type of moral judgement it represents.",
+    "choiceCount": 3
+  },
+  {
+    "question": "Explain how Charlie Sanders's action is morally good or bad in this scene.",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following correctly describes what the friends knows or does not know at this point in the video?",
+    "choiceCount": 4
+  },
+  {
+    "question": "Which of the following best explains why the friends has the following knowledge state: Their friend is innocent.?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what the man's intent is at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes the man's perspective/belief at this point in the video?",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following correctly describes what Gordon Ramsay is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following best describes what causes Gordon Ramsay to feel the following emotion: Gordon Ramsay is impressed.?",
+    "choiceCount": 4
+  },
+  {
+    "question": "Given how Gordon Ramsay is feeling at this point in the video, which of the following actions is Gordon Ramsay most likely to take next?",
+    "choiceCount": 4
+  },
+  {
+    "question": "Which of the following correctly describes what Earl Peele's intent is at this point in the video?",
+    "choiceCount": 4
+  },
+  {
+    "question": "Which of the following best explains why Earl Peele's intent in this scene is the following or how they achieve it: to make Jordan Peele think that he is his dad?",
+    "choiceCount": 5
+  },
+  {
+    "question": "Which of the following correctly describes what the man is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 8
+  },
+  {
+    "question": "Which of the following best describes what causes the man to feel the following emotion: Apprehensive?",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following correctly describes what Matt is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 6
+  },
+  {
+    "question": "Which of the following best describes what causes Matt to feel the following emotion: Shocked?",
+    "choiceCount": 7
+  },
+  {
+    "question": "Which of the following correctly describes what Matt is feeling at this point in the video? If there are multiple emotions, identify the most significant one.",
+    "choiceCount": 7
+  },
+  {
+    "question": "Which of the following best describes what causes Matt to feel the following emotion: Frustrated?",
+    "choiceCount": 5
+  }
+]
