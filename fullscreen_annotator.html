@@ -766,6 +766,7 @@
         align-items: flex-start;
         justify-content: space-between;
         gap: 8px;
+        min-width: 0;
       }
 
       .note-analysis-header .note-field-label {
@@ -778,6 +779,7 @@
         gap: 6px;
         flex-wrap: wrap;
         justify-content: flex-end;
+        min-width: 0;
       }
 
       .note-static-line {
@@ -827,7 +829,9 @@
       }
 
       .gemini-answer-chip {
-        max-width: min(280px, 100%);
+        flex: 1 1 180px;
+        min-width: 0;
+        max-width: 100%;
         border: 1px solid rgba(255, 227, 148, 0.56);
         border-radius: 999px;
         background: rgba(255, 209, 102, 0.14);
@@ -836,9 +840,8 @@
         font-size: 11px;
         line-height: 1.25;
         font-weight: 700;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        overflow-wrap: anywhere;
+        white-space: normal;
       }
 
       .gemini-answer-chip.correct {
@@ -848,6 +851,24 @@
       }
 
       .gemini-answer-chip.wrong {
+        border-color: rgba(255, 164, 164, 0.66);
+        background: rgba(121, 34, 34, 0.28);
+        color: #ffd6d6;
+      }
+
+      .human-review-answer-chip {
+        border-color: rgba(154, 206, 255, 0.62);
+        background: rgba(50, 98, 154, 0.24);
+        color: #d8ecff;
+      }
+
+      .human-review-answer-chip.correct {
+        border-color: rgba(132, 220, 158, 0.64);
+        background: rgba(34, 114, 67, 0.26);
+        color: #c6f7d1;
+      }
+
+      .human-review-answer-chip.wrong {
         border-color: rgba(255, 164, 164, 0.66);
         background: rgba(121, 34, 34, 0.28);
         color: #ffd6d6;
@@ -1382,11 +1403,11 @@
       .analytics-distribution-panel {
         position: absolute;
         left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        top: 72px;
+        transform: translateX(-50%);
         z-index: 40;
         width: min(680px, calc(100vw - 32px));
-        max-height: min(62vh, 640px);
+        max-height: calc(100vh - 160px);
         border-radius: 16px;
         border: 1px solid rgba(218, 224, 232, 0.48);
         background: rgba(14, 18, 26, 0.94);
@@ -1398,6 +1419,8 @@
       }
 
       .analytics-distribution-panel {
+        top: 50%;
+        transform: translate(-50%, -50%);
         z-index: 44;
         width: min(620px, calc(100vw - 32px));
         max-height: min(72vh, 680px);
@@ -2108,6 +2131,68 @@
         opacity: 0.42;
       }
 
+      .shared-author-picker-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 80;
+        display: grid;
+        place-items: center;
+        padding: 18px;
+        background: rgba(6, 12, 20, 0.62);
+      }
+
+      .shared-author-picker-panel {
+        width: min(360px, calc(100vw - 36px));
+        border-radius: 12px;
+        border: 1px solid rgba(214, 229, 243, 0.28);
+        background: rgba(20, 29, 40, 0.98);
+        box-shadow: 0 18px 46px rgba(0, 0, 0, 0.38);
+        padding: 14px;
+        display: grid;
+        gap: 10px;
+        color: #f6fbff;
+      }
+
+      .shared-author-picker-panel label {
+        display: grid;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 700;
+        color: rgba(235, 244, 252, 0.88);
+      }
+
+      .shared-author-picker-panel select {
+        min-width: 0;
+        width: 100%;
+        border: 1px solid rgba(214, 229, 243, 0.34);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.95);
+        color: #17202b;
+        padding: 8px 10px;
+        font-size: 13px;
+      }
+
+      .shared-author-picker-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+
+      .shared-author-picker-actions button {
+        border: 1px solid rgba(214, 229, 243, 0.4);
+        background: rgba(255, 255, 255, 0.1);
+        color: #f6fbff;
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 12px;
+        cursor: pointer;
+      }
+
+      .shared-author-picker-actions button.primary {
+        border-color: rgba(119, 213, 154, 0.58);
+        background: rgba(42, 128, 77, 0.46);
+      }
+
       .shared-entry-meta {
         font-size: 12px;
         color: rgba(221, 230, 240, 0.82);
@@ -2357,6 +2442,7 @@
             <button type="button" id="shared-refresh">Refresh</button>
             <button type="button" id="shared-gemini-filter" title="Show videos with Gemini responses that still need human verification">Pending</button>
             <button type="button" id="shared-verified-filter" title="Show videos with both Gemini responses and saved human review scores">Verified</button>
+            <button type="button" id="shared-remove-user" title="Admin only: remove an existing user account" hidden>Remove User</button>
             <button class="primary" type="button" id="shared-publish">Publish Current</button>
             <button type="button" id="shared-close">Close</button>
           </div>
@@ -3014,6 +3100,7 @@
       const sharedStatus = document.getElementById("shared-status");
       const sharedList = document.getElementById("shared-list");
       const sharedVerifiedFilterButton = document.getElementById("shared-verified-filter");
+      const sharedRemoveUserButton = document.getElementById("shared-remove-user");
 
       let objectVideoUrl = null;
       let videoFilePath = "";
@@ -3054,6 +3141,7 @@
         perceptionChoices: toEditablePerceptionChoices([]),
         perceptionEditable: true,
         humanQuizScore: null,
+        latestHumanReview: null,
       };
       const sharedVideoIndex = new Map();
       const sharedEntryMetaIndex = new Map();
@@ -3329,6 +3417,71 @@
         };
       }
 
+      function normalizeSharedHumanReview(rawValue) {
+        if (!rawValue || typeof rawValue !== "object" || Array.isArray(rawValue)) {
+          return null;
+        }
+        const nestedScore = rawValue.score && typeof rawValue.score === "object" && !Array.isArray(rawValue.score)
+          ? rawValue.score
+          : null;
+        const nestedReview = rawValue.review && typeof rawValue.review === "object" && !Array.isArray(rawValue.review)
+          ? rawValue.review
+          : null;
+        const scorePayload = nestedScore
+          || rawValue.humanReviewScore
+          || rawValue.humanQuizScore
+          || nestedReview
+          || rawValue;
+        const normalizedScore = normalizeHumanQuizScore(scorePayload);
+        if (!normalizedScore) {
+          return null;
+        }
+        const reviewer = String(rawValue.reviewer || normalizedScore.reviewer || normalizedScore.annotator || "").trim();
+        const updatedAt = String(rawValue.updatedAt || normalizedScore.completedAt || normalizedScore.takenAt || "").trim();
+        return {
+          ...normalizedScore,
+          id: Number.isInteger(rawValue.id) ? rawValue.id : null,
+          videoRef: Number.isInteger(rawValue.videoRef) ? rawValue.videoRef : null,
+          reviewer: reviewer,
+          annotator: reviewer || String(normalizedScore.annotator || "").trim(),
+          createdAt: String(rawValue.createdAt || "").trim(),
+          updatedAt: updatedAt,
+        };
+      }
+
+      function getHumanReviewTimestampValue(review) {
+        const timestamp = String(
+          review && (review.updatedAt || review.completedAt || review.takenAt || review.createdAt) || ""
+        ).trim();
+        const parsed = timestamp ? new Date(timestamp).getTime() : 0;
+        return Number.isFinite(parsed) ? parsed : 0;
+      }
+
+      function getLatestHumanReviewFromList(rawReviews) {
+        const reviews = (Array.isArray(rawReviews) ? rawReviews : [])
+          .map((review) => normalizeSharedHumanReview(review))
+          .filter(Boolean);
+        if (!reviews.length) {
+          return null;
+        }
+        reviews.sort((left, right) => {
+          return getHumanReviewTimestampValue(right) - getHumanReviewTimestampValue(left);
+        });
+        return reviews[0];
+      }
+
+      function getLatestHumanReviewFromVideo(videoItem) {
+        if (!videoItem || typeof videoItem !== "object") {
+          return null;
+        }
+        const review = normalizeSharedHumanReview(videoItem.latestHumanReview || null);
+        if (review) {
+          return review;
+        }
+        const reviews = Array.isArray(videoItem.humanReviews) ? videoItem.humanReviews : [];
+        return getLatestHumanReviewFromList(reviews);
+      }
+
       function buildHumanQuizScoreFromEntries(entries, startedAt = "") {
         const quizEntries = Array.isArray(entries) ? entries : [];
         const total = quizEntries.length;
@@ -3350,14 +3503,28 @@
           score: total ? correct / total : 0,
           answeredScore: answered ? correct / answered : 0,
           questions: quizEntries.map((entry) => {
+            const selectedLabel = normalizeTakeQuizOptionLabel(entry && entry.selectedLabel);
+            const selectedOption = Array.isArray(entry && entry.options)
+              ? entry.options.find((option) => normalizeTakeQuizOptionLabel(option && option.label) === selectedLabel)
+              : null;
             return {
               id: String(entry && entry.id || ""),
               noteId: Number.isInteger(entry && entry.noteId) ? entry.noteId : null,
+              sourceEntryId: Number.isInteger(entry && entry.sourceEntryId) ? entry.sourceEntryId : null,
+              ownerAnnotator: String(entry && entry.ownerAnnotator || "").trim(),
               taskField: String(entry && entry.taskField || "").trim(),
               taskLabel: String(entry && entry.taskLabel || "").trim(),
               timeSec: Number(entry && entry.timeSec || 0),
+              clipEndSec: normalizeGeminiClipEndSec(entry && entry.clipEndSec),
               question: String(entry && entry.question || "").trim(),
-              selectedLabel: String(entry && entry.selectedLabel || "").trim(),
+              selectedLabel: selectedLabel,
+              selectedChoice: String(
+                entry && entry.selectedChoice
+                || selectedOption && selectedOption.text
+                || ""
+              ).trim(),
+              correctChoice: String(entry && entry.correctChoice || "").trim(),
+              choiceSignature: String(entry && entry.choiceSignature || "").trim(),
               answered: Boolean(entry && entry.answered),
               skipped: Boolean(entry && entry.skipped),
               correct: Boolean(entry && entry.answered && entry.correct),
@@ -3619,6 +3786,78 @@
         return response;
       }
 
+      function isHumanReviewQuestionCurrent(note, item, reviewQuestion) {
+        if (!note || !item || !reviewQuestion) {
+          return false;
+        }
+        const taskField = String(reviewQuestion.taskField || "").trim();
+        if (taskField && taskField !== String(item.field || "")) {
+          return false;
+        }
+        const storedSourceEntryId = Number(reviewQuestion.sourceEntryId);
+        if (
+          Number.isInteger(storedSourceEntryId)
+          && Number.isInteger(note.sourceEntryId)
+          && storedSourceEntryId !== note.sourceEntryId
+        ) {
+          return false;
+        }
+        const storedOwnerKey = annotatorKey(reviewQuestion.ownerAnnotator || reviewQuestion.noteOwner || "");
+        const currentOwnerKey = annotatorKey(note.ownerAnnotator || note.annotator || "");
+        if (storedOwnerKey && currentOwnerKey && storedOwnerKey !== currentOwnerKey) {
+          return false;
+        }
+        const storedQuestion = String(reviewQuestion.question || "").trim();
+        if (storedQuestion && storedQuestion !== String(note[item.questionField] || "").trim()) {
+          return false;
+        }
+        const storedChoiceSignature = String(reviewQuestion.choiceSignature || "").trim();
+        if (storedChoiceSignature && storedChoiceSignature !== getGeminiTaskChoiceSignature(note, item)) {
+          return false;
+        }
+        const storedClipEndSec = normalizeGeminiClipEndSec(
+          reviewQuestion.clipEndSec === null || reviewQuestion.clipEndSec === undefined
+            ? reviewQuestion.timeSec
+            : reviewQuestion.clipEndSec
+        );
+        const currentClipEndSec = getGeminiTaskClipEndSec(note);
+        if (
+          storedClipEndSec !== null
+          && currentClipEndSec !== null
+          && storedClipEndSec !== currentClipEndSec
+        ) {
+          return false;
+        }
+        return true;
+      }
+
+      function getLatestHumanReviewTaskAnswer(note, item) {
+        const review = normalizeSharedHumanReview(state.latestHumanReview);
+        const questions = Array.isArray(review && review.questions) ? review.questions : [];
+        return questions.find((question) => isHumanReviewQuestionCurrent(note, item, question)) || null;
+      }
+
+      function formatHumanReviewTaskAnswerForDisplay(taskAnswer) {
+        if (!taskAnswer) {
+          return "";
+        }
+        if (taskAnswer.skipped && !taskAnswer.answered) {
+          return "Skipped";
+        }
+        const selectedLabel = normalizeTakeQuizOptionLabel(taskAnswer.selectedLabel);
+        const selectedChoice = String(taskAnswer.selectedChoice || "").trim();
+        if (selectedLabel && selectedChoice) {
+          return selectedLabel + ". " + selectedChoice;
+        }
+        if (selectedChoice) {
+          return selectedChoice;
+        }
+        if (selectedLabel) {
+          return "Choice " + selectedLabel;
+        }
+        return "";
+      }
+
       function recordGeminiQuizAnswer(note, item, result, clipEnd) {
         if (!note || !item) {
           return false;
@@ -3797,16 +4036,21 @@
             entries.push({
               id: "note-" + String(note.id) + "-" + String(item.field) + "-" + String(taskIndex),
               noteId: note.id,
+              sourceEntryId: Number.isInteger(note.sourceEntryId) ? note.sourceEntryId : null,
+              ownerAnnotator: String(note.ownerAnnotator || "").trim(),
               taskField: String(item.field),
               taskLabel: String(item.label || "Question"),
               timeSec: noteTime,
+              clipEndSec: noteTime,
               question: question,
               options: options,
               correctChoice: correctAnswer,
+              choiceSignature: getGeminiTaskChoiceSignature(note, item),
               answered: false,
               skipped: false,
               correct: false,
               selectedLabel: "",
+              selectedChoice: "",
             });
           });
         });
@@ -3963,6 +4207,7 @@
             const correctKey = normalizeTakeQuizChoiceKey(entry.correctChoice);
             entry.answered = true;
             entry.selectedLabel = String(option.label || "");
+            entry.selectedChoice = String(option.text || "");
             entry.correct = selectedKey && selectedKey === correctKey;
             recordTakeQuizSelection(entry, option, entry.correct);
             optionButtons.forEach((candidateButton) => {
@@ -4085,6 +4330,8 @@
             + String(normalizedScore.total)
             + ")."
           );
+          state.latestHumanReview = normalizeSharedHumanReview(payload.review);
+          renderNotes();
           loadSharedEntries();
           return true;
         } catch (error) {
@@ -4123,6 +4370,12 @@
           return;
         }
         state.humanQuizScore = completedScore;
+        state.latestHumanReview = normalizeSharedHumanReview({
+          reviewer: getCurrentAnnotatorName(),
+          score: completedScore,
+          updatedAt: completedScore && completedScore.completedAt,
+        });
+        renderNotes();
         renderJsonPreview();
         updateStatus(
           "Quiz finished. Correct "
@@ -6242,6 +6495,10 @@
             )
           : "Register a new annotator or log in to publish.";
         sharedLogoutButton.disabled = !loggedIn;
+        if (sharedRemoveUserButton) {
+          sharedRemoveUserButton.hidden = !adminLoggedIn;
+          sharedRemoveUserButton.disabled = !adminLoggedIn;
+        }
       }
 
       function restoreSharedSettings() {
@@ -7615,6 +7872,7 @@
         state.perceptionChoices = toEditablePerceptionChoices([]);
         state.perceptionEditable = true;
         state.humanQuizScore = null;
+        state.latestHumanReview = null;
         currentSharedEntryId = null;
         currentWorkspaceVideoRef = null;
         currentWorkspaceAnnotator = "";
@@ -7868,6 +8126,30 @@
             response ? "Raw response: " + response : "",
           ].filter(Boolean).join("\n");
           questionActions.append(geminiAnswerChip);
+        }
+
+        const humanReviewAnswer = getLatestHumanReviewTaskAnswer(note, item);
+        const humanReviewAnswerText = formatHumanReviewTaskAnswerForDisplay(humanReviewAnswer);
+        if (humanReviewAnswerText) {
+          const humanReviewChip = document.createElement("span");
+          humanReviewChip.className = "gemini-answer-chip human-review-answer-chip";
+          if (humanReviewAnswer.correct) {
+            humanReviewChip.classList.add("correct");
+          } else if (humanReviewAnswer.answered || humanReviewAnswer.selectedChoice || humanReviewAnswer.selectedLabel) {
+            humanReviewChip.classList.add("wrong");
+          }
+          const reviewer = String(state.latestHumanReview && state.latestHumanReview.reviewer || "").trim();
+          humanReviewChip.textContent = (reviewer ? reviewer : "Human") + ": " + humanReviewAnswerText;
+          const answeredAt = String(humanReviewAnswer.answeredAt || state.latestHumanReview && state.latestHumanReview.updatedAt || "").trim();
+          humanReviewChip.title = [
+            (reviewer ? ("Reviewer: " + reviewer) : "Human reviewer"),
+            "Human answer: " + humanReviewAnswerText,
+            humanReviewAnswer.answered
+              ? ("Result: " + (humanReviewAnswer.correct ? "Correct" : "Wrong"))
+              : "Result: Skipped",
+            answeredAt ? "Reviewed at: " + formatSharedTimestamp(answeredAt) : "",
+          ].filter(Boolean).join("\n");
+          questionActions.append(humanReviewChip);
         }
 
         if (isEditableNote(note)) {
@@ -9570,6 +9852,7 @@
         state.perceptionChoices = toEditablePerceptionChoices(parsedWorkspace.perceptionChoices);
         state.perceptionEditable = true;
         state.humanQuizScore = parsedWorkspace.humanQuizScore;
+        state.latestHumanReview = null;
         renderWorkspacePerceptionPanel();
         if (hasNotesSection) {
           renderNotes();
@@ -9921,6 +10204,7 @@
         let workspacePerceptionChoices = toEditablePerceptionChoices([]);
         let workspacePerceptionEditable = true;
         let workspaceHumanQuizScore = null;
+        const humanReviewCandidates = Array.isArray(options.humanReviews) ? options.humanReviews.slice() : [];
         sharedEntries.forEach((entry) => {
           const parsed = parseAnnotationWorkspaceData(entry.annotation || {}, {
             annotator: entry.annotator,
@@ -9936,6 +10220,14 @@
             workspacePerceptionChoices = toEditablePerceptionChoices(parsed.perceptionChoices);
             workspacePerceptionEditable = true;
             workspaceHumanQuizScore = parsed.humanQuizScore;
+          }
+          if (entry.humanReviewScore) {
+            humanReviewCandidates.push({
+              reviewer: entry.annotator,
+              score: entry.humanReviewScore,
+              updatedAt: entry.updatedAt,
+              videoRef: entry.videoRef,
+            });
           }
           if (adminEditingEnabled) {
             if (editableEntryId && entry.id === editableEntryId) {
@@ -9954,6 +10246,7 @@
         state.perceptionChoices = workspacePerceptionChoices;
         state.perceptionEditable = workspacePerceptionEditable;
         state.humanQuizScore = workspaceHumanQuizScore;
+        state.latestHumanReview = getLatestHumanReviewFromList(humanReviewCandidates);
         renderCharactersPanel();
         renderNotes();
 
@@ -10059,18 +10352,24 @@
 
       function getSharedVideoHumanReviewSummary(videoItem) {
         const annotations = Array.isArray(videoItem && videoItem.annotations) ? videoItem.annotations : [];
+        const latestReview = getLatestHumanReviewFromVideo(videoItem);
         let reviewCount = Number(videoItem && videoItem.humanReviewCount);
         if (!Number.isFinite(reviewCount)) {
-          reviewCount = annotations.reduce((total, entry) => {
-            const score = normalizeHumanQuizScore(entry && (entry.humanQuizScore || entry.humanReviewScore || null));
-            return total + (score ? 1 : 0);
-          }, 0);
+          reviewCount = latestReview
+            ? 1
+            : annotations.reduce((total, entry) => {
+                const score = normalizeHumanQuizScore(entry && (entry.humanQuizScore || entry.humanReviewScore || null));
+                return total + (score ? 1 : 0);
+              }, 0);
         }
         reviewCount = Math.max(0, Math.trunc(reviewCount));
 
         let reviewers = Array.isArray(videoItem && videoItem.humanReviewers)
           ? videoItem.humanReviewers.map((value) => String(value || "").trim()).filter(Boolean)
           : [];
+        if (!reviewers.length && latestReview && latestReview.reviewer) {
+          reviewers = [String(latestReview.reviewer).trim()];
+        }
         if (!reviewers.length) {
           reviewers = annotations
             .map((entry) => normalizeHumanQuizScore(entry && (entry.humanQuizScore || entry.humanReviewScore || null)))
@@ -10424,12 +10723,126 @@
         }
       }
 
+      async function fetchExistingSharedAnnotators() {
+        try {
+          const response = await fetch(resolveSharedApiUrl(SHARED_LIBRARY_ANNOTATORS_PATH), {
+            headers: buildSharedAuthHeaders(),
+          });
+          let payload = null;
+          try {
+            payload = await response.json();
+          } catch (error) {
+            payload = null;
+          }
+          if (!response.ok || !payload || !Array.isArray(payload.annotators)) {
+            throw new Error(payload && payload.error ? payload.error : "Annotator list unavailable.");
+          }
+          return payload.annotators
+            .map((entry) => {
+              return {
+                id: Number.isInteger(entry && entry.id) ? entry.id : null,
+                username: String(entry && entry.username || "").trim(),
+              };
+            })
+            .filter((entry) => entry.username);
+        } catch (error) {
+          return collectVisibleSharedAnnotatorNames().map((name) => {
+            return {
+              id: null,
+              username: name,
+            };
+          });
+        }
+      }
+
       function findExistingAnnotatorName(names, candidate) {
         const candidateKey = annotatorKey(candidate);
         if (!candidateKey) {
           return "";
         }
         return String((Array.isArray(names) ? names : []).find((name) => annotatorKey(name) === candidateKey) || "").trim();
+      }
+
+      function chooseExistingAnnotatorFromDropdown(choices, currentAuthor, pickerOptions = {}) {
+        const optionNames = Array.isArray(choices)
+          ? choices.map((entry) => {
+              return typeof entry === "string" ? entry : String(entry && entry.username || "").trim();
+            })
+          : [];
+        const uniqueNames = uniqueAnnotatorNames(optionNames);
+        const labelText = String(pickerOptions.label || "Rename author").trim() || "Rename author";
+        const confirmText = String(pickerOptions.confirmText || "Update").trim() || "Update";
+        if (!uniqueNames.length) {
+          return Promise.resolve("");
+        }
+        return new Promise((resolve) => {
+          const backdrop = document.createElement("div");
+          backdrop.className = "shared-author-picker-backdrop";
+
+          const panel = document.createElement("div");
+          panel.className = "shared-author-picker-panel";
+
+          const label = document.createElement("label");
+          label.textContent = labelText;
+
+          const select = document.createElement("select");
+          uniqueNames.forEach((name) => {
+            const option = document.createElement("option");
+            option.value = name;
+            option.textContent = name;
+            select.appendChild(option);
+          });
+          select.value = uniqueNames[0];
+          label.appendChild(select);
+
+          const actions = document.createElement("div");
+          actions.className = "shared-author-picker-actions";
+
+          const cancelButton = document.createElement("button");
+          cancelButton.type = "button";
+          cancelButton.textContent = "Cancel";
+
+          const updateButton = document.createElement("button");
+          updateButton.type = "button";
+          updateButton.className = "primary";
+          updateButton.textContent = confirmText;
+
+          actions.append(cancelButton, updateButton);
+          panel.append(label, actions);
+          backdrop.appendChild(panel);
+          document.body.appendChild(backdrop);
+
+          const cleanup = (value) => {
+            document.removeEventListener("keydown", handleKeydown);
+            backdrop.remove();
+            resolve(String(value || "").trim());
+          };
+          const handleKeydown = (event) => {
+            if (event.key === "Escape") {
+              cleanup("");
+            } else if (event.key === "Enter") {
+              cleanup(select.value);
+            }
+          };
+
+          cancelButton.addEventListener("click", () => cleanup(""));
+          updateButton.addEventListener("click", () => cleanup(select.value));
+          backdrop.addEventListener("click", (event) => {
+            if (event.target === backdrop) {
+              cleanup("");
+            }
+          });
+          document.addEventListener("keydown", handleKeydown);
+
+          updateSharedStatus(
+            String(pickerOptions.status || (
+              "Choose an existing annotator to replace "
+              + String(currentAuthor || "this author")
+              + "."
+            ))
+          );
+          select.focus();
+        });
       }
 
       async function renameSharedEntryAuthor(entry) {
@@ -10451,8 +10864,7 @@
           return;
         }
 
-        const promptText = "Rename author to an existing annotator:\n" + choices.join(", ");
-        const requestedAuthor = String(window.prompt(promptText, choices[0] || oldAuthor) || "").trim();
+        const requestedAuthor = await chooseExistingAnnotatorFromDropdown(choices, oldAuthor);
         if (!requestedAuthor) {
           updateSharedStatus("Author rename cancelled.");
           return;
@@ -10502,6 +10914,81 @@
           const message = error && error.message ? String(error.message) : "Unknown error";
           updateSharedStatus("Author rename failed (" + message + ").");
           showErrorPopup("Author rename failed: " + message);
+        }
+      }
+
+      async function removeSharedUserAccount() {
+        if (!requireSharedLogin("removing users")) {
+          return;
+        }
+        if (!isCurrentAdminAnnotator()) {
+          showErrorPopup("Only admins can remove users.");
+          return;
+        }
+
+        updateSharedStatus("Loading existing users...");
+        const annotators = await fetchExistingSharedAnnotators();
+        const removableAccounts = annotators.filter((entry) => {
+          return Number.isInteger(entry && entry.id)
+            && annotatorKey(entry.username) !== annotatorKey(sharedAuthenticatedAnnotator)
+            && !isAdminAnnotatorName(entry.username);
+        });
+        if (!removableAccounts.length) {
+          showErrorPopup("No removable user accounts were found.");
+          updateSharedStatus("No removable user accounts were found.");
+          return;
+        }
+
+        const selectedName = await chooseExistingAnnotatorFromDropdown(removableAccounts, "", {
+          label: "Remove user account",
+          confirmText: "Remove",
+          status: "Choose an existing user account to remove. Existing annotation layers will remain.",
+        });
+        if (!selectedName) {
+          updateSharedStatus("User removal cancelled.");
+          return;
+        }
+
+        const selectedAccount = removableAccounts.find((entry) => annotatorKey(entry.username) === annotatorKey(selectedName));
+        if (!selectedAccount || !Number.isInteger(selectedAccount.id)) {
+          showErrorPopup("Choose a removable user account.");
+          updateSharedStatus("User removal cancelled because the selected account is not removable.");
+          return;
+        }
+
+        const confirmed = window.confirm(
+          "Remove the login account for "
+          + String(selectedAccount.username)
+          + "?\n\nExisting annotation layers with this author name will remain."
+        );
+        if (!confirmed) {
+          updateSharedStatus("User removal cancelled.");
+          return;
+        }
+
+        updateSharedStatus("Removing user account...");
+        try {
+          const response = await fetch(resolveSharedApiUrl(SHARED_LIBRARY_ANNOTATORS_PATH + "/" + String(selectedAccount.id)), {
+            method: "DELETE",
+            headers: buildSharedAuthHeaders(),
+          });
+          let payload = null;
+          try {
+            payload = await response.json();
+          } catch (error) {
+            payload = null;
+          }
+
+          if (!response.ok || !payload || !payload.result) {
+            throw new Error(payload && payload.error ? payload.error : "User removal failed.");
+          }
+
+          updateSharedStatus("Removed user account " + String(payload.result.username || selectedAccount.username) + ".");
+          await loadSharedEntries();
+        } catch (error) {
+          const message = error && error.message ? String(error.message) : "Unknown error";
+          updateSharedStatus("User removal failed (" + message + ").");
+          showErrorPopup("User removal failed: " + message);
         }
       }
 
@@ -10686,7 +11173,10 @@
 
           suspendPersistence = true;
           try {
-            loadSharedWorkspaceFromEntries(fullEntries, { focusEntryId: entryId });
+            loadSharedWorkspaceFromEntries(fullEntries, {
+              focusEntryId: entryId,
+              humanReviews: Array.isArray(videoItem && videoItem.humanReviews) ? videoItem.humanReviews : [],
+            });
           } finally {
             suspendPersistence = false;
           }
@@ -11134,6 +11624,10 @@
             ? "Showing verified videos with Gemini responses and a saved human review."
             : "Showing all shared videos."
         );
+      });
+
+      sharedRemoveUserButton.addEventListener("click", () => {
+        removeSharedUserAccount();
       });
 
       sharedPublishButton.addEventListener("click", () => {
