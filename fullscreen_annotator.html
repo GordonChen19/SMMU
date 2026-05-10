@@ -2295,7 +2295,7 @@
         </div>
         <div class="top-bar-break" aria-hidden="true"></div>
         <button class="btn ghost shared-toggle-button" id="shared-toggle" type="button" aria-expanded="false">
-          <span>Video Library</span>
+          <span>Library</span>
           <span class="shared-toggle-arrow" id="shared-toggle-arrow" aria-hidden="true">&#9662;</span>
         </button>
         <button class="btn ghost shared-toggle-button" id="analytics-toggle" type="button" aria-expanded="false">
@@ -2352,10 +2352,11 @@
 
       <section class="shared-panel" id="shared-panel">
         <div class="shared-header">
-          <strong>Video Library</strong>
+          <strong>Library</strong>
           <div class="shared-header-actions">
             <button type="button" id="shared-refresh">Refresh</button>
-            <button type="button" id="shared-gemini-filter" title="Show only videos with stored Gemini quiz responses">Gemini Responses</button>
+            <button type="button" id="shared-gemini-filter" title="Show videos with Gemini responses that still need human verification">Pending</button>
+            <button type="button" id="shared-verified-filter" title="Show videos with both Gemini responses and saved human review scores">Verified</button>
             <button class="primary" type="button" id="shared-publish">Publish Current</button>
             <button type="button" id="shared-close">Close</button>
           </div>
@@ -2672,14 +2673,9 @@
           "perspective",
           "understanding_knowledge_state",
           "understanding_emotions",
-          "understanding_persona",
           "understanding_relationship",
           "understanding_intent",
-          "understanding_communicative_intent",
           "understanding_norms",
-          "understanding_cultural_conventions",
-          "understanding_moral_judgment",
-          "understanding_role_institutional_knowledge",
         ],
       };
 
@@ -2687,15 +2683,10 @@
         "perspective",
         "understanding_knowledge_state",
         "understanding_emotions",
-        "understanding_persona",
         "understanding_situation_awareness",
         "understanding_relationship",
         "understanding_intent",
-        "understanding_communicative_intent",
         "understanding_norms",
-        "understanding_cultural_conventions",
-        "understanding_moral_judgment",
-        "understanding_role_institutional_knowledge",
       ];
 
       const ANALYTICS_SOCIAL_DIMENSIONS = [
@@ -2923,8 +2914,10 @@
       const SHARED_AUTH_LOGIN_PATH = "/api/shared-library/auth/login";
       const SHARED_AUTH_ME_PATH = "/api/shared-library/auth/me";
       const SHARED_AUTH_LOGOUT_PATH = "/api/shared-library/auth/logout";
+      const SHARED_LIBRARY_ANNOTATORS_PATH = "/api/shared-library/annotators";
       const SHARED_LIBRARY_VIDEOS_PATH = "/api/shared-library/videos";
       const SHARED_LIBRARY_ENTRIES_PATH = "/api/shared-library/entries";
+      const SHARED_LIBRARY_HUMAN_REVIEWS_PATH = "/api/shared-library/human-reviews";
       const SHARED_LIBRARY_VIDEO_UPLOAD_PATH = "/api/shared-library/video-assets";
       const SHARED_LIBRARY_LOCAL_VIDEO_REGISTER_PATH = "/api/shared-library/register-local-video";
       const DISTRACTOR_COUNT_PER_TASK = 7;
@@ -3020,6 +3013,7 @@
       const sharedAuthLabel = document.getElementById("shared-auth-label");
       const sharedStatus = document.getElementById("shared-status");
       const sharedList = document.getElementById("shared-list");
+      const sharedVerifiedFilterButton = document.getElementById("shared-verified-filter");
 
       let objectVideoUrl = null;
       let videoFilePath = "";
@@ -3038,7 +3032,7 @@
       let sharedAuthToken = "";
       let sharedAuthenticatedAnnotator = "";
       let latestSharedVideos = [];
-      let showGeminiResponseVideosOnly = false;
+      let sharedVideoFilterMode = "all";
       let contextPoint = { x: 0, y: 0 };
       const MIN_TRIM_DURATION_SEC = 0.1;
       const FIXED_PERCEPTION_QUESTION = "Which of the following do you observe from the video?";
@@ -3319,8 +3313,10 @@
         const boundedSkipped = Math.min(skipped || Math.max(0, safeTotal - boundedAnswered), safeTotal);
         const score = safeTotal ? boundedCorrect / safeTotal : 0;
         const answeredScore = boundedAnswered ? boundedCorrect / boundedAnswered : 0;
+        const rawQuestions = Array.isArray(rawValue.questions) ? rawValue.questions : [];
         return {
-          annotator: String(rawValue.annotator || rawValue.username || "").trim(),
+          annotator: String(rawValue.annotator || rawValue.reviewer || rawValue.username || "").trim(),
+          reviewer: String(rawValue.reviewer || rawValue.annotator || rawValue.username || "").trim(),
           startedAt: String(rawValue.startedAt || "").trim(),
           completedAt: String(rawValue.completedAt || rawValue.takenAt || "").trim(),
           total: safeTotal,
@@ -3329,6 +3325,7 @@
           skipped: boundedSkipped,
           score: score,
           answeredScore: answeredScore,
+          questions: rawQuestions,
         };
       }
 
@@ -3352,6 +3349,20 @@
           skipped: skipped,
           score: total ? correct / total : 0,
           answeredScore: answered ? correct / answered : 0,
+          questions: quizEntries.map((entry) => {
+            return {
+              id: String(entry && entry.id || ""),
+              noteId: Number.isInteger(entry && entry.noteId) ? entry.noteId : null,
+              taskField: String(entry && entry.taskField || "").trim(),
+              taskLabel: String(entry && entry.taskLabel || "").trim(),
+              timeSec: Number(entry && entry.timeSec || 0),
+              question: String(entry && entry.question || "").trim(),
+              selectedLabel: String(entry && entry.selectedLabel || "").trim(),
+              answered: Boolean(entry && entry.answered),
+              skipped: Boolean(entry && entry.skipped),
+              correct: Boolean(entry && entry.answered && entry.correct),
+            };
+          }),
         };
       }
 
@@ -3735,7 +3746,6 @@
       function buildTakeQuizEntries() {
         const duration = getVideoDurationSec();
         const sortedNotes = state.notes
-          .filter((note) => isEditableNote(note))
           .sort((a, b) => {
           return Number(a.timeSec || 0) - Number(b.timeSec || 0) || Number(a.id || 0) - Number(b.id || 0);
         });
@@ -3805,7 +3815,7 @@
       }
 
       function noteHasRunnableTakeQuizQuestion(note) {
-        if (!note || !isEditableNote(note)) {
+        if (!note) {
           return false;
         }
         return NOTE_ANALYSIS_ITEMS.some((item) => {
@@ -3985,6 +3995,37 @@
         openTakeQuizPopup();
       }
 
+      function getCurrentSharedVideoRef() {
+        return Number.isInteger(currentServerVideoRef)
+          ? currentServerVideoRef
+          : (Number.isInteger(currentWorkspaceVideoRef) ? currentWorkspaceVideoRef : null);
+      }
+
+      function getSharedVideoItemByRef(videoRef) {
+        if (!Number.isInteger(videoRef)) {
+          return null;
+        }
+        return sharedVideoIndex.get(videoRef)
+          || latestSharedVideos.find((videoItem) => Number(videoItem && videoItem.videoRef) === videoRef)
+          || null;
+      }
+
+      function currentUserHasAuthoredSharedVideo(videoRef = getCurrentSharedVideoRef()) {
+        const currentKey = annotatorKey(sharedAuthenticatedAnnotator || getCurrentAnnotatorName());
+        if (!currentKey || !Number.isInteger(videoRef)) {
+          return false;
+        }
+        const videoItem = getSharedVideoItemByRef(videoRef);
+        const annotations = Array.isArray(videoItem && videoItem.annotations) ? videoItem.annotations : [];
+        if (annotations.some((entry) => annotatorKey(entry && entry.annotator) === currentKey)) {
+          return true;
+        }
+        return Number.isInteger(currentSharedEntryId)
+          && Number.isInteger(currentWorkspaceVideoRef)
+          && currentWorkspaceVideoRef === videoRef
+          && annotatorKey(currentWorkspaceAnnotator) === currentKey;
+      }
+
       async function saveHumanQuizScoreToSharedLibrary(scoreSummary) {
         const normalizedScore = normalizeHumanQuizScore(scoreSummary);
         if (!normalizedScore) {
@@ -3994,31 +4035,33 @@
           updateSharedStatus("Quiz score kept locally. Log in to save human scores to the shared database.");
           return false;
         }
-        const videoRef = Number.isInteger(currentServerVideoRef)
-          ? currentServerVideoRef
-          : (Number.isInteger(currentWorkspaceVideoRef) ? currentWorkspaceVideoRef : null);
+        const videoRef = getCurrentSharedVideoRef();
         if (!Number.isInteger(videoRef)) {
           updateSharedStatus("Quiz score kept locally. Load or publish a shared-library video to save human scores to the database.");
           return false;
         }
 
-        const publishAnnotator = getEditableWorkspaceAnnotatorName() || getCurrentAnnotatorName();
-        if (!publishAnnotator) {
+        if (currentUserHasAuthoredSharedVideo(videoRef)) {
+          updateSharedStatus("Human review was not saved because annotators cannot review videos they annotated.");
+          showErrorPopup("Annotators cannot review videos they annotated.");
+          return false;
+        }
+
+        const reviewer = getCurrentAnnotatorName();
+        if (!reviewer) {
           updateSharedStatus("Quiz score kept locally. Set an annotator name before saving human scores to the database.");
           return false;
         }
 
         try {
-          const response = await fetch(resolveSharedApiUrl(SHARED_LIBRARY_ENTRIES_PATH), {
+          const response = await fetch(resolveSharedApiUrl(SHARED_LIBRARY_HUMAN_REVIEWS_PATH), {
             method: "POST",
             headers: buildSharedAuthHeaders({
               "Content-Type": "application/json",
             }),
             body: JSON.stringify({
-              entryId: Number.isInteger(currentSharedEntryId) ? currentSharedEntryId : null,
-              annotator: publishAnnotator,
               videoRef: videoRef,
-              annotation: buildExportPayload(),
+              score: normalizedScore,
             }),
           });
 
@@ -4029,19 +4072,13 @@
             payload = null;
           }
 
-          if (!response.ok || !payload || !payload.entry) {
+          if (!response.ok || !payload || !payload.review) {
             throw new Error(payload && payload.error ? payload.error : "Quiz score save failed.");
           }
 
-          currentServerVideoRef = Number.isInteger(payload.entry.videoRef) ? payload.entry.videoRef : videoRef;
-          currentSharedEntryId = Number.isInteger(payload.entry.id) ? payload.entry.id : currentSharedEntryId;
-          if (String(payload.entry.videoUrl || "").trim()) {
-            currentRemoteVideoUrl = String(payload.entry.videoUrl || "").trim();
-          }
-          sharedEntryPayloadCache.clear();
           updateSharedStatus(
-            "Saved human quiz score to shared entry #"
-            + String(payload.entry.id)
+            "Saved human review score for "
+            + String(payload.review.reviewer || reviewer)
             + " ("
             + String(normalizedScore.correct)
             + "/"
@@ -4151,6 +4188,12 @@
       function startTakeQuiz() {
         if (!hasLoadedVideoSource()) {
           showErrorPopup("Load a video before taking a quiz.");
+          return;
+        }
+        const reviewVideoRef = getCurrentSharedVideoRef();
+        if (sharedAuthToken && sharedAuthenticatedAnnotator && currentUserHasAuthoredSharedVideo(reviewVideoRef)) {
+          showErrorPopup("Annotators cannot take the human review quiz for videos they annotated.");
+          updateSharedStatus("Human review is blocked because you are an annotator for this video.");
           return;
         }
         const entries = buildTakeQuizEntries();
@@ -10014,15 +10057,67 @@
         return getSharedVideoGeminiSummary(videoItem).responseCount > 0;
       }
 
-      function updateSharedGeminiFilterButton(totalCount, visibleCount) {
+      function getSharedVideoHumanReviewSummary(videoItem) {
+        const annotations = Array.isArray(videoItem && videoItem.annotations) ? videoItem.annotations : [];
+        let reviewCount = Number(videoItem && videoItem.humanReviewCount);
+        if (!Number.isFinite(reviewCount)) {
+          reviewCount = annotations.reduce((total, entry) => {
+            const score = normalizeHumanQuizScore(entry && (entry.humanQuizScore || entry.humanReviewScore || null));
+            return total + (score ? 1 : 0);
+          }, 0);
+        }
+        reviewCount = Math.max(0, Math.trunc(reviewCount));
+
+        let reviewers = Array.isArray(videoItem && videoItem.humanReviewers)
+          ? videoItem.humanReviewers.map((value) => String(value || "").trim()).filter(Boolean)
+          : [];
+        if (!reviewers.length) {
+          reviewers = annotations
+            .map((entry) => normalizeHumanQuizScore(entry && (entry.humanQuizScore || entry.humanReviewScore || null)))
+            .filter(Boolean)
+            .map((score) => String(score.annotator || "").trim())
+            .filter(Boolean);
+        }
+        reviewers = Array.from(new Set(reviewers));
+
+        return {
+          reviewCount: reviewCount,
+          reviewers: reviewers,
+        };
+      }
+
+      function sharedVideoHasHumanReview(videoItem) {
+        return getSharedVideoHumanReviewSummary(videoItem).reviewCount > 0;
+      }
+
+      function sharedVideoIsVerified(videoItem) {
+        return sharedVideoHasGeminiResponses(videoItem) && sharedVideoHasHumanReview(videoItem);
+      }
+
+      function sharedVideoIsPending(videoItem) {
+        return sharedVideoHasGeminiResponses(videoItem) && !sharedVideoHasHumanReview(videoItem);
+      }
+
+      function updateSharedFilterButtons(sourceVideos, visibleCount) {
+        const videos = Array.isArray(sourceVideos) ? sourceVideos : [];
+        const totalCount = videos.length;
+        const pendingCount = videos.filter((videoItem) => sharedVideoIsPending(videoItem)).length;
+        const verifiedCount = videos.filter((videoItem) => sharedVideoIsVerified(videoItem)).length;
         if (!sharedGeminiFilterButton) {
           return;
         }
-        sharedGeminiFilterButton.classList.toggle("active", showGeminiResponseVideosOnly);
-        sharedGeminiFilterButton.setAttribute("aria-pressed", showGeminiResponseVideosOnly ? "true" : "false");
-        sharedGeminiFilterButton.textContent = showGeminiResponseVideosOnly
-          ? "Gemini Responses (" + String(visibleCount) + "/" + String(totalCount) + ")"
-          : "Gemini Responses";
+        sharedGeminiFilterButton.classList.toggle("active", sharedVideoFilterMode === "pending");
+        sharedGeminiFilterButton.setAttribute("aria-pressed", sharedVideoFilterMode === "pending" ? "true" : "false");
+        sharedGeminiFilterButton.textContent = sharedVideoFilterMode === "pending"
+          ? "Pending (" + String(visibleCount) + "/" + String(totalCount) + ")"
+          : "Pending (" + String(pendingCount) + ")";
+        if (sharedVerifiedFilterButton) {
+          sharedVerifiedFilterButton.classList.toggle("active", sharedVideoFilterMode === "verified");
+          sharedVerifiedFilterButton.setAttribute("aria-pressed", sharedVideoFilterMode === "verified" ? "true" : "false");
+          sharedVerifiedFilterButton.textContent = sharedVideoFilterMode === "verified"
+            ? "Verified (" + String(visibleCount) + "/" + String(totalCount) + ")"
+            : "Verified (" + String(verifiedCount) + ")";
+        }
       }
 
       function appendSharedMetaPart(meta, text, className = "") {
@@ -10040,10 +10135,13 @@
       function renderSharedEntries(videos) {
         sharedList.innerHTML = "";
         const sourceVideos = Array.isArray(videos) ? videos : [];
-        const visibleVideos = showGeminiResponseVideosOnly
-          ? sourceVideos.filter((videoItem) => sharedVideoHasGeminiResponses(videoItem))
-          : sourceVideos;
-        updateSharedGeminiFilterButton(sourceVideos.length, visibleVideos.length);
+        let visibleVideos = sourceVideos;
+        if (sharedVideoFilterMode === "pending") {
+          visibleVideos = sourceVideos.filter((videoItem) => sharedVideoIsPending(videoItem));
+        } else if (sharedVideoFilterMode === "verified") {
+          visibleVideos = sourceVideos.filter((videoItem) => sharedVideoIsVerified(videoItem));
+        }
+        updateSharedFilterButtons(sourceVideos, visibleVideos.length);
 
         if (!sourceVideos.length) {
           const empty = document.createElement("div");
@@ -10055,7 +10153,11 @@
         if (!visibleVideos.length) {
           const empty = document.createElement("div");
           empty.className = "shared-empty";
-          empty.textContent = "No videos with stored Gemini responses yet.";
+          empty.textContent = sharedVideoFilterMode === "verified"
+            ? "No verified videos yet. A verified video needs Gemini responses and a saved human review score."
+            : sharedVideoFilterMode === "pending"
+              ? "No pending videos. Pending videos have Gemini responses but no saved human review score yet."
+              : "No shared videos match this filter.";
           sharedList.appendChild(empty);
           return;
         }
@@ -10089,6 +10191,7 @@
           const meta = document.createElement("div");
           meta.className = "shared-entry-meta";
           const geminiSummary = getSharedVideoGeminiSummary(videoItem);
+          const humanReviewSummary = getSharedVideoHumanReviewSummary(videoItem);
           appendSharedMetaPart(meta, "Checked: " + String((videoItem.annotations && videoItem.annotations.length) || 0) + " people");
           appendSharedMetaPart(meta, "Last update: " + formatSharedTimestamp(videoItem.updatedAt || videoItem.createdAt));
           appendSharedMetaPart(meta, "Video: " + String(videoItem.videoOriginalFilename || "Unknown file"));
@@ -10107,6 +10210,18 @@
                 )
               : "Gemini: none",
             geminiSummary.responseCount > 0 ? "gemini-present" : "gemini-empty"
+          );
+          appendSharedMetaPart(
+            meta,
+            humanReviewSummary.reviewCount > 0
+              ? (
+                  "Human: "
+                  + String(humanReviewSummary.reviewCount)
+                  + " review"
+                  + (humanReviewSummary.reviewCount === 1 ? "" : "s")
+                )
+              : "Human: none",
+            humanReviewSummary.reviewCount > 0 ? "gemini-present" : "gemini-empty"
           );
 
           const reviewers = document.createElement("div");
@@ -10260,6 +10375,63 @@
         renderJsonPreview();
       }
 
+      function uniqueAnnotatorNames(values) {
+        const names = [];
+        const seen = new Set();
+        (Array.isArray(values) ? values : []).forEach((value) => {
+          const name = String(value || "").trim();
+          const key = annotatorKey(name);
+          if (!name || seen.has(key)) {
+            return;
+          }
+          seen.add(key);
+          names.push(name);
+        });
+        return names.sort((left, right) => left.localeCompare(right, undefined, { sensitivity: "base" }));
+      }
+
+      function collectVisibleSharedAnnotatorNames() {
+        const names = [];
+        if (sharedAuthenticatedAnnotator) {
+          names.push(sharedAuthenticatedAnnotator);
+        }
+        latestSharedVideos.forEach((videoItem) => {
+          const annotations = Array.isArray(videoItem && videoItem.annotations) ? videoItem.annotations : [];
+          annotations.forEach((entry) => {
+            names.push(entry && entry.annotator);
+          });
+        });
+        return uniqueAnnotatorNames(names);
+      }
+
+      async function fetchExistingSharedAnnotatorNames() {
+        try {
+          const response = await fetch(resolveSharedApiUrl(SHARED_LIBRARY_ANNOTATORS_PATH), {
+            headers: buildSharedAuthHeaders(),
+          });
+          let payload = null;
+          try {
+            payload = await response.json();
+          } catch (error) {
+            payload = null;
+          }
+          if (!response.ok || !payload || !Array.isArray(payload.annotators)) {
+            throw new Error(payload && payload.error ? payload.error : "Annotator list unavailable.");
+          }
+          return uniqueAnnotatorNames(payload.annotators.map((entry) => entry && entry.username));
+        } catch (error) {
+          return collectVisibleSharedAnnotatorNames();
+        }
+      }
+
+      function findExistingAnnotatorName(names, candidate) {
+        const candidateKey = annotatorKey(candidate);
+        if (!candidateKey) {
+          return "";
+        }
+        return String((Array.isArray(names) ? names : []).find((name) => annotatorKey(name) === candidateKey) || "").trim();
+      }
+
       async function renameSharedEntryAuthor(entry) {
         if (!requireSharedLogin("renaming annotation authors")) {
           return;
@@ -10270,12 +10442,29 @@
         }
 
         const oldAuthor = String(entry.annotator || "").trim();
-        const nextAuthor = String(window.prompt("New author name", oldAuthor) || "").trim();
-        if (!nextAuthor) {
+        updateSharedStatus("Loading existing annotators...");
+        const existingAnnotators = await fetchExistingSharedAnnotatorNames();
+        const choices = existingAnnotators.filter((name) => annotatorKey(name) !== annotatorKey(oldAuthor));
+        if (!choices.length) {
+          showErrorPopup("No other existing annotators are available to rename this layer to.");
+          updateSharedStatus("Author rename unavailable because there is no other existing annotator.");
           return;
         }
-        if (nextAuthor === oldAuthor) {
-          updateSharedStatus("Author is already set to " + nextAuthor + ".");
+
+        const promptText = "Rename author to an existing annotator:\n" + choices.join(", ");
+        const requestedAuthor = String(window.prompt(promptText, choices[0] || oldAuthor) || "").trim();
+        if (!requestedAuthor) {
+          updateSharedStatus("Author rename cancelled.");
+          return;
+        }
+        const nextAuthor = findExistingAnnotatorName(existingAnnotators, requestedAuthor);
+        if (!nextAuthor) {
+          showErrorPopup("Choose an existing annotator: " + choices.join(", "));
+          updateSharedStatus("Author rename cancelled because the target annotator does not exist.");
+          return;
+        }
+        if (annotatorKey(nextAuthor) === annotatorKey(oldAuthor)) {
+          updateSharedStatus("Author is already set to " + oldAuthor + ".");
           return;
         }
 
@@ -10928,11 +11117,21 @@
       });
 
       sharedGeminiFilterButton.addEventListener("click", () => {
-        showGeminiResponseVideosOnly = !showGeminiResponseVideosOnly;
+        sharedVideoFilterMode = sharedVideoFilterMode === "pending" ? "all" : "pending";
         renderSharedEntries(latestSharedVideos);
         updateSharedStatus(
-          showGeminiResponseVideosOnly
-            ? "Showing only videos with stored Gemini responses."
+          sharedVideoFilterMode === "pending"
+            ? "Showing pending videos with Gemini responses and no saved human review."
+            : "Showing all shared videos."
+        );
+      });
+
+      sharedVerifiedFilterButton.addEventListener("click", () => {
+        sharedVideoFilterMode = sharedVideoFilterMode === "verified" ? "all" : "verified";
+        renderSharedEntries(latestSharedVideos);
+        updateSharedStatus(
+          sharedVideoFilterMode === "verified"
+            ? "Showing verified videos with Gemini responses and a saved human review."
             : "Showing all shared videos."
         );
       });
