@@ -273,6 +273,15 @@
         cursor: wait;
       }
 
+      .local-upload-input {
+        display: none;
+      }
+
+      .local-upload-button {
+        width: 42px;
+        font-size: 12px;
+      }
+
       .note-rail {
         position: absolute;
         top: 16px;
@@ -780,6 +789,20 @@
         flex-wrap: wrap;
         justify-content: flex-end;
         min-width: 0;
+      }
+
+      .note-answer-actions {
+        display: grid;
+        gap: 6px;
+        min-width: 0;
+      }
+
+      .note-answer-actions .gemini-answer-chip {
+        display: block;
+        width: 100%;
+        max-width: none;
+        box-sizing: border-box;
+        border-radius: 8px;
       }
 
       .note-static-line {
@@ -2377,6 +2400,19 @@
             aria-label="Import from YouTube"
             title="Import from YouTube"
           >↑</button>
+          <input
+            class="local-upload-input"
+            id="local-upload-input"
+            type="file"
+            accept="video/mp4,.mp4"
+          >
+          <button
+            class="youtube-import-button local-upload-button"
+            id="local-upload-trigger"
+            type="button"
+            aria-label="Upload MP4"
+            title="Upload MP4"
+          >MP4</button>
         </div>
         <div class="top-bar-break" aria-hidden="true"></div>
         <button class="btn ghost shared-toggle-button" id="shared-toggle" type="button" aria-expanded="false">
@@ -2426,7 +2462,7 @@
           <span class="timecode" id="current-time">00:00:00.00</span>
           <input class="scrubber" id="scrubber" type="range" min="0" max="0" step="0.01" value="0">
           <span class="timecode" id="duration-time">00:00:00.00</span>
-          <span class="status" id="status">Import a video from YouTube to begin annotating.</span>
+          <span class="status" id="status">Import from YouTube or upload an MP4 to begin annotating.</span>
         </div>
       </div>
 
@@ -2442,7 +2478,6 @@
             <button type="button" id="shared-refresh">Refresh</button>
             <button type="button" id="shared-gemini-filter" title="Show videos with Gemini responses that still need human verification">Pending</button>
             <button type="button" id="shared-verified-filter" title="Show videos with both Gemini responses and saved human review scores">Verified</button>
-            <button type="button" id="shared-remove-user" title="Admin only: remove an existing user account" hidden>Remove User</button>
             <button class="primary" type="button" id="shared-publish">Publish Current</button>
             <button type="button" id="shared-close">Close</button>
           </div>
@@ -2484,6 +2519,7 @@
               <button type="button" id="shared-register">Register</button>
               <button type="button" id="shared-login">Login</button>
               <button type="button" id="shared-logout">Logout</button>
+              <button type="button" id="shared-remove-user" title="Admin only: remove an existing user account" hidden>Remove User</button>
             </div>
           </div>
           <div class="shared-status" id="shared-status">
@@ -2985,7 +3021,9 @@
       const SHARED_SERVER_STORAGE_KEY = "fullscreen-video-annotator-shared-server-v1";
       const ANNOTATOR_NAME_STORAGE_KEY = "fullscreen-video-annotator-annotator-v1";
       const SHARED_AUTH_STORAGE_KEY = "fullscreen-video-annotator-shared-auth-v1";
-      const DEFAULT_SHARED_SERVER_URL = "http://127.0.0.1:8765";
+      const DEFAULT_SHARED_SERVER_URL = /^https?:$/i.test(window.location.protocol)
+        ? window.location.origin
+        : "http://127.0.0.1:8765";
       const PROMPT_TEMPLATE_QUESTION_MAPPINGS_PATH = "/api/prompt-template/question-mappings";
       const QUESTION_TEMPLATE_SYNC_INTERVAL_MS = 5000;
       const YT_IMPORT_ENDPOINT_PATH = "/api/yt-mp4";
@@ -8102,6 +8140,9 @@
         const questionActions = document.createElement("div");
         questionActions.className = "note-inline-actions";
 
+        const answerActions = document.createElement("div");
+        answerActions.className = "note-answer-actions";
+
         const storedGeminiAnswer = getStoredGeminiTaskAnswer(note, item);
         const geminiAnswer = storedGeminiAnswer && isGeminiTaskAnswerCurrent(note, item, storedGeminiAnswer)
           ? storedGeminiAnswer
@@ -8125,7 +8166,7 @@
             answeredAt ? "Answered at: " + formatSharedTimestamp(answeredAt) : "",
             response ? "Raw response: " + response : "",
           ].filter(Boolean).join("\n");
-          questionActions.append(geminiAnswerChip);
+          answerActions.append(geminiAnswerChip);
         }
 
         const humanReviewAnswer = getLatestHumanReviewTaskAnswer(note, item);
@@ -8149,7 +8190,7 @@
               : "Result: Skipped",
             answeredAt ? "Reviewed at: " + formatSharedTimestamp(answeredAt) : "",
           ].filter(Boolean).join("\n");
-          questionActions.append(humanReviewChip);
+          answerActions.append(humanReviewChip);
         }
 
         if (isEditableNote(note)) {
@@ -8175,7 +8216,11 @@
           "title",
           "This question is fixed by the category template and selected character."
         );
-        questionSection.append(questionHeader, questionInput);
+        questionSection.append(questionHeader);
+        if (answerActions.childNodes.length) {
+          questionSection.append(answerActions);
+        }
+        questionSection.append(questionInput);
         body.append(questionSection);
 
         const answerSection = document.createElement("div");
@@ -11264,8 +11309,8 @@
         const annotator = getCurrentAnnotatorName();
         const publishAnnotator = getEditableWorkspaceAnnotatorName() || annotator;
         if (!video.src) {
-          updateSharedStatus("Import a YouTube video before publishing.");
-          showErrorPopup("Import a YouTube video before publishing.");
+          updateSharedStatus("Load a video before publishing.");
+          showErrorPopup("Load a video before publishing.");
           return;
         }
 
@@ -11436,9 +11481,98 @@
         }
       }
 
+      async function uploadMp4FileToSharedLibrary(file) {
+        if (!file) {
+          return;
+        }
+        if (!requireSharedLogin("uploading an MP4 video")) {
+          return;
+        }
+        if (!isMp4File(file)) {
+          updateStatus("Select an MP4 file to upload.");
+          showErrorPopup("Select an MP4 file to upload.");
+          return;
+        }
+
+        const previousLabel = localUploadTriggerButton ? localUploadTriggerButton.textContent : "";
+        if (localUploadTriggerButton) {
+          localUploadTriggerButton.disabled = true;
+          localUploadTriggerButton.textContent = "...";
+        }
+        updateStatus("Uploading MP4 to shared library...");
+        updateSharedStatus("Uploading MP4 to shared library...");
+
+        try {
+          persistSharedSettings();
+          const response = await fetch(resolveSharedApiUrl(SHARED_LIBRARY_VIDEO_UPLOAD_PATH), {
+            method: "POST",
+            headers: buildSharedAuthHeaders({
+              "Content-Type": "video/mp4",
+              "X-Filename": file.name || "upload.mp4",
+            }),
+            body: file,
+          });
+
+          let payload = null;
+          try {
+            payload = await response.json();
+          } catch (error) {
+            payload = null;
+          }
+
+          if (!response.ok) {
+            throw new Error(payload && payload.error ? payload.error : "Video upload failed.");
+          }
+
+          const videoUrl = payload && typeof payload.videoUrl === "string"
+            ? payload.videoUrl.trim()
+            : "";
+          const videoRef = payload && Number.isInteger(payload.videoRef) ? payload.videoRef : null;
+          const displayName = payload && typeof payload.fileName === "string" && payload.fileName.trim()
+            ? payload.fileName.trim()
+            : (file.name || titleFromPath(videoUrl));
+          if (!videoUrl) {
+            throw new Error("Upload succeeded but no playable video URL was returned.");
+          }
+
+          const loaded = loadVideoFromRemote(videoUrl, {
+            quiet: true,
+            title: displayName,
+            filePath: displayName || videoUrl,
+            videoRef: videoRef,
+            resetWorkspace: true,
+            sourceInfo: {
+              sourceType: payload && typeof payload.sourceType === "string" ? payload.sourceType.trim() : "",
+              sourceKey: payload && typeof payload.sourceKey === "string" ? payload.sourceKey.trim() : "",
+              sourceUrl: payload && typeof payload.sourceUrl === "string" ? payload.sourceUrl.trim() : "",
+              sourceThumbnailUrl: payload && typeof payload.sourceThumbnailUrl === "string" ? payload.sourceThumbnailUrl.trim() : "",
+            },
+          });
+
+          if (!loaded) {
+            throw new Error("Upload succeeded but the browser could not load the returned video.");
+          }
+
+          updateStatus("Uploaded MP4 and loaded " + displayName + ".");
+          updateSharedStatus("Uploaded MP4 and loaded " + displayName + ".");
+        } catch (error) {
+          const message = error && error.message ? String(error.message) : "Unknown error";
+          updateStatus(
+            "MP4 upload failed (" + message + "). Start the shared bridge with: python preprocessing/yt_mp4_bridge.py --host 0.0.0.0"
+          );
+          updateSharedStatus("MP4 upload failed (" + message + ").");
+          showErrorPopup("MP4 upload failed: " + message);
+        } finally {
+          if (localUploadTriggerButton) {
+            localUploadTriggerButton.disabled = false;
+            localUploadTriggerButton.textContent = previousLabel || "MP4";
+          }
+        }
+      }
+
       playToggle.addEventListener("click", () => {
         if (!video.src) {
-          updateStatus("Import a YouTube video first.");
+          updateStatus("Load a video first.");
           return;
         }
         if (video.paused) {
@@ -11664,11 +11798,11 @@
             return;
           }
           if (!isMp4File(file)) {
-            updateStatus("Select an MP4 file to load a local video.");
+            updateStatus("Select an MP4 file to upload.");
             localUploadInput.value = "";
             return;
           }
-          setVideoFromFile(file);
+          uploadMp4FileToSharedLibrary(file);
           localUploadInput.value = "";
         });
       }
@@ -11722,7 +11856,7 @@
         renderNotes();
         renderJsonPreview();
         updatePlaybackUi();
-        updateStatus("Import a video from YouTube to begin annotating.");
+        updateStatus("Import from YouTube or upload an MP4 to begin annotating.");
       }
       syncQuestionTemplateMappings({ quiet: false, reapply: true });
       updateTrimUi();

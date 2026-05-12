@@ -107,7 +107,7 @@ QUESTION_MAPPINGS = {
         "Prediction": "Given {character}'s communicative intent, what type of reaction is {character} most likely to elicit from others?"
     },
     "Relationship":{
-        "Reasoning": "Which of the following best explains why {character1} has the following relationship with {character2}: {truth}?",
+        "Reasoning": "Which of the following best explains why {character1} has the following relationship with {character2} or what gives it away: {truth}?",
         "Comprehension": "Which of the following correctly describes the relationship between {character1} and {character2} at this point in the video?",
         "Prediction": "Given the relationship between {character1} and {character2}, which of the following interactions is most likely to occur next between them?"
     },
