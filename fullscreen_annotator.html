@@ -11570,18 +11570,52 @@
         }
       }
 
-      playToggle.addEventListener("click", () => {
+      function toggleVideoPlaybackFromGesture() {
         if (!video.src) {
           updateStatus("Load a video first.");
           return;
         }
         if (video.paused) {
           video.play().catch(() => {
-            updateStatus("Playback blocked by browser. Click video first then press Play.");
+            updateStatus("Playback blocked by browser. Tap the video again or press Play.");
           });
           return;
         }
         video.pause();
+      }
+
+      function isPlaybackToggleClickTarget(target) {
+        if (!target || typeof target.closest !== "function") {
+          return false;
+        }
+        const blockedSelector = [
+          ".top-bar",
+          ".note-rail",
+          ".scrub-panel",
+          ".shared-panel",
+          ".analytics-panel",
+          ".analytics-distribution-panel",
+          ".analytics-distribution-backdrop",
+          ".gemini-panel",
+          ".gemini-backdrop",
+          ".take-quiz-panel",
+          ".take-quiz-backdrop",
+          ".context-menu",
+          ".notes-toggle-fab",
+          "button",
+          "input",
+          "textarea",
+          "select",
+          "label",
+          "a",
+          "[role='button']",
+          "[contenteditable='true']",
+        ].join(", ");
+        return !target.closest(blockedSelector);
+      }
+
+      playToggle.addEventListener("click", () => {
+        toggleVideoPlaybackFromGesture();
       });
 
       nextQuestionButton.addEventListener("click", () => {
@@ -11667,9 +11701,19 @@
       });
 
       app.addEventListener("click", (event) => {
+        const contextWasVisible = contextMenu.classList.contains("visible");
         if (!event.target.closest(".context-menu")) {
           hideContextMenu();
         }
+        if (
+          contextWasVisible
+          || event.defaultPrevented
+          || event.button !== 0
+          || !isPlaybackToggleClickTarget(event.target)
+        ) {
+          return;
+        }
+        toggleVideoPlaybackFromGesture();
       });
 
       window.addEventListener("resize", () => {
