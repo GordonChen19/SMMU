@@ -10709,12 +10709,12 @@
           const requestReviewButton = document.createElement("button");
           requestReviewButton.type = "button";
           const reviewAlreadyRequested = sharedVideoIsRequestingReview(videoItem);
-          requestReviewButton.textContent = reviewAlreadyRequested ? "Review Requested" : "Request Manual Review";
+          requestReviewButton.textContent = reviewAlreadyRequested ? "Move Back" : "Request Manual Review";
           requestReviewButton.title = reviewAlreadyRequested
-            ? "This video is already in Requesting Review."
+            ? "Remove this video from Requesting Review."
             : "Move this video to Requesting Review.";
           requestReviewButton.classList.toggle("review-requested", reviewAlreadyRequested);
-          requestReviewButton.disabled = reviewAlreadyRequested || !Number.isInteger(videoItem.videoRef);
+          requestReviewButton.disabled = !Number.isInteger(videoItem.videoRef);
           requestReviewButton.addEventListener("click", () => {
             requestManualReview(videoItem, requestReviewButton);
           });
@@ -11138,12 +11138,17 @@
         }
 
         const title = String(videoItem.videoTitle || videoItem.videoOriginalFilename || "this video");
+        const requested = !sharedVideoIsRequestingReview(videoItem);
         const previousLabel = triggerButton ? triggerButton.textContent : "";
         if (triggerButton) {
           triggerButton.disabled = true;
-          triggerButton.textContent = "Requesting...";
+          triggerButton.textContent = requested ? "Requesting..." : "Moving...";
         }
-        updateSharedStatus("Requesting manual review for " + title + "...");
+        updateSharedStatus(
+          requested
+            ? ("Requesting manual review for " + title + "...")
+            : ("Moving " + title + " back to the original list...")
+        );
         try {
           const response = await fetch(
             resolveSharedApiUrl(
@@ -11157,7 +11162,9 @@
               headers: buildSharedAuthHeaders({
                 "Content-Type": "application/json",
               }),
-              body: JSON.stringify({}),
+              body: JSON.stringify({
+                requested: requested,
+              }),
             }
           );
           let payload = null;
@@ -11168,16 +11175,22 @@
           }
 
           if (!response.ok || !payload || !payload.video) {
-            throw new Error(payload && payload.error ? payload.error : "Manual review request failed.");
+            throw new Error(payload && payload.error ? payload.error : "Manual review request update failed.");
           }
 
-          sharedVideoFilterMode = "review-requested";
-          updateSharedStatus("Requested manual review for " + title + ".");
+          if (requested) {
+            sharedVideoFilterMode = "review-requested";
+          }
+          updateSharedStatus(
+            requested
+              ? ("Requested manual review for " + title + ".")
+              : ("Moved " + title + " back to the original list.")
+          );
           await loadSharedEntries();
         } catch (error) {
           const message = error && error.message ? String(error.message) : "Unknown error";
-          updateSharedStatus("Manual review request failed (" + message + ").");
-          showErrorPopup("Manual review request failed: " + message);
+          updateSharedStatus("Manual review request update failed (" + message + ").");
+          showErrorPopup("Manual review request update failed: " + message);
           if (triggerButton) {
             triggerButton.disabled = false;
             triggerButton.textContent = previousLabel || "Request Manual Review";
