@@ -1490,6 +1490,16 @@
         color: #effff5;
       }
 
+      .shared-header-actions button.icon-only {
+        width: 28px;
+        height: 28px;
+        padding: 0;
+        display: grid;
+        place-items: center;
+        font-size: 17px;
+        line-height: 1;
+      }
+
       .shared-header-actions button:hover {
         filter: brightness(1.08);
       }
@@ -2253,8 +2263,19 @@
         color: #ffe1e1;
       }
 
-      .shared-entry-actions button:hover {
+      .shared-entry-actions button.review-requested {
+        border-color: rgba(255, 214, 124, 0.54);
+        background: rgba(123, 89, 28, 0.32);
+        color: #ffe8b4;
+      }
+
+      .shared-entry-actions button:hover:not(:disabled) {
         filter: brightness(1.08);
+      }
+
+      .shared-entry-actions button:disabled {
+        cursor: not-allowed;
+        opacity: 0.58;
       }
 
       .shared-empty {
@@ -2475,11 +2496,12 @@
         <div class="shared-header">
           <strong>Library</strong>
           <div class="shared-header-actions">
-            <button type="button" id="shared-refresh">Refresh</button>
+            <button type="button" id="shared-refresh" class="icon-only" aria-label="Refresh shared library" title="Refresh shared library">↻</button>
+            <button type="button" id="shared-review-request-filter" title="Show videos manually requested for human review">Requesting Review</button>
             <button type="button" id="shared-gemini-filter" title="Show videos with Gemini responses that still need human verification">Pending</button>
             <button type="button" id="shared-verified-filter" title="Show videos with both Gemini responses and saved human review scores">Verified</button>
-            <button class="primary" type="button" id="shared-publish">Publish Current</button>
-            <button type="button" id="shared-close">Close</button>
+            <button class="primary" type="button" id="shared-publish">Publish</button>
+            <button type="button" id="shared-close">X</button>
           </div>
         </div>
         <div class="shared-body">
@@ -3044,6 +3066,7 @@
       const SHARED_LIBRARY_HUMAN_REVIEWS_PATH = "/api/shared-library/human-reviews";
       const SHARED_LIBRARY_VIDEO_UPLOAD_PATH = "/api/shared-library/video-assets";
       const SHARED_LIBRARY_LOCAL_VIDEO_REGISTER_PATH = "/api/shared-library/register-local-video";
+      const SHARED_LIBRARY_MANUAL_REVIEW_REQUEST_SUFFIX = "/manual-review-request";
       const DISTRACTOR_COUNT_PER_TASK = 7;
       const PERCEPTION_CHOICE_COUNT = 8;
       const TAKE_QUIZ_OPTION_LABELS = ["A", "B", "C", "D", "E", "F", "G", "H"];
@@ -3123,6 +3146,7 @@
       const localUploadTriggerButton = document.getElementById("local-upload-trigger");
       const localUploadInput = document.getElementById("local-upload-input");
       const sharedRefreshButton = document.getElementById("shared-refresh");
+      const sharedReviewRequestFilterButton = document.getElementById("shared-review-request-filter");
       const sharedGeminiFilterButton = document.getElementById("shared-gemini-filter");
       const sharedPublishButton = document.getElementById("shared-publish");
       const sharedCloseButton = document.getElementById("shared-close");
@@ -10442,13 +10466,25 @@
         return sharedVideoHasGeminiResponses(videoItem) && !sharedVideoHasHumanReview(videoItem);
       }
 
+      function sharedVideoIsRequestingReview(videoItem) {
+        return Boolean(videoItem && videoItem.manualReviewRequested) && !sharedVideoHasHumanReview(videoItem);
+      }
+
       function updateSharedFilterButtons(sourceVideos, visibleCount) {
         const videos = Array.isArray(sourceVideos) ? sourceVideos : [];
         const totalCount = videos.length;
+        const requestingReviewCount = videos.filter((videoItem) => sharedVideoIsRequestingReview(videoItem)).length;
         const pendingCount = videos.filter((videoItem) => sharedVideoIsPending(videoItem)).length;
         const verifiedCount = videos.filter((videoItem) => sharedVideoIsVerified(videoItem)).length;
         if (!sharedGeminiFilterButton) {
           return;
+        }
+        if (sharedReviewRequestFilterButton) {
+          sharedReviewRequestFilterButton.classList.toggle("active", sharedVideoFilterMode === "review-requested");
+          sharedReviewRequestFilterButton.setAttribute("aria-pressed", sharedVideoFilterMode === "review-requested" ? "true" : "false");
+          sharedReviewRequestFilterButton.textContent = sharedVideoFilterMode === "review-requested"
+            ? "Requesting Review (" + String(visibleCount) + "/" + String(totalCount) + ")"
+            : "Requesting Review (" + String(requestingReviewCount) + ")";
         }
         sharedGeminiFilterButton.classList.toggle("active", sharedVideoFilterMode === "pending");
         sharedGeminiFilterButton.setAttribute("aria-pressed", sharedVideoFilterMode === "pending" ? "true" : "false");
@@ -10480,7 +10516,9 @@
         sharedList.innerHTML = "";
         const sourceVideos = Array.isArray(videos) ? videos : [];
         let visibleVideos = sourceVideos;
-        if (sharedVideoFilterMode === "pending") {
+        if (sharedVideoFilterMode === "review-requested") {
+          visibleVideos = sourceVideos.filter((videoItem) => sharedVideoIsRequestingReview(videoItem));
+        } else if (sharedVideoFilterMode === "pending") {
           visibleVideos = sourceVideos.filter((videoItem) => sharedVideoIsPending(videoItem));
         } else if (sharedVideoFilterMode === "verified") {
           visibleVideos = sourceVideos.filter((videoItem) => sharedVideoIsVerified(videoItem));
@@ -10501,7 +10539,9 @@
             ? "No verified videos yet. A verified video needs Gemini responses and a saved human review score."
             : sharedVideoFilterMode === "pending"
               ? "No pending videos. Pending videos have Gemini responses but no saved human review score yet."
-              : "No shared videos match this filter.";
+              : sharedVideoFilterMode === "review-requested"
+                ? "No videos have been manually requested for review yet."
+                : "No shared videos match this filter.";
           sharedList.appendChild(empty);
           return;
         }
@@ -10567,6 +10607,17 @@
               : "Human: none",
             humanReviewSummary.reviewCount > 0 ? "gemini-present" : "gemini-empty"
           );
+          if (sharedVideoIsRequestingReview(videoItem)) {
+            const requestedBy = String(videoItem.manualReviewRequestedBy || "").trim();
+            const requestedAt = String(videoItem.manualReviewRequestedAt || "").trim();
+            appendSharedMetaPart(
+              meta,
+              "Manual review requested"
+                + (requestedBy ? " by " + requestedBy : "")
+                + (requestedAt ? " at " + formatSharedTimestamp(requestedAt) : ""),
+              "gemini-present"
+            );
+          }
 
           const reviewers = document.createElement("div");
           reviewers.className = "shared-entry-reviewers";
@@ -10628,6 +10679,22 @@
 
           const actions = document.createElement("div");
           actions.className = "shared-entry-actions";
+          const requestReviewButton = document.createElement("button");
+          requestReviewButton.type = "button";
+          const reviewAlreadyRequested = sharedVideoIsRequestingReview(videoItem);
+          const reviewAlreadySaved = sharedVideoHasHumanReview(videoItem);
+          requestReviewButton.textContent = reviewAlreadySaved
+            ? "Review Complete"
+            : (reviewAlreadyRequested ? "Review Requested" : "Request Manual Review");
+          requestReviewButton.title = reviewAlreadySaved
+            ? "This video already has a saved human review."
+            : (reviewAlreadyRequested ? "This video is already in Requesting Review." : "Move this video to Requesting Review.");
+          requestReviewButton.classList.toggle("review-requested", reviewAlreadyRequested);
+          requestReviewButton.disabled = reviewAlreadySaved || reviewAlreadyRequested || !Number.isInteger(videoItem.videoRef);
+          requestReviewButton.addEventListener("click", () => {
+            requestManualReview(videoItem, requestReviewButton);
+          });
+          actions.appendChild(requestReviewButton);
           if (annotations.length) {
             const loadLatestButton = document.createElement("button");
             loadLatestButton.type = "button";
@@ -11034,6 +11101,67 @@
           const message = error && error.message ? String(error.message) : "Unknown error";
           updateSharedStatus("User removal failed (" + message + ").");
           showErrorPopup("User removal failed: " + message);
+        }
+      }
+
+      async function requestManualReview(videoItem, triggerButton) {
+        if (!requireSharedLogin("requesting manual review")) {
+          return;
+        }
+        if (!videoItem || !Number.isInteger(videoItem.videoRef)) {
+          showErrorPopup("Could not request review because the video ref is missing.");
+          return;
+        }
+        if (sharedVideoHasHumanReview(videoItem)) {
+          updateSharedStatus("This video already has a saved human review.");
+          return;
+        }
+
+        const title = String(videoItem.videoTitle || videoItem.videoOriginalFilename || "this video");
+        const previousLabel = triggerButton ? triggerButton.textContent : "";
+        if (triggerButton) {
+          triggerButton.disabled = true;
+          triggerButton.textContent = "Requesting...";
+        }
+        updateSharedStatus("Requesting manual review for " + title + "...");
+        try {
+          const response = await fetch(
+            resolveSharedApiUrl(
+              SHARED_LIBRARY_VIDEOS_PATH
+                + "/"
+                + String(videoItem.videoRef)
+                + SHARED_LIBRARY_MANUAL_REVIEW_REQUEST_SUFFIX
+            ),
+            {
+              method: "POST",
+              headers: buildSharedAuthHeaders({
+                "Content-Type": "application/json",
+              }),
+              body: JSON.stringify({}),
+            }
+          );
+          let payload = null;
+          try {
+            payload = await response.json();
+          } catch (error) {
+            payload = null;
+          }
+
+          if (!response.ok || !payload || !payload.video) {
+            throw new Error(payload && payload.error ? payload.error : "Manual review request failed.");
+          }
+
+          sharedVideoFilterMode = "review-requested";
+          updateSharedStatus("Requested manual review for " + title + ".");
+          await loadSharedEntries();
+        } catch (error) {
+          const message = error && error.message ? String(error.message) : "Unknown error";
+          updateSharedStatus("Manual review request failed (" + message + ").");
+          showErrorPopup("Manual review request failed: " + message);
+          if (triggerButton) {
+            triggerButton.disabled = false;
+            triggerButton.textContent = previousLabel || "Request Manual Review";
+          }
         }
       }
 
@@ -11782,6 +11910,16 @@
         persistSharedSettings();
         await fetchSharedAuthMe({ quiet: true });
         loadSharedEntries();
+      });
+
+      sharedReviewRequestFilterButton.addEventListener("click", () => {
+        sharedVideoFilterMode = sharedVideoFilterMode === "review-requested" ? "all" : "review-requested";
+        renderSharedEntries(latestSharedVideos);
+        updateSharedStatus(
+          sharedVideoFilterMode === "review-requested"
+            ? "Showing videos manually requested for review."
+            : "Showing all shared videos."
+        );
       });
 
       sharedGeminiFilterButton.addEventListener("click", () => {
