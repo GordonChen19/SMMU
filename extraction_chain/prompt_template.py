@@ -125,14 +125,16 @@ QUESTION_MAPPINGS = {
         "Reasoning": "Explain why {character}'s action is morally good or bad in this scene.",
         "Comprehension": "Is {character}'s action morally good, bad, or neutral?",
         "Prediction": "Given the moral judgement that {character} makes, which of the following consequences is most likely to follow?"
-    },
-    "Role/Institutional_Knowledge":{
-        "Reasoning": "Explain why {character} is adhering to or violating an unspoken rule in this scene.",
-        "Comprehension": "Is {character} adhering or violating an unspoken rule?",
-        "Prediction": "Given the norm violation or conformity observed from {character}, which of the following consequences is most likely to follow?"
-    },
+    }
 
 }
+
+
+# "Role/Institutional_Knowledge":{
+#         "Reasoning": "Explain why {character} is adhering to or violating an unspoken rule in this scene.",
+#         "Comprehension": "Is {character} adhering or violating an unspoken rule?",
+#         "Prediction": "Given the norm violation or conformity observed from {character}, which of the following consequences is most likely to follow?"
+#     }
 
 
 
