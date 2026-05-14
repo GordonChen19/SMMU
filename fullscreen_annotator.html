@@ -355,9 +355,9 @@
         align-items: center;
         justify-content: center;
         gap: 5px;
-        border: 1px solid rgba(128, 171, 210, 0.72);
-        background: rgba(79, 114, 145, 0.92);
-        color: #f6fbff;
+        border: 1px solid rgba(111, 218, 143, 0.82);
+        background: rgba(38, 140, 82, 0.96);
+        color: #f3fff6;
         border-radius: 999px;
         font-size: 12px;
         font-weight: 700;
@@ -1527,6 +1527,18 @@
         line-height: 1;
       }
 
+      .shared-header-actions button.refresh-button {
+        border-color: rgba(245, 208, 73, 0.78);
+        background: rgba(202, 151, 20, 0.9);
+        color: #fff9df;
+      }
+
+      .shared-header-actions button.danger {
+        border-color: rgba(255, 150, 150, 0.58);
+        background: rgba(132, 28, 28, 0.72);
+        color: #ffe8e8;
+      }
+
       .shared-header-actions button:hover {
         filter: brightness(1.08);
       }
@@ -2524,11 +2536,11 @@
         <div class="shared-header">
           <strong>Library</strong>
           <div class="shared-header-actions">
-            <button type="button" id="shared-refresh" class="icon-only" aria-label="Refresh shared library" title="Refresh shared library">↻</button>
+            <button type="button" id="shared-refresh" class="icon-only refresh-button" aria-label="Refresh shared library" title="Refresh shared library">↻</button>
             <button type="button" id="shared-review-request-filter" title="Show videos manually requested for human review">Requesting Review</button>
             <button type="button" id="shared-gemini-filter" title="Show videos with Gemini responses that still need human verification">Pending</button>
             <button type="button" id="shared-verified-filter" title="Show videos with both Gemini responses and saved human review scores">Verified</button>
-            <button type="button" id="shared-close">X</button>
+            <button type="button" id="shared-close" class="danger">X</button>
           </div>
         </div>
         <div class="shared-body">
