@@ -347,6 +347,33 @@
         filter: brightness(1.08);
       }
 
+      .note-publish-button {
+        min-width: 62px;
+        height: 28px;
+        padding: 0 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        border: 1px solid rgba(128, 171, 210, 0.72);
+        background: rgba(79, 114, 145, 0.92);
+        color: #f6fbff;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      .note-publish-button:hover:not(:disabled) {
+        filter: brightness(1.08);
+      }
+
+      .note-publish-button:disabled {
+        cursor: wait;
+        opacity: 0.58;
+      }
+
       .note-rail-body {
         flex: 1;
         min-height: 0;
@@ -2459,7 +2486,8 @@
         <div class="note-rail-header">
           <strong>Sticky Notes</strong>
           <div class="note-rail-header-actions">
-            <button class="take-quiz-button" id="take-quiz-button" type="button" title="Hide notes and start a timestamp quiz.">Take Quiz</button>
+            <button class="note-publish-button" type="button" id="shared-publish" aria-label="Save current annotations" title="Save current annotations"><span aria-hidden="true">↑</span><span>Save</span></button>
+            <button class="take-quiz-button" id="take-quiz-button" type="button" title="Hide notes and start a manual review.">Manually Review</button>
             <span class="note-count" id="note-count">0</span>
           </div>
         </div>
@@ -2500,7 +2528,6 @@
             <button type="button" id="shared-review-request-filter" title="Show videos manually requested for human review">Requesting Review</button>
             <button type="button" id="shared-gemini-filter" title="Show videos with Gemini responses that still need human verification">Pending</button>
             <button type="button" id="shared-verified-filter" title="Show videos with both Gemini responses and saved human review scores">Verified</button>
-            <button class="primary" type="button" id="shared-publish">Publish</button>
             <button type="button" id="shared-close">X</button>
           </div>
         </div>
@@ -4002,13 +4029,13 @@
       function updateTakeQuizButtonUi() {
         const active = Boolean(takeQuizSession && takeQuizSession.active);
         if (active) {
-          takeQuizButton.textContent = "Stop Quiz";
+          takeQuizButton.textContent = "Stop Review";
           takeQuizButton.classList.add("active");
-          takeQuizButton.setAttribute("title", "Stop the current timestamp quiz.");
+          takeQuizButton.setAttribute("title", "Stop the current manual review.");
         } else {
-          takeQuizButton.textContent = "Take Quiz";
+          takeQuizButton.textContent = "Manually Review";
           takeQuizButton.classList.remove("active");
-          takeQuizButton.setAttribute("title", "Hide notes and start a timestamp quiz.");
+          takeQuizButton.setAttribute("title", "Hide notes and start a manual review.");
         }
       }
 
@@ -10467,7 +10494,7 @@
       }
 
       function sharedVideoIsRequestingReview(videoItem) {
-        return Boolean(videoItem && videoItem.manualReviewRequested) && !sharedVideoHasHumanReview(videoItem);
+        return Boolean(videoItem && videoItem.manualReviewRequested);
       }
 
       function updateSharedFilterButtons(sourceVideos, visibleCount) {
@@ -10682,15 +10709,12 @@
           const requestReviewButton = document.createElement("button");
           requestReviewButton.type = "button";
           const reviewAlreadyRequested = sharedVideoIsRequestingReview(videoItem);
-          const reviewAlreadySaved = sharedVideoHasHumanReview(videoItem);
-          requestReviewButton.textContent = reviewAlreadySaved
-            ? "Review Complete"
-            : (reviewAlreadyRequested ? "Review Requested" : "Request Manual Review");
-          requestReviewButton.title = reviewAlreadySaved
-            ? "This video already has a saved human review."
-            : (reviewAlreadyRequested ? "This video is already in Requesting Review." : "Move this video to Requesting Review.");
+          requestReviewButton.textContent = reviewAlreadyRequested ? "Review Requested" : "Request Manual Review";
+          requestReviewButton.title = reviewAlreadyRequested
+            ? "This video is already in Requesting Review."
+            : "Move this video to Requesting Review.";
           requestReviewButton.classList.toggle("review-requested", reviewAlreadyRequested);
-          requestReviewButton.disabled = reviewAlreadySaved || reviewAlreadyRequested || !Number.isInteger(videoItem.videoRef);
+          requestReviewButton.disabled = reviewAlreadyRequested || !Number.isInteger(videoItem.videoRef);
           requestReviewButton.addEventListener("click", () => {
             requestManualReview(videoItem, requestReviewButton);
           });
@@ -11110,10 +11134,6 @@
         }
         if (!videoItem || !Number.isInteger(videoItem.videoRef)) {
           showErrorPopup("Could not request review because the video ref is missing.");
-          return;
-        }
-        if (sharedVideoHasHumanReview(videoItem)) {
-          updateSharedStatus("This video already has a saved human review.");
           return;
         }
 
