@@ -2499,7 +2499,7 @@
           <strong>Sticky Notes</strong>
           <div class="note-rail-header-actions">
             <button class="note-publish-button" type="button" id="shared-publish" aria-label="Save current annotations" title="Save current annotations"><span aria-hidden="true">↑</span><span>Save</span></button>
-            <button class="take-quiz-button" id="take-quiz-button" type="button" title="Hide notes and start a manual review.">Manually Review</button>
+            <button class="take-quiz-button" id="take-quiz-button" type="button" title="Hide notes and start a timestamp quiz.">Take Quiz</button>
             <span class="note-count" id="note-count">0</span>
           </div>
         </div>
@@ -2515,7 +2515,7 @@
           <div class="note-list" id="note-list"></div>
         </div>
       </aside>
- 
+
       <div class="scrub-panel">
         <div class="scrub-main-row">
           <button class="btn icon-btn" id="play-toggle" type="button" aria-label="Play" title="Play">▶</button>
@@ -4041,13 +4041,13 @@
       function updateTakeQuizButtonUi() {
         const active = Boolean(takeQuizSession && takeQuizSession.active);
         if (active) {
-          takeQuizButton.textContent = "Stop Review";
+          takeQuizButton.textContent = "Stop Quiz";
           takeQuizButton.classList.add("active");
-          takeQuizButton.setAttribute("title", "Stop the current manual review.");
+          takeQuizButton.setAttribute("title", "Stop the current timestamp quiz.");
         } else {
-          takeQuizButton.textContent = "Manually Review";
+          takeQuizButton.textContent = "Take Quiz";
           takeQuizButton.classList.remove("active");
-          takeQuizButton.setAttribute("title", "Hide notes and start a manual review.");
+          takeQuizButton.setAttribute("title", "Hide notes and start a timestamp quiz.");
         }
       }
 
@@ -10721,12 +10721,12 @@
           const requestReviewButton = document.createElement("button");
           requestReviewButton.type = "button";
           const reviewAlreadyRequested = sharedVideoIsRequestingReview(videoItem);
-          requestReviewButton.textContent = reviewAlreadyRequested ? "Move Back" : "Request Manual Review";
+          requestReviewButton.textContent = reviewAlreadyRequested ? "Review Requested" : "Request Manual Review";
           requestReviewButton.title = reviewAlreadyRequested
-            ? "Remove this video from Requesting Review."
+            ? "This video is already in Requesting Review."
             : "Move this video to Requesting Review.";
           requestReviewButton.classList.toggle("review-requested", reviewAlreadyRequested);
-          requestReviewButton.disabled = !Number.isInteger(videoItem.videoRef);
+          requestReviewButton.disabled = reviewAlreadyRequested || !Number.isInteger(videoItem.videoRef);
           requestReviewButton.addEventListener("click", () => {
             requestManualReview(videoItem, requestReviewButton);
           });
@@ -11150,17 +11150,12 @@
         }
 
         const title = String(videoItem.videoTitle || videoItem.videoOriginalFilename || "this video");
-        const requested = !sharedVideoIsRequestingReview(videoItem);
         const previousLabel = triggerButton ? triggerButton.textContent : "";
         if (triggerButton) {
           triggerButton.disabled = true;
-          triggerButton.textContent = requested ? "Requesting..." : "Moving...";
+          triggerButton.textContent = "Requesting...";
         }
-        updateSharedStatus(
-          requested
-            ? ("Requesting manual review for " + title + "...")
-            : ("Moving " + title + " back to the original list...")
-        );
+        updateSharedStatus("Requesting manual review for " + title + "...");
         try {
           const response = await fetch(
             resolveSharedApiUrl(
@@ -11174,9 +11169,7 @@
               headers: buildSharedAuthHeaders({
                 "Content-Type": "application/json",
               }),
-              body: JSON.stringify({
-                requested: requested,
-              }),
+              body: JSON.stringify({}),
             }
           );
           let payload = null;
@@ -11187,22 +11180,16 @@
           }
 
           if (!response.ok || !payload || !payload.video) {
-            throw new Error(payload && payload.error ? payload.error : "Manual review request update failed.");
+            throw new Error(payload && payload.error ? payload.error : "Manual review request failed.");
           }
 
-          if (requested) {
-            sharedVideoFilterMode = "review-requested";
-          }
-          updateSharedStatus(
-            requested
-              ? ("Requested manual review for " + title + ".")
-              : ("Moved " + title + " back to the original list.")
-          );
+          sharedVideoFilterMode = "review-requested";
+          updateSharedStatus("Requested manual review for " + title + ".");
           await loadSharedEntries();
         } catch (error) {
           const message = error && error.message ? String(error.message) : "Unknown error";
-          updateSharedStatus("Manual review request update failed (" + message + ").");
-          showErrorPopup("Manual review request update failed: " + message);
+          updateSharedStatus("Manual review request failed (" + message + ").");
+          showErrorPopup("Manual review request failed: " + message);
           if (triggerButton) {
             triggerButton.disabled = false;
             triggerButton.textContent = previousLabel || "Request Manual Review";
